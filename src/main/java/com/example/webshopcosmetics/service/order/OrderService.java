@@ -18,6 +18,14 @@ public interface OrderService {
 
     public Page<Order> getAllOrder(int pageNo, String orderCode, int size, String status);
 
+    public List<Order> getAllTheOrdersWasAbort();
+
+    public List<Order> getAllOrdersInProcess();
+
+    public List<Order> pickUpAllOrdersThatAreBeingDelivered();
+
+    public List<Order> getAllOrdersThatHaveBeenSuccessfullyDelivered();
+
     public void cancelOrder(CancellationReason cancellationReason, Long orderID, HttpSession session);
 
     public Order getOrderByOrderCode(String orderCode);

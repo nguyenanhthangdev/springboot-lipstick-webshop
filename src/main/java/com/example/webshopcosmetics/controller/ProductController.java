@@ -318,12 +318,13 @@ public class ProductController {
     //-----------------------------------------HOME-------------------------------------------//
     @GetMapping("/cosmetic/search")
     public String searchProductByName(Model model,  @Param("keyword") String keyword) {
+        model.addAttribute("name_search", keyword);
         model.addAttribute("products", productService.searchAllProductByName(keyword));
         return "client/home/search";
     }
     @GetMapping("/cosmetic/category")
     public String getAllProductByCategoryId(Model model,  @Param("id") Long id) {
-        model.addAttribute("name_category", "");
+        model.addAttribute("name_category", categoryService.getOneCategory(id).getName());
         model.addAttribute("products", productService.getAllProductByCategoryId(id));
         return "client/home/all-product-by-category-id";
     }

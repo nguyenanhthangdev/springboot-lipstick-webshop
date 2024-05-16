@@ -26,6 +26,18 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     @Query("SELECT o FROM Order o WHERE (:status IS NULL OR o.status = :status) AND o.orderCode LIKE %:orderCode%")
     Page<Order> findByOrderCodeAndStatus(String orderCode, OrderStatus status, Pageable pageable);
 
+    @Query("SELECT o FROM Order o WHERE  o.status = :orderStatus")
+    List<Order> getAllTheOrdersWasAbort(OrderStatus orderStatus);
+
+    @Query("SELECT o FROM Order o WHERE  o.status = :orderStatus")
+    public List<Order> getAllOrdersInProcess(OrderStatus orderStatus);
+
+    @Query("SELECT o FROM Order o WHERE  o.status = :orderStatus")
+    public List<Order> pickUpAllOrdersThatAreBeingDelivered(OrderStatus orderStatus);
+
+    @Query("SELECT o FROM Order o WHERE  o.status = :orderStatus")
+    public List<Order> getAllOrdersThatHaveBeenSuccessfullyDelivered(OrderStatus orderStatus);
+
     @Query("SELECT o FROM Order o ORDER BY o.orderDate DESC")
     List<Order> getALlOrders();
 

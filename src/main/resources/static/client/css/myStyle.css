@@ -251,12 +251,14 @@
     width: 100%; max-width: 100%; height: auto;
 }
 
-.modal-register label, .modal-login label {
-    font-size: 13px; margin-bottom: 1px;
-}
-.modal-register input, .modal-login input {
-    font-size: 13px;
-}
+/*.modal-register label, .modal-login label {*/
+/*    font-size: 13px; margin-bottom: 1px;*/
+/*}*/
+/*.modal-register input, .modal-login input {*/
+/*    font-size: 13px;*/
+/*}*/
+
+.change-register-account, .change-login-account { cursor: pointer; }
 
 .modal-login button, .modal-register button {
     background-color: #FF9689;

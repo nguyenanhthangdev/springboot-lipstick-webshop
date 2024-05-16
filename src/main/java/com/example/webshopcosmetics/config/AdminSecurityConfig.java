@@ -47,7 +47,7 @@ public class AdminSecurityConfig {
                                 .formLogin((form) -> form
                                                 .loginPage("/admin/sign-in")
                                                 .permitAll()
-                                                .defaultSuccessUrl("/admin/dashboard", true)
+                                                .defaultSuccessUrl("/admin/config-session-user", true)
                                                 .failureUrl("/admin/sign-in?error=true")
                                                 .loginProcessingUrl("/admin/j_spring_security_check"))
                                 .rememberMe(rememberMeConfigurer -> rememberMeConfigurer

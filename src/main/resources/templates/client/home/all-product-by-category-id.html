@@ -10,45 +10,51 @@
 <body>
 <div layout:fragment="content">
   <div class="container-fluid pt-5 pb-3">
-    <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3" th:text="@{'DANH MỤC ' + ${name_category}}"></span></h2>
-    <div class="row px-xl-5">
-      <div th:each="product : ${products}" class="col-lg-3 col-md-4 col-sm-6 pb-1 product-home-page">
-        <div class="product-item bg-light mb-4">
-          <a th:href="@{'/cosmetic/product-details?id=' + ${product.getProduct_id()}}" class="product-link">
-            <div th:if="${product.discountType == T(com.example.webshopcosmetics.model.DiscountType).NO}">
-              <span class="discount-value" th:data-id="${product.getProduct_id()}" th:data-discount_type="${product.getDiscountType()}" th:text="${product.getDiscountValue()}"></span>
-              <div class="product-img position-relative overflow-hidden">
-                <img class="img-fluid w-100 src-product" style="width:100%; height:auto;max-width: 100%; max-height: 100%; object-fit: cover; image-rendering: crisp-edges;" th:src="${product.getImage()}" alt="" onload="adjustImageHeight(this)">
+    <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">DANH MỤC <span class="color-main" th:text="${name_category}"></span></span></h2>
+    <th:block th:if="${products != null and !#lists.isEmpty(products)}">
+      <div class="row px-xl-5">
+        <div th:each="product : ${products}" class="col-lg-3 col-md-4 col-sm-6 pb-1 product-home-page">
+          <div class="product-item bg-light mb-4">
+            <a th:href="@{'/cosmetic/product-details?id=' + ${product.getProduct_id()}}" class="product-link">
+              <div th:if="${product.discountType == T(com.example.webshopcosmetics.model.DiscountType).NO}">
+                <span class="discount-value" th:data-id="${product.getProduct_id()}" th:data-discount_type="${product.getDiscountType()}" th:text="${product.getDiscountValue()}"></span>
+                <div class="product-img position-relative overflow-hidden">
+                  <img class="img-fluid w-100 src-product" style="width:100%; height:auto;max-width: 100%; max-height: 100%; object-fit: cover; image-rendering: crisp-edges;" th:src="${product.getImage()}" alt="" onload="adjustImageHeight(this)">
+                </div>
               </div>
-            </div>
-            <div th:if="${product.discountType == T(com.example.webshopcosmetics.model.DiscountType).AMOUNT}" class="wrap">
-              <span class="product-img-sale discount-value" th:data-id="${product.getProduct_id()}" th:data-discount_type="${product.getDiscountType()}" th:text="${product.getDiscountValue()}"></span>
-              <div class="product-img position-relative overflow-hidden">
-                <img class="img-fluid w-100 src-product" style="width:100%; height:auto;max-width: 100%; max-height: 100%; object-fit: cover; image-rendering: auto;" th:src="${product.getImage()}" alt="" onload="adjustImageHeight(this)">
+              <div th:if="${product.discountType == T(com.example.webshopcosmetics.model.DiscountType).AMOUNT}" class="wrap">
+                <span class="product-img-sale discount-value" th:data-id="${product.getProduct_id()}" th:data-discount_type="${product.getDiscountType()}" th:text="${product.getDiscountValue()}"></span>
+                <div class="product-img position-relative overflow-hidden">
+                  <img class="img-fluid w-100 src-product" style="width:100%; height:auto;max-width: 100%; max-height: 100%; object-fit: cover; image-rendering: auto;" th:src="${product.getImage()}" alt="" onload="adjustImageHeight(this)">
+                </div>
               </div>
-            </div>
-            <div th:if="${product.discountType == T(com.example.webshopcosmetics.model.DiscountType).PERCENTAGE}" class="wrap">
-              <span class="product-img-sale discount-value" th:data-id="${product.getProduct_id()}" th:data-discount_type="${product.getDiscountType()}" th:text="${product.getDiscountValue()}"></span>
-              <div class="product-img position-relative overflow-hidden">
-                <img class="img-fluid w-100 src-product" style="width:100%; height:auto;max-width: 100%; max-height: 100%; object-fit: cover; image-rendering: auto;" th:src="${product.getImage()}" alt="" onload="adjustImageHeight(this)">
+              <div th:if="${product.discountType == T(com.example.webshopcosmetics.model.DiscountType).PERCENTAGE}" class="wrap">
+                <span class="product-img-sale discount-value" th:data-id="${product.getProduct_id()}" th:data-discount_type="${product.getDiscountType()}" th:text="${product.getDiscountValue()}"></span>
+                <div class="product-img position-relative overflow-hidden">
+                  <img class="img-fluid w-100 src-product" style="width:100%; height:auto;max-width: 100%; max-height: 100%; object-fit: cover; image-rendering: auto;" th:src="${product.getImage()}" alt="" onload="adjustImageHeight(this)">
+                </div>
               </div>
-            </div>
-            <div class="p-3">
-              <p class="mb-0 manufacturer-name" th:text="${product.getManufacturer().getName()}"></p>
-              <p class="mb-0" th:text="${#strings.abbreviate(product.getName(), 30)}"></p>
-              <div class="d-flex align-items-center mt-2">
-                <h5 style="color: #FFD333;" th:id="@{'price_' + ${product.getProduct_id()}}" th:text="${product.price}"></h5>
-                <h6 class="text-muted ml-3"><del th:id="@{'price_del_' + ${product.getProduct_id()}}"></del></h6>
+              <div class="p-3">
+                <p class="mb-0 manufacturer-name" th:text="${product.getManufacturer().getName()}"></p>
+                <p class="mb-0" th:text="${#strings.abbreviate(product.getName(), 50)}"></p>
+                <div class="d-flex align-items-center mt-2">
+                  <h5 class="color-main" th:id="@{'price_' + ${product.getProduct_id()}}" th:text="${product.price}"></h5>
+                  <h6 class="text-muted ml-3"><del th:id="@{'price_del_' + ${product.getProduct_id()}}"></del></h6>
+                </div>
               </div>
-              <div class="text-center btn-cart-snippet">
-                <button type="button" class="btn"><i class="fas fa-shopping-cart"></i><span>Thêm vào giỏ hàng</span></button>
-              </div>
-            </div>
-          </a>
+            </a>
+          </div>
         </div>
       </div>
-    </div>
+    </th:block>
+    <th:block th:unless="${products != null and !#lists.isEmpty(products)}">
+      <div class="text-center my-order-empty">
+        <img src="/images/order/hinh-anh-quyen-xo.jpg" width="150" height="150" class="d-block mx-auto">
+        <span class="d-block">Không tìm thấy sản phẩm nào</span>
+      </div>
+    </th:block>
   </div>
+    <!-- Products End -->
 </div>
 </body>
 </html>

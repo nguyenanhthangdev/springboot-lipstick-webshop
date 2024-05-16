@@ -492,3 +492,19 @@ for (var i = 0; i < imgPostElements.length; i++) {
             targetElement.scrollIntoView({behavior: 'smooth', block: 'start'});
         }
     }
+
+    function openLogin() {
+        var inputs = document.getElementsByClassName("input-login");
+        for (var i = 0; i < inputs.length; i++) {
+            inputs[i].value = "";
+        }
+        document.getElementById('id01').style.display='block';
+    }
+
+    function openRegister() {
+        var inputs = document.getElementsByClassName("input-register");
+        for (var i = 0; i < inputs.length; i++) {
+            inputs[i].value = "";
+        }
+        document.getElementById('id02').style.display='block';
+    }

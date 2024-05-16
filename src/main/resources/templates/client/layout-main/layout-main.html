@@ -111,11 +111,11 @@
                             </th:block>
                             <div class="dropdown-menu dropdown-menu-right">
                                 <th:block th:if="${session.s_customer == null}">
-                                    <a class="dropdown-item" onclick="document.getElementById('id01').style.display='block'" style="width:auto;" type="button">Đăng nhập</a>
-                                    <a class="dropdown-item" onclick="document.getElementById('id02').style.display='block'" style="width:auto;" type="button">Đăng kí</a>
+                                    <a class="dropdown-item" onclick="openLogin()" type="button">Đăng nhập</a>
+                                    <a class="dropdown-item" onclick="openRegister()" type="button">Đăng kí</a>
                                 </th:block>
                                 <th:block th:if="${session.s_customer != null}">
-                                    <a class="dropdown-item" onclick="proceedToCheckAndPlaceAnOrder()">Đơn hàng của bạn</a>
+                                    <a class="dropdown-item" href="/cosmetic/my-order">Đơn hàng của tôi</a>
                                     <a class="dropdown-item" id="button-logout" type="button">Đăng xuất</a>
                                 </th:block>
                             </div>

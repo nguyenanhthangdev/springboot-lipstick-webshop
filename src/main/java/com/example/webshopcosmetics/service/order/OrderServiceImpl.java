@@ -75,6 +75,26 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public List<Order> getAllTheOrdersWasAbort() {
+        return orderRepository.getAllTheOrdersWasAbort(OrderStatus.CANCELLED);
+    }
+
+    @Override
+    public List<Order> getAllOrdersInProcess() {
+        return orderRepository.getAllOrdersInProcess(OrderStatus.PROCESSING);
+    }
+
+    @Override
+    public List<Order> pickUpAllOrdersThatAreBeingDelivered() {
+        return orderRepository.pickUpAllOrdersThatAreBeingDelivered(OrderStatus.SHIPPED);
+    }
+
+    @Override
+    public List<Order> getAllOrdersThatHaveBeenSuccessfullyDelivered() {
+        return orderRepository.getAllOrdersThatHaveBeenSuccessfullyDelivered(OrderStatus.DELIVERED);
+    }
+
+    @Override
     public void deliveryConfirmation(Long orderID) {
         try {
             Optional<Order> optionalOrder = orderRepository.findById(orderID);
