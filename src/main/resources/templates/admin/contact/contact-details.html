@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/layout-main/layout-main}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+</head>
+<body>
+<div layout:fragment="content">
+  <div class="row g-3 mb-4 align-items-center justify-content-between">
+    <div class="col-auto">
+      <h1 class="app-page-title mb-0">CHI TIẾT Ý KIẾN KHÁCH HÀNG</h1>
+    </div>
+  </div>
+  <div class="tab-content">
+    <div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
+      <div class="app-card app-card-orders-table shadow-sm mb-5">
+        <div class="app-card-body" style="padding: 15px;">
+
+          <div class="row custom-label-input-form">
+            <label class="col-sm-2 col-form-label col-form-label-sm text-sm-end">Tiêu đề</label>
+            <div class="col-sm">
+              <input type="text" th:value="${contact.getContactTitle()}" class="form-control form-control-sm custom-input-form" readonly>
+            </div>
+          </div>
+
+          <div class="row custom-label-input-form">
+            <label class="col-sm-2 col-form-label col-form-label-sm text-sm-end">Nội dung</label>
+            <div class="col-sm">
+              <textarea type="text" th:text="${contact.getContactDetail()}" class="w-100 custom-input-form" rows="7" readonly></textarea>
+            </div>
+          </div>
+
+          <div class="row custom-label-input-form">
+            <label class="col-sm-2 col-form-label col-form-label-sm text-sm-end">Họ và tên</label>
+            <div class="col-sm">
+              <input type="text" th:value="${contact.getFullName()}" class="form-control form-control-sm custom-input-form" readonly>
+            </div>
+          </div>
+
+          <div class="row custom-label-input-form">
+            <label class="col-sm-2 col-form-label col-form-label-sm text-sm-end">Số điện thoại</label>
+            <div class="col-sm">
+              <input type="text" th:value="${contact.getPhone()}" class="form-control form-control-sm custom-input-form" readonly>
+            </div>
+          </div>
+
+          <div class="row custom-label-input-form">
+            <label class="col-sm-2 col-form-label col-form-label-sm text-sm-end">Email</label>
+            <div class="col-sm">
+              <input type="text" th:value="${contact.getEmail()}" class="form-control form-control-sm custom-input-form" readonly>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

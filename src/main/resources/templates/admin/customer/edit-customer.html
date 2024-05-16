@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/layout-main/layout-main}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="row g-3 mb-4 align-items-center justify-content-between">
+        <div class="col-auto">
+            <h1 class="app-page-title mb-0">SỬA THÔNG TIN KHÁCH HÀNG</h1>
+        </div>
+        <div class="col-auto">
+            <div class="page-utilities">
+                <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
+                    <div class="col-auto">
+                        <button type="submit" form="form-customer" data-toggle="tooltip" title="Lưu" class="btn app-btn-secondary">Lưu</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tab-content">
+        <div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
+            <div class="app-card app-card-orders-table shadow-sm mb-5">
+                <form action="#" th:action="@{/admin/customer/edit-customer}" th:object="${customer}" method="post" id="form-customer" enctype="multipart/form-data">
+                    <div class="app-card-body" style="padding: 15px;">
+                        <input type="hidden" th:field="*{customer_id}" name="customer_id" class="form-control" id="exampleInputEmail" aria-describedby="emailHelp" readonly>
+                        <div class="row custom-label-input-form">
+                            <label for="fullname" class="col-sm-2 col-form-label col-form-label-sm text-sm-end">Tên khách hàng</label>
+                            <div class="col-sm">
+                                <input type="text" name="fullname" th:field="*{fullname}" class="form-control form-control-sm custom-input-form not-allowed" id="fullname" readonly>
+                            </div>
+                        </div>
+                        <div class="row custom-label-input-form">
+                            <label for="account" class="col-sm-2 col-form-label col-form-label-sm text-sm-end">Tên đăng nhập</label>
+                            <div class="col-sm">
+                                <input type="text" name="account" th:field="*{account}" class="form-control form-control-sm custom-input-form not-allowed" id="account" readonly>
+                            </div>
+                        </div>
+                        <div class="row custom-label-input-form">
+                            <label for="email" class="col-sm-2 col-form-label col-form-label-sm text-sm-end">Email</label>
+                            <div class="col-sm">
+                                <input type="text" name="email" th:field="*{email}" class="form-control form-control-sm custom-input-form not-allowed" id="email" readonly>
+                            </div>
+                        </div>
+                        <div class="row custom-label-input-form">
+                            <label for="status" class="col-sm-2 col-form-label col-form-label-sm text-sm-end">Trạng thái</label>
+                            <div class="col-sm">
+                                <select th:field="*{status}" class="form-control form-control-sm custom-input-form" name="status" id="status">
+                                    <option th:value="1">Cho phép</option>
+                                    <option th:value="0">Không cho phép</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

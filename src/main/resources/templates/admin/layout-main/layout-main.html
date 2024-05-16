@@ -1,0 +1,2050 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+  <title>Portal</title>
+
+  <!-- Meta -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="description" content="Portal - Bootstrap 5 Admin Dashboard Template For Developers">
+  <meta name="author" content="Xiaoying Riley at 3rd Wave Media">
+  <link rel="shortcut icon" href="favicon.ico">
+
+  <!-- FontAwesome JS-->
+  <script defer th:src="@{/js/all.min.js}"></script>
+
+  <!-- App CSS -->
+  <link id="theme-style" rel="stylesheet" th:href="@{/css/portal.css}">
+
+  <!--  FontAwersome v6.5.1-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <link rel="stylesheet" th:href="@{/css/admin-style.css}">
+
+  <!--  Ck editor-->
+  <script src="https://cdn.ckeditor.com/ckeditor5/41.1.0/classic/ckeditor.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
+  <meta name="_csrf" th:content="${_csrf.token}" />
+  <meta name="_csrf_header" th:content="${_csrf.headerName}" />
+</head>
+
+<body class="app">
+<header class="app-header fixed-top">
+  <div class="app-header-inner">
+    <div class="container-fluid py-2">
+      <div class="app-header-content">
+        <div class="row justify-content-between align-items-center">
+
+          <div class="col-auto">
+            <a id="sidepanel-toggler" class="sidepanel-toggler d-inline-block d-xl-none" href="#">
+              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
+            </a>
+          </div><!--//col-->
+
+          <div class="app-utilities col-auto">
+            <div class="app-utility-item app-notifications-dropdown dropdown">
+              <a class="dropdown-toggle no-toggle-arrow" id="notifications-dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false" title="Notifications">
+                <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-bell icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2z"/>
+                  <path fill-rule="evenodd" d="M8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z"/>
+                </svg>
+                <span class="icon-badge">3</span>
+              </a><!--//dropdown-toggle-->
+
+              <div class="dropdown-menu p-0" aria-labelledby="notifications-dropdown-toggle">
+                <div class="dropdown-menu-header p-3">
+                  <h5 class="dropdown-menu-title mb-0">Notifications</h5>
+                </div><!--//dropdown-menu-title-->
+                <div class="dropdown-menu-content">
+                  <div class="item p-3">
+                    <div class="row gx-2 justify-content-between align-items-center">
+                      <div class="col-auto">
+                        <img class="profile-image" src="assets/images/profiles/profile-1.png" alt="">
+                      </div><!--//col-->
+                      <div class="col">
+                        <div class="info">
+                          <div class="desc">Amy shared a file with you. Lorem ipsum dolor sit amet, consectetur adipiscing elit. </div>
+                          <div class="meta"> 2 hrs ago</div>
+                        </div>
+                      </div><!--//col-->
+                    </div><!--//row-->
+                    <a class="link-mask" href="notifications.html"></a>
+                  </div><!--//item-->
+                  <div class="item p-3">
+                    <div class="row gx-2 justify-content-between align-items-center">
+                      <div class="col-auto">
+                        <div class="app-icon-holder">
+                          <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-receipt" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M1.92.506a.5.5 0 0 1 .434.14L3 1.293l.646-.647a.5.5 0 0 1 .708 0L5 1.293l.646-.647a.5.5 0 0 1 .708 0L7 1.293l.646-.647a.5.5 0 0 1 .708 0L9 1.293l.646-.647a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .801.13l.5 1A.5.5 0 0 1 15 2v12a.5.5 0 0 1-.053.224l-.5 1a.5.5 0 0 1-.8.13L13 14.707l-.646.647a.5.5 0 0 1-.708 0L11 14.707l-.646.647a.5.5 0 0 1-.708 0L9 14.707l-.646.647a.5.5 0 0 1-.708 0L7 14.707l-.646.647a.5.5 0 0 1-.708 0L5 14.707l-.646.647a.5.5 0 0 1-.708 0L3 14.707l-.646.647a.5.5 0 0 1-.801-.13l-.5-1A.5.5 0 0 1 1 14V2a.5.5 0 0 1 .053-.224l.5-1a.5.5 0 0 1 .367-.27zm.217 1.338L2 2.118v11.764l.137.274.51-.51a.5.5 0 0 1 .707 0l.646.647.646-.646a.5.5 0 0 1 .708 0l.646.646.646-.646a.5.5 0 0 1 .708 0l.646.646.646-.646a.5.5 0 0 1 .708 0l.646.646.646-.646a.5.5 0 0 1 .708 0l.646.646.646-.646a.5.5 0 0 1 .708 0l.509.509.137-.274V2.118l-.137-.274-.51.51a.5.5 0 0 1-.707 0L12 1.707l-.646.647a.5.5 0 0 1-.708 0L10 1.707l-.646.647a.5.5 0 0 1-.708 0L8 1.707l-.646.647a.5.5 0 0 1-.708 0L6 1.707l-.646.647a.5.5 0 0 1-.708 0L4 1.707l-.646.647a.5.5 0 0 1-.708 0l-.509-.51z"/>
+                            <path fill-rule="evenodd" d="M3 4.5a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5zm8-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5z"/>
+                          </svg>
+                        </div>
+                      </div><!--//col-->
+                      <div class="col">
+                        <div class="info">
+                          <div class="desc">You have a new invoice. Proin venenatis interdum est.</div>
+                          <div class="meta"> 1 day ago</div>
+                        </div>
+                      </div><!--//col-->
+                    </div><!--//row-->
+                    <a class="link-mask" href="notifications.html"></a>
+                  </div><!--//item-->
+                  <div class="item p-3">
+                    <div class="row gx-2 justify-content-between align-items-center">
+                      <div class="col-auto">
+                        <div class="app-icon-holder icon-holder-mono">
+                          <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-bar-chart-line" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M11 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h1V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7h1V2zm1 12h2V2h-2v12zm-3 0V7H7v7h2zm-5 0v-3H2v3h2z"/>
+                          </svg>
+                        </div>
+                      </div><!--//col-->
+                      <div class="col">
+                        <div class="info">
+                          <div class="desc">Your report is ready. Proin venenatis interdum est.</div>
+                          <div class="meta"> 3 days ago</div>
+                        </div>
+                      </div><!--//col-->
+                    </div><!--//row-->
+                    <a class="link-mask" href="notifications.html"></a>
+                  </div><!--//item-->
+                  <div class="item p-3">
+                    <div class="row gx-2 justify-content-between align-items-center">
+                      <div class="col-auto">
+                        <img class="profile-image" src="assets/images/profiles/profile-2.png" alt="">
+                      </div><!--//col-->
+                      <div class="col">
+                        <div class="info">
+                          <div class="desc">James sent you a new message.</div>
+                          <div class="meta"> 7 days ago</div>
+                        </div>
+                      </div><!--//col-->
+                    </div><!--//row-->
+                    <a class="link-mask" href="notifications.html"></a>
+                  </div><!--//item-->
+                </div><!--//dropdown-menu-content-->
+
+                <div class="dropdown-menu-footer p-2 text-center">
+                  <a href="notifications.html">View all</a>
+                </div>
+
+              </div><!--//dropdown-menu-->
+            </div><!--//app-utility-item-->
+            <div class="app-utility-item">
+              <a href="settings.html" title="Settings">
+                <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-gear icon" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M8.837 1.626c-.246-.835-1.428-.835-1.674 0l-.094.319A1.873 1.873 0 0 1 4.377 3.06l-.292-.16c-.764-.415-1.6.42-1.184 1.185l.159.292a1.873 1.873 0 0 1-1.115 2.692l-.319.094c-.835.246-.835 1.428 0 1.674l.319.094a1.873 1.873 0 0 1 1.115 2.693l-.16.291c-.415.764.42 1.6 1.185 1.184l.292-.159a1.873 1.873 0 0 1 2.692 1.116l.094.318c.246.835 1.428.835 1.674 0l.094-.319a1.873 1.873 0 0 1 2.693-1.115l.291.16c.764.415 1.6-.42 1.184-1.185l-.159-.291a1.873 1.873 0 0 1 1.116-2.693l.318-.094c.835-.246.835-1.428 0-1.674l-.319-.094a1.873 1.873 0 0 1-1.115-2.692l.16-.292c.415-.764-.42-1.6-1.185-1.184l-.291.159A1.873 1.873 0 0 1 8.93 1.945l-.094-.319zm-2.633-.283c.527-1.79 3.065-1.79 3.592 0l.094.319a.873.873 0 0 0 1.255.52l.292-.16c1.64-.892 3.434.901 2.54 2.541l-.159.292a.873.873 0 0 0 .52 1.255l.319.094c1.79.527 1.79 3.065 0 3.592l-.319.094a.873.873 0 0 0-.52 1.255l.16.292c.893 1.64-.902 3.434-2.541 2.54l-.292-.159a.873.873 0 0 0-1.255.52l-.094.319c-.527 1.79-3.065 1.79-3.592 0l-.094-.319a.873.873 0 0 0-1.255-.52l-.292.16c-1.64.893-3.433-.902-2.54-2.541l.159-.292a.873.873 0 0 0-.52-1.255l-.319-.094c-1.79-.527-1.79-3.065 0-3.592l.319-.094a.873.873 0 0 0 .52-1.255l-.16-.292c-.892-1.64.902-3.433 2.541-2.54l.292.159a.873.873 0 0 0 1.255-.52l.094-.319z"/>
+                  <path fill-rule="evenodd" d="M8 5.754a2.246 2.246 0 1 0 0 4.492 2.246 2.246 0 0 0 0-4.492zM4.754 8a3.246 3.246 0 1 1 6.492 0 3.246 3.246 0 0 1-6.492 0z"/>
+                </svg>
+              </a>
+            </div><!--//app-utility-item-->
+
+            <div class="app-utility-item app-user-dropdown dropdown">
+              <a class="dropdown-toggle" id="user-dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
+                <th:block th:if="${session.s_user != null}">
+                  <img id="avatar-user" th:src="${session.s_user.image()}" alt="user profile">
+                </th:block>
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="user-dropdown-toggle">
+                <th:block th:if="${session.s_user != null}">
+                  <li><a class="dropdown-item" href="/admin/user/profile-user" th:text="${session.s_user.fullname()}"></a></li>
+                </th:block>
+                <li><a class="dropdown-item" href="/admin/user/change-password">Đổi mật khẩu</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="/admin/sign-out">Đăng xuất</a></li>
+              </ul>
+            </div><!--//app-user-dropdown-->
+          </div><!--//app-utilities-->
+        </div><!--//row-->
+      </div><!--//app-header-content-->
+    </div><!--//container-fluid-->
+  </div><!--//app-header-inner-->
+  <div id="app-sidepanel" class="app-sidepanel sidepanel-hidden">
+    <div id="sidepanel-drop" class="sidepanel-drop"></div>
+    <div class="sidepanel-inner d-flex flex-column">
+      <a href="#" id="sidepanel-close" class="sidepanel-close d-xl-none">&times;</a>
+      <div class="app-branding">
+        <a class="app-logo" href="/dashboard"><img class="logo-icon me-2" th:src="@{'/get-image-logo/'+${session.webshopSettings.get(5).getValue()}}" alt="logo"><span class="logo-text" th:text="${session.webshopSettings.get(0).getValue()}"></span></a>
+      </div><!--//app-branding-->
+      <nav id="app-nav-main" class="app-nav app-nav-main flex-grow-1">
+        <ul class="app-menu list-unstyled accordion" id="menu-accordion">
+          <li class="nav-item">
+            <a th:class="${dashboard != null && dashboard == 'ACTIVE'} ? 'nav-link active' : 'nav-link'" class="nav-link" href="/admin/dashboard">
+						        <span class="nav-icon">
+						        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-house-door" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+		  <path fill-rule="evenodd" d="M7.646 1.146a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 .146.354v7a.5.5 0 0 1-.5.5H9.5a.5.5 0 0 1-.5-.5v-4H7v4a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5v-7a.5.5 0 0 1 .146-.354l6-6zM2.5 7.707V14H6v-4a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5v4h3.5V7.707L8 2.207l-5.5 5.5z"/>
+		  <path fill-rule="evenodd" d="M13 2.5V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
+		</svg>
+						         </span>
+              <span class="nav-link-text">DASHBOARD</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a th:class="${active_manufacturer != null && active_manufacturer == 'ACTIVE'} ? 'nav-link active' : 'nav-link'" class="nav-link" href="/admin/manufacturer">
+              <span class="nav-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="bi bi-c-circle" viewBox="0 0 16 16">
+                  <path d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.146 4.992c-1.212 0-1.927.92-1.927 2.502v1.06c0 1.571.703 2.462 1.927 2.462.979 0 1.641-.586 1.729-1.418h1.295v.093c-.1 1.448-1.354 2.467-3.03 2.467-2.091 0-3.269-1.336-3.269-3.603V7.482c0-2.261 1.201-3.638 3.27-3.638 1.681 0 2.935 1.054 3.029 2.572v.088H9.875c-.088-.879-.768-1.512-1.729-1.512"/>
+                </svg>
+               </span>
+              <span class="nav-link-text">NHÀ SẢN XUẤT</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
+            <a th:class="${active_category != null && active_category == 'ACTIVE'} ? 'nav-link active' : 'nav-link'" class="nav-link" href="/admin/category">
+						        <span class="nav-icon">
+						        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="bi bi-tags" viewBox="0 0 16 16">
+  <path d="M3 2v4.586l7 7L14.586 9l-7-7zM2 2a1 1 0 0 1 1-1h4.586a1 1 0 0 1 .707.293l7 7a1 1 0 0 1 0 1.414l-4.586 4.586a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 2 6.586z"/>
+  <path d="M5.5 5a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1m0 1a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3M1 7.086a1 1 0 0 0 .293.707L8.75 15.25l-.043.043a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 0 7.586V3a1 1 0 0 1 1-1z"/>
+</svg>
+						         </span>
+              <span class="nav-link-text">DANH MỤC SẢN PHẨM</span>
+            </a><!--//nav-link-->
+          </li><!--//nav-item-->
+          <li class="nav-item">
+            <a th:class="${active_product != null && active_product == 'ACTIVE'} ? 'nav-link active' : 'nav-link'" class="nav-link" href="/admin/product">
+              <span class="nav-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="bi bi-puzzle" viewBox="0 0 16 16">
+                  <path d="M3.112 3.645A1.5 1.5 0 0 1 4.605 2H7a.5.5 0 0 1 .5.5v.382c0 .696-.497 1.182-.872 1.469a.5.5 0 0 0-.115.118l-.012.025L6.5 4.5v.003l.003.01q.005.015.036.053a.9.9 0 0 0 .27.194C7.09 4.9 7.51 5 8 5c.492 0 .912-.1 1.19-.24a.9.9 0 0 0 .271-.194.2.2 0 0 0 .039-.063v-.009l-.012-.025a.5.5 0 0 0-.115-.118c-.375-.287-.872-.773-.872-1.469V2.5A.5.5 0 0 1 9 2h2.395a1.5 1.5 0 0 1 1.493 1.645L12.645 6.5h.237c.195 0 .42-.147.675-.48.21-.274.528-.52.943-.52.568 0 .947.447 1.154.862C15.877 6.807 16 7.387 16 8s-.123 1.193-.346 1.638c-.207.415-.586.862-1.154.862-.415 0-.733-.246-.943-.52-.255-.333-.48-.48-.675-.48h-.237l.243 2.855A1.5 1.5 0 0 1 11.395 14H9a.5.5 0 0 1-.5-.5v-.382c0-.696.497-1.182.872-1.469a.5.5 0 0 0 .115-.118l.012-.025.001-.006v-.003a.2.2 0 0 0-.039-.064.9.9 0 0 0-.27-.193C8.91 11.1 8.49 11 8 11s-.912.1-1.19.24a.9.9 0 0 0-.271.194.2.2 0 0 0-.039.063v.003l.001.006.012.025c.016.027.05.068.115.118.375.287.872.773.872 1.469v.382a.5.5 0 0 1-.5.5H4.605a1.5 1.5 0 0 1-1.493-1.645L3.356 9.5h-.238c-.195 0-.42.147-.675.48-.21.274-.528.52-.943.52-.568 0-.947-.447-1.154-.862C.123 9.193 0 8.613 0 8s.123-1.193.346-1.638C.553 5.947.932 5.5 1.5 5.5c.415 0 .733.246.943.52.255.333.48.48.675.48h.238zM4.605 3a.5.5 0 0 0-.498.55l.001.007.29 3.4A.5.5 0 0 1 3.9 7.5h-.782c-.696 0-1.182-.497-1.469-.872a.5.5 0 0 0-.118-.115l-.025-.012L1.5 6.5h-.003a.2.2 0 0 0-.064.039.9.9 0 0 0-.193.27C1.1 7.09 1 7.51 1 8s.1.912.24 1.19c.07.14.14.225.194.271a.2.2 0 0 0 .063.039H1.5l.006-.001.025-.012a.5.5 0 0 0 .118-.115c.287-.375.773-.872 1.469-.872H3.9a.5.5 0 0 1 .498.542l-.29 3.408a.5.5 0 0 0 .497.55h1.878c-.048-.166-.195-.352-.463-.557-.274-.21-.52-.528-.52-.943 0-.568.447-.947.862-1.154C6.807 10.123 7.387 10 8 10s1.193.123 1.638.346c.415.207.862.586.862 1.154 0 .415-.246.733-.52.943-.268.205-.415.39-.463.557h1.878a.5.5 0 0 0 .498-.55l-.001-.007-.29-3.4A.5.5 0 0 1 12.1 8.5h.782c.696 0 1.182.497 1.469.872.05.065.091.099.118.115l.025.012.006.001h.003a.2.2 0 0 0 .064-.039.9.9 0 0 0 .193-.27c.14-.28.24-.7.24-1.191s-.1-.912-.24-1.19a.9.9 0 0 0-.194-.271.2.2 0 0 0-.063-.039H14.5l-.006.001-.025.012a.5.5 0 0 0-.118.115c-.287.375-.773.872-1.469.872H12.1a.5.5 0 0 1-.498-.543l.29-3.407a.5.5 0 0 0-.497-.55H9.517c.048.166.195.352.463.557.274.21.52.528.52.943 0 .568-.447.947-.862 1.154C9.193 5.877 8.613 6 8 6s-1.193-.123-1.638-.346C5.947 5.447 5.5 5.068 5.5 4.5c0-.415.246-.733.52-.943.268-.205.415-.39.463-.557z"/>
+                </svg>
+              </span>
+              <span class="nav-link-text">SẢN PHẨM</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a th:class="${active_order != null && active_order == 'ACTIVE'} ? 'nav-link active' : 'nav-link'" class="nav-link" href="/admin/order">
+              <span class="nav-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-seam" viewBox="0 0 16 16">
+                  <path d="M8.186 1.113a.5.5 0 0 0-.372 0L1.846 3.5l2.404.961L10.404 2zm3.564 1.426L5.596 5 8 5.961 14.154 3.5zm3.25 1.7-6.5 2.6v7.922l6.5-2.6V4.24zM7.5 14.762V6.838L1 4.239v7.923zM7.443.184a1.5 1.5 0 0 1 1.114 0l7.129 2.852A.5.5 0 0 1 16 3.5v8.662a1 1 0 0 1-.629.928l-7.185 2.874a.5.5 0 0 1-.372 0L.63 13.09a1 1 0 0 1-.63-.928V3.5a.5.5 0 0 1 .314-.464z"/>
+                </svg>
+              </span>
+              <span class="nav-link-text">ĐƠN HÀNG</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a th:class="${active_banner != null && active_banner == 'ACTIVE'} ? 'nav-link active' : 'nav-link'" class="nav-link" href="/admin/banner">
+							        <span class="nav-icon">
+							            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="bi bi-images" viewBox="0 0 16 16">
+  <path d="M4.502 9a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3"/>
+  <path d="M14.002 13a2 2 0 0 1-2 2h-10a2 2 0 0 1-2-2V5A2 2 0 0 1 2 3a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v8a2 2 0 0 1-1.998 2M14 2H4a1 1 0 0 0-1 1h9.002a2 2 0 0 1 2 2v7A1 1 0 0 0 15 11V3a1 1 0 0 0-1-1M2.002 4a1 1 0 0 0-1 1v8l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71a.5.5 0 0 1 .577-.094l1.777 1.947V5a1 1 0 0 0-1-1z"/>
+</svg>
+							        </span>
+              <span class="nav-link-text">ẢNH BANNERS</span>
+            </a><!--//nav-link-->
+          </li><!--//nav-item-->
+            <li class="nav-item">
+                <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
+                <a th:class="${active_feeship != null && active_feeship == 'ACTIVE'} ? 'nav-link active' : 'nav-link'" class="nav-link" href="/admin/feeship">
+                                    <span class="nav-icon">
+                                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-gear" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd" d="M8.837 1.626c-.246-.835-1.428-.835-1.674 0l-.094.319A1.873 1.873 0 0 1 4.377 3.06l-.292-.16c-.764-.415-1.6.42-1.184 1.185l.159.292a1.873 1.873 0 0 1-1.115 2.692l-.319.094c-.835.246-.835 1.428 0 1.674l.319.094a1.873 1.873 0 0 1 1.115 2.693l-.16.291c-.415.764.42 1.6 1.185 1.184l.292-.159a1.873 1.873 0 0 1 2.692 1.116l.094.318c.246.835 1.428.835 1.674 0l.094-.319a1.873 1.873 0 0 1 2.693-1.115l.291.16c.764.415 1.6-.42 1.184-1.185l-.159-.291a1.873 1.873 0 0 1 1.116-2.693l.318-.094c.835-.246.835-1.428 0-1.674l-.319-.094a1.873 1.873 0 0 1-1.115-2.692l.16-.292c.415-.764-.42-1.6-1.185-1.184l-.291.159A1.873 1.873 0 0 1 8.93 1.945l-.094-.319zm-2.633-.283c.527-1.79 3.065-1.79 3.592 0l.094.319a.873.873 0 0 0 1.255.52l.292-.16c1.64-.892 3.434.901 2.54 2.541l-.159.292a.873.873 0 0 0 .52 1.255l.319.094c1.79.527 1.79 3.065 0 3.592l-.319.094a.873.873 0 0 0-.52 1.255l.16.292c.893 1.64-.902 3.434-2.541 2.54l-.292-.159a.873.873 0 0 0-1.255.52l-.094.319c-.527 1.79-3.065 1.79-3.592 0l-.094-.319a.873.873 0 0 0-1.255-.52l-.292.16c-1.64.893-3.433-.902-2.54-2.541l.159-.292a.873.873 0 0 0-.52-1.255l-.319-.094c-1.79-.527-1.79-3.065 0-3.592l.319-.094a.873.873 0 0 0 .52-1.255l-.16-.292c-.892-1.64.902-3.433 2.541-2.54l.292.159a.873.873 0 0 0 1.255-.52l.094-.319z"/>
+      <path fill-rule="evenodd" d="M8 5.754a2.246 2.246 0 1 0 0 4.492 2.246 2.246 0 0 0 0-4.492zM4.754 8a3.246 3.246 0 1 1 6.492 0 3.246 3.246 0 0 1-6.492 0z"/>
+    </svg>
+                                    </span>
+                    <span class="nav-link-text">PHÍ VẬN CHUYỂN</span>
+                </a>
+            </li>
+            <li class="nav-item">
+              <a th:class="${active_user != null && active_user == 'ACTIVE'} ? 'nav-link active' : 'nav-link'" class="nav-link" href="/admin/user">
+                <span class="nav-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                    <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
+                  </svg>
+                </span>
+                <span class="nav-link-text">NHÂN VIÊN</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a th:class="${active_customer != null && active_customer == 'ACTIVE'} ? 'nav-link active' : 'nav-link'" class="nav-link" href="/admin/customer">
+                <span class="nav-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="bi bi-people" viewBox="0 0 16 16">
+                    <path d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1zm-7.978-1L7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002-.014.002zM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4m3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0M6.936 9.28a6 6 0 0 0-1.23-.247A7 7 0 0 0 5 9c-4 0-5 3-5 4q0 1 1 1h4.216A2.24 2.24 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816M4.92 10A5.5 5.5 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275ZM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0m3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4"/>
+                  </svg>
+                </span>
+                <span class="nav-link-text">KHÁCH HÀNG</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a th:class="${active_contact != null && active_contact == 'ACTIVE'} ? 'nav-link active' : 'nav-link'" class="nav-link" href="/admin/contact">
+                <span class="nav-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-left-dots" viewBox="0 0 16 16">
+                    <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                    <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+                  </svg>
+                </span>
+                <span class="nav-link-text">Ý KIẾN KHÁCH HÀNG</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a th:class="${active_posts != null && active_posts == 'ACTIVE'} ? 'nav-link active' : 'nav-link'" class="nav-link" href="/admin/posts">
+                  <span class="nav-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-substack" viewBox="0 0 16 16">
+                      <path d="M15 3.604H1v1.891h14v-1.89ZM1 7.208V16l7-3.926L15 16V7.208zM15 0H1v1.89h14z"/>
+                    </svg>
+                  </span>
+                <span class="nav-link-text">BÀI VIẾT</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a th:class="${active_about != null && active_about == 'ACTIVE'} ? 'nav-link active' : 'nav-link'" class="nav-link" href="/admin/about">
+                    <span class="nav-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-square" viewBox="0 0 16 16">
+                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                        <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+                      </svg>
+                    </span>
+                <span class="nav-link-text">THÔNG TIN SHOP</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a th:class="${active_setting != null && active_setting == 'ACTIVE'} ? 'nav-link active' : 'nav-link'" class="nav-link" href="/admin/setting">
+                <span class="nav-icon">
+                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-gear" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" d="M8.837 1.626c-.246-.835-1.428-.835-1.674 0l-.094.319A1.873 1.873 0 0 1 4.377 3.06l-.292-.16c-.764-.415-1.6.42-1.184 1.185l.159.292a1.873 1.873 0 0 1-1.115 2.692l-.319.094c-.835.246-.835 1.428 0 1.674l.319.094a1.873 1.873 0 0 1 1.115 2.693l-.16.291c-.415.764.42 1.6 1.185 1.184l.292-.159a1.873 1.873 0 0 1 2.692 1.116l.094.318c.246.835 1.428.835 1.674 0l.094-.319a1.873 1.873 0 0 1 2.693-1.115l.291.16c.764.415 1.6-.42 1.184-1.185l-.159-.291a1.873 1.873 0 0 1 1.116-2.693l.318-.094c.835-.246.835-1.428 0-1.674l-.319-.094a1.873 1.873 0 0 1-1.115-2.692l.16-.292c.415-.764-.42-1.6-1.185-1.184l-.291.159A1.873 1.873 0 0 1 8.93 1.945l-.094-.319zm-2.633-.283c.527-1.79 3.065-1.79 3.592 0l.094.319a.873.873 0 0 0 1.255.52l.292-.16c1.64-.892 3.434.901 2.54 2.541l-.159.292a.873.873 0 0 0 .52 1.255l.319.094c1.79.527 1.79 3.065 0 3.592l-.319.094a.873.873 0 0 0-.52 1.255l.16.292c.893 1.64-.902 3.434-2.541 2.54l-.292-.159a.873.873 0 0 0-1.255.52l-.094.319c-.527 1.79-3.065 1.79-3.592 0l-.094-.319a.873.873 0 0 0-1.255-.52l-.292.16c-1.64.893-3.433-.902-2.54-2.541l.159-.292a.873.873 0 0 0-.52-1.255l-.319-.094c-1.79-.527-1.79-3.065 0-3.592l.319-.094a.873.873 0 0 0 .52-1.255l-.16-.292c-.892-1.64.902-3.433 2.541-2.54l.292.159a.873.873 0 0 0 1.255-.52l.094-.319z"/>
+                      <path fill-rule="evenodd" d="M8 5.754a2.246 2.246 0 1 0 0 4.492 2.246 2.246 0 0 0 0-4.492zM4.754 8a3.246 3.246 0 1 1 6.492 0 3.246 3.246 0 0 1-6.492 0z"/>
+                    </svg>
+                </span>
+                <span class="nav-link-text">HỆ THỐNG</span>
+              </a>
+            </li>
+            <li class="nav-item">
+        </ul>
+      </nav>
+    </div><!--//sidepanel-inner-->
+  </div><!--//app-sidepanel-->
+</header><!--//app-header-->
+
+<div class="modal fade" id="myModal" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4>Quản Lý Ảnh</h4><br>
+      </div>
+      <div class="modal-body">
+        <div class="d-flex">
+                      <span data-name="" id="return-directory" title="Thư mục cha" onclick="loadReturnDirectoryContent()" class="me-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-return-left" viewBox="0 0 16 16">
+                          <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5"/>
+                        </svg>
+                      </span>
+          <span data-name="" id="delete-directory" title="Xóa" onclick="loadDeleteDirectoryContent()" class="me-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-trash3 text-danger" viewBox="0 0 16 16">
+                          <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
+                        </svg>
+                      </span>
+          <span data-name="" id="upload-image" title="Tải lên" onclick="uploadImageFileManager()" class="me-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-upload" viewBox="0 0 16 16">
+                          <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"/>
+                          <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708z"/>
+                        </svg>
+                      </span>
+          <div class="input-group mb-3">
+            <input type="text" id="input-create-folder" class="form-control" placeholder="Tạo thư mục" aria-label="Tạo thư mục" aria-describedby="button-addon2">
+            <button class="btn btn-primary" type="button" id="button-addon2 button-create-folder" onclick="createFolderFileManager()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-folder-fill text-white" viewBox="0 0 16 16">
+                <path d="M9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.825a2 2 0 0 1-1.991-1.819l-.637-7a2 2 0 0 1 .342-1.31L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3m-8.322.12q.322-.119.684-.12h5.396l-.707-.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981z"/>
+              </svg>
+            </button>
+          </div>
+          <meta name="_csrf" th:content="${_csrf.token}" />
+          <input type="hidden" name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+          <input type="file" id="uploadImageFileManagerInput" style="display: none;" accept="image/*" onchange="handleImageUpload(event)">
+        </div>
+        <hr>
+        <input type="hidden" id="modal-body-url-directory"/>
+        <div class="modal-body-directory row">
+
+        </div>
+        <div class="modal-body-image row">
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="myModalGallery" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4>Quản Lý Ảnh</h4><br>
+      </div>
+      <div class="modal-body">
+        <div class="d-flex">
+                      <span id="return-directory-gallery" data-id="0" title="Thư mục cha" onclick="loadReturnDirectoryContentGallery()" class="me-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-return-left" viewBox="0 0 16 16">
+                          <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5"/>
+                        </svg>
+                      </span>
+          <span id="delete-directory-gallery" data-id="0" title="Xóa" onclick="loadDeleteDirectoryContentGallery()" class="me-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-trash3 text-danger" viewBox="0 0 16 16">
+                          <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
+                        </svg>
+                      </span>
+          <span id="upload-image-gallery" data-id="0" title="Tải lên" onclick="uploadImageGalleryFileManager()" class="me-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-upload" viewBox="0 0 16 16">
+                          <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"/>
+                          <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708z"/>
+                        </svg>
+                      </span>
+          <div class="input-group mb-3">
+            <input type="text" id="input-create-folder-gallery" class="form-control" placeholder="Tạo thư mục" aria-label="Tạo thư mục" aria-describedby="button-addon2">
+            <button class="btn btn-primary" type="button" id="button-addon2 button-create-folder-gallery" data-id="0" onclick="createFolderGalleryFileManager()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-folder-fill text-white" viewBox="0 0 16 16">
+                <path d="M9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.825a2 2 0 0 1-1.991-1.819l-.637-7a2 2 0 0 1 .342-1.31L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3m-8.322.12q.322-.119.684-.12h5.396l-.707-.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981z"/>
+              </svg>
+            </button>
+          </div>
+          <meta name="_csrf" th:content="${_csrf.token}" />
+          <input type="hidden" name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+          <input type="file" id="uploadImageGalleryFileManagerInput" style="display: none;" accept="image/*" onchange="handleImageGalleryUpload(event)">
+        </div>
+        <hr>
+        <input type="hidden" id="modal-body-url-directory-gallery"/>
+        <input type="hidden" id="modal-body-url-directory-gallery-tr"/>
+        <div class="modal-body-directory-gallery row">
+
+        </div>
+        <div class="modal-body-image-gallery row">
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="myModalProductOptions" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4>Quản Lý Ảnh Option</h4><br>
+      </div>
+      <div class="modal-body">
+        <div class="d-flex">
+          <span id="return-directory-product-options" data-id="0" title="Thư mục cha" onclick="loadReturnDirectoryContentProductOptions()" class="me-3">
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-return-left" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5"/>
+            </svg>
+          </span>
+          <span id="delete-directory-product-options" data-id="0" title="Xóa" onclick="loadDeleteDirectoryContentProductOptions()" class="me-3">
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-trash3 text-danger" viewBox="0 0 16 16">
+              <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
+            </svg>
+          </span>
+          <span id="upload-image-product-options" data-id="0" title="Tải lên" onclick="uploadImageProductOptionsFileManager()" class="me-3">
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-upload" viewBox="0 0 16 16">
+              <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"/>
+              <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708z"/>
+            </svg>
+          </span>
+          <div class="input-group mb-3">
+            <input type="text" id="input-create-folder-product-options" class="form-control" placeholder="Tạo thư mục" aria-label="Tạo thư mục" aria-describedby="button-addon2">
+            <button class="btn btn-primary" type="button" id="button-addon2 button-create-folder-product-options" data-id="0" onclick="createFolderProductOptionsFileManager()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-folder-fill text-white" viewBox="0 0 16 16">
+                <path d="M9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.825a2 2 0 0 1-1.991-1.819l-.637-7a2 2 0 0 1 .342-1.31L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3m-8.322.12q.322-.119.684-.12h5.396l-.707-.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981z"/>
+              </svg>
+            </button>
+          </div>
+          <meta name="_csrf" th:content="${_csrf.token}" />
+          <input type="hidden" name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+          <input type="file" id="uploadImageProductOptionsFileManagerInput" style="display: none;" accept="image/*" onchange="handleImageProductOptionsUpload(event)">
+        </div>
+        <hr>
+        <input type="hidden" id="modal-body-url-directory-product-options"/>
+        <input type="hidden" id="modal-body-url-directory-product-options-tr"/>
+        <div class="modal-body-directory-product-options row">
+
+        </div>
+        <div class="modal-body-image-product-options row">
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="app-wrapper">
+
+  <div class="app-content pt-3 p-md-3 p-lg-4">
+    <div class="container-xl">
+
+      <div layout:fragment="content"></div>
+      <div th:include="admin/order/reason-for-cancellation.html"></div>
+
+    </div>
+  </div>
+
+  <footer class="app-footer">
+    <div class="container text-center py-3">
+      <small class="copyright">Designed by Thắng Nguyễn</small>
+    </div>
+  </footer>
+</div>
+
+<!-- Javascript -->
+<script th:src="@{/js/popper.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/file-image-manager.js}"></script>
+
+<!-- Page Specific JS -->
+<script th:src="@{/js/app.js}"></script>
+<script th:src="@{/js/order.js}"></script>
+<script th:src="@{/js/category-hierarchy.js}"></script>
+
+<script th:src="@{/js/validate.js}"></script>
+
+<script th:src="@{/js/button-confirm-delete.js}"></script>
+
+<script th:src="@{/js/script-style.js}"></script>
+
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+<script>
+  ClassicEditor
+          .create(document.querySelector('#productDescription'))
+          .catch(error => {
+            console.error(error);
+          });
+  ClassicEditor
+          .create(document.querySelector('#information'))
+          .catch(error => {
+            console.error(error);
+          });
+  ClassicEditor
+          .create(document.querySelector('#postsDetails'))
+          .catch(error => {
+            console.error(error);
+          });
+</script>
+
+<script type="text/javascript">
+  var idOptions = 0;
+  $("#rowProductOptions").click(function () {
+    idOptions++;
+    var newRowAdd =
+            '<tr>' +
+              '<td>' +
+                '<a class="btn btn-sm btn-danger btn-filemanager btn-delete-product-options">' +
+                  '<span>' +
+                    '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-dash-lg text-white" viewBox="0 0 16 16">' +
+                      '<path fill-rule="evenodd" d="M2 8a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 8"/>' +
+                    '</svg>' +
+                  '</span>' +
+                '</a>' +
+              '</td>' +
+              '<td>' +
+                '<div class="col-sm">' +
+                  '<a id="test-options-' + idOptions + '" data-toggle="image" class="test-img-thumbnail" onclick="showProductOptionsButtons(' + idOptions + ')"><img class="img-thumbnail avt-product-options" id="avt-product-options-' + idOptions + '" src="/images/noImage/img.png" alt="" title=""/></a>' +
+                  '<input type="hidden" name="options.image" value="/images/noImage/img.png" id="input-avt-product-options-' + idOptions + '" />' +
+                  '<div class="buttons-product-options-' + idOptions + ' hide-show-filemanager-button" style="display: none;">' +
+                    '<a class="btn btn-sm btn-primary btn-filemanager me-1" onclick="handleAddProductOptionsButtonClick(' + idOptions + ')" data-bs-toggle="modal" data-bs-target="#myModalProductOptions">' +
+                      '<span>' +
+                        '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill text-white" viewBox="0 0 16 16">' +
+                          '<path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z"/>' +
+                        '</svg>' +
+                      '<span>' +
+                    '</a>' +
+                    '<a class="btn btn-sm btn-danger btn-delete btn-filemanager me-1" onclick="deleteImagePresentButtonClick(' + idOptions + ')">' +
+                      '<span>' +
+                        '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill text-white" viewBox="0 0 16 16">' +
+                          '<path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"/>' +
+                        '</svg>' +
+                      '<span>' +
+                    '</a>' +
+                  '</div>' +
+                '</div>' +
+              '</td>' +
+              '<td>' +
+                '<div class="name-product-options">' +
+                  '<input type="text" class="form-control form-control-sm" name="options.name" placeholder="Tên loại sản phẩm" pattern="^(?!\\s+$).+" title="Tên không hợp lệ" required />' +
+                '</div>' +
+              '</td>' +
+              '<td>' +
+                '<div class="price-product-options">' +
+                  '<input type="text" class="form-control form-control-sm price-product-options" name="options.price" placeholder="Giá tiền (VND)" pattern="^[0-9]+$" title="Giá tiền không hợp lệ" required />' +
+                  '<span class="error-text" style="display: none;"></span>' +
+                '</div>' +
+              '</td>' +
+              '<td>' +
+                '<div class="amount-product-options">' +
+                  '<input type="number" class="form-control form-control-sm amount-product-options" name="options.amount" placeholder="Số lượng" pattern="^[0-9]+$" title="Số lượng không hợp lệ" required/>' +
+                  '<span class="error-text" style="display: none;"></span>' +
+                '</div>' +
+              '</td>' +
+            '</tr>';
+
+    $('#productOptionsBody').append(newRowAdd);
+  });
+
+  $("body").on("click", ".btn-delete-product-options", function () {
+    $(this).closest("tr").remove();
+  });
+
+  function showProductOptionsButtons(id) {
+    var divId = 'buttons-product-options-' + id;
+    var divElement = document.querySelector('.' + divId);
+    var displayStyle = divElement.style.display;
+    if (displayStyle === 'block') {
+      $('.' + divId).css('display', 'none');
+    } else {
+      $('.' + divId).css('display', 'block');
+    }
+  }
+
+  function handleAddProductOptionsButtonClick(id) {
+    processDataProductOptionsBeforeModal(id);
+  }
+
+  // Hàm xử lý dữ liệu trước khi mở modal
+  function processDataProductOptionsBeforeModal(id) {
+    $.ajax({
+      url: "/image-manager",
+      type: "GET",
+      success: function (response) {
+        var inputUrlDirectory = document.getElementById("modal-body-url-directory-product-options");
+        inputUrlDirectory.value = response.urlDirectory;
+        var inputUrlDirectory = document.getElementById("modal-body-url-directory-product-options-tr");
+        inputUrlDirectory.value = id;
+        $(".modal-body-directory-product-options").empty();
+        $.each(response.directories, function (index, directory) {
+          var urlDirectoryName = response.urlDirectory + "/" + directory;
+          var listItem = $("<div>").html(
+                  "<a href='#' data-name='" + directory + "' onclick='loadDirectoryContentProductOptions(this.getAttribute(\"data-name\"))'>" +
+                  "<div><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"60\" height=\"60\" fill=\"currentColor\" class=\"bi bi-folder-fill\" viewBox=\"0 0 16 16\">" +
+                  "<path d=\"M9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.825a2 2 0 0 1-1.991-1.819l-.637-7a2 2 0 0 1 .342-1.31L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3m-8.322.12q.322-.119.684-.12h5.396l-.707-.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981z\"/>" +
+                  "</svg></div></a>" +
+                  "<div><input type='checkbox' name='path[]' value='" + urlDirectoryName + "'><label for='directoryCheckbox" + index + "'>" + directory + "</label></div>"
+          );
+
+          var directoryDiv = $("<div>").append(listItem).addClass("col-md-3 text-center").css({"margin-bottom": "17px"});
+          $(".modal-body-directory-product-options").append(directoryDiv);
+        });
+
+        $(".modal-body-image-product-options").empty();
+        $.each(response.images, function (index, image) {
+          var urlImageName = response.urlDirectory ;
+          var url = urlImageName.replaceAll("/", ".");
+          var html = $("<div>").html(
+                  '<div><img src="' + '/get-image-upload/' + url + "/" + image.name + '" alt="Hình Ảnh"' + 'style="' + 'width: 110px; height: 110px"' + 'onclick="chooseImageProductOptionsFromFileManager(' + "'" + urlImageName + "/" + image.name + "'" + ')"' + '></div>' +
+                  "<div><input type='checkbox' name='path[]' value='" + urlImageName + "/" + image.name + "'><label>" + image.name + "</label></div>"
+          );
+          var imageDiv = $("<div>").append(html).addClass("col-md-3 text-center img-thumbnail").css({"margin-bottom": "17px", "object-fit": "cover", "image-rendering": "auto"});
+          $(".modal-body-image-product-options").append(imageDiv)
+        });
+      },
+      error: function (xhr, status, error) {
+        console.error(error);s
+      }
+    });
+  }
+
+  function loadDirectoryContentProductOptions(directoryName) {
+    var inputDirectoryValue = document.getElementById("modal-body-url-directory-product-options").value;
+    var urlDirectory = inputDirectoryValue + "/" + directoryName;
+    var productOptionsTr = document.getElementById("modal-body-url-directory-product-options-tr").value;
+    $.ajax({
+      url: "/get-directory-in-directory",
+      type: "GET",
+      data: { directoryName: directoryName, urlDirectory: urlDirectory},
+      success: function(response) {
+        var inputElement = document.getElementById("modal-body-url-directory-product-options");
+        inputElement.value = response.urlDirectory;
+        productOptionsTr.value = productOptionsTr;
+
+        $(".modal-body-directory-product-options").empty();
+        // Hiển thị danh sách thư mục
+        $.each(response.directories, function(index, directory) {
+          var urlDirectoryName = response.urlDirectory + "/" + directory;
+          var listItem = $("<div>").html(
+                  "<a href='#' data-name='" + directory + "' onclick='loadDirectoryContentProductOptions(this.getAttribute(\"data-name\"))'>" +
+                  "<div><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"60\" height=\"60\" fill=\"currentColor\" class=\"bi bi-folder-fill\" viewBox=\"0 0 16 16\">" +
+                  "<path d=\"M9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.825a2 2 0 0 1-1.991-1.819l-.637-7a2 2 0 0 1 .342-1.31L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3m-8.322.12q.322-.119.684-.12h5.396l-.707-.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981z\"/>" +
+                  "</svg></div></a>" +
+                  "<div><input type='checkbox' name='path[]' value='" + urlDirectoryName + "'><label for='directoryCheckbox" + index + "'>" + directory + "</label></div>"
+          );
+          var directoryDiv = $("<div>").append(listItem).addClass("col-md-3 text-center").css({"margin-bottom": "17px"});
+          $(".modal-body-directory-product-options").append(directoryDiv);
+        });
+
+        // Xóa nội dung hiện có của phần tử
+        $(".modal-body-image-product-options").empty();
+        // Tạo HTML mới bằng Thymeleaf
+        var html = '';
+        $.each(response.images, function(index, image) {
+          var urlImageName = response.urlDirectory ;
+          var url = urlImageName.replaceAll("/", ".");
+          var html = $("<div>").html(
+                  '<div><img src="' + '/get-image-upload/' + url + "/" + image.name + '" alt="Hình Ảnh"' + 'style="' + 'width: 110px; height: 110px"' + 'onclick="chooseImageProductOptionsFromFileManager(' + "'" + urlImageName + "/" + image.name + "'" + ')"' + '></div>' +
+                  "<div><input type='checkbox' name='path[]' value='" + urlImageName + "/" + image.name + "'><label>" + image.name + "</label></div>"
+          );
+          var imageDiv = $("<div>").append(html).addClass("col-md-3 text-center img-thumbnail").css({"margin-bottom": "17px", "object-fit": "cover", "image-rendering": "auto"});
+          $(".modal-body-image-product-options").append(imageDiv)
+        });
+      },
+      error: function(xhr, status, error) {
+        console.error(xhr.responseText);
+      }
+    });
+  }
+
+  function chooseImageProductOptionsFromFileManager(urlImage) {
+    var myModalProductOptions = $('#myModalProductOptions');
+    myModalProductOptions.modal('hide');
+
+    var productOptionsTr = document.getElementById("modal-body-url-directory-product-options-tr").value;
+    var divId = 'buttons-product-options-' + productOptionsTr;
+    var divElement = document.querySelector('.' + divId);
+    var displayStyle = divElement.style.display;
+    if (displayStyle === 'block') {
+      $('.' + divId).css('display', 'none');
+    } else {
+      $('.' + divId).css('display', 'none');
+    }
+
+    var element = document.querySelector('.buttons.hide-show-filemanager-button');
+    element.style.display = 'none';
+
+    var lastIndex = urlImage.lastIndexOf("/");
+    var folderPath = urlImage.substring(0, lastIndex);
+    var folderPathTemp = folderPath.replaceAll("/", ".");
+    var fileImageName = urlImage.substring(lastIndex + 1);
+
+    var avtProductOptions = document.getElementById('avt-product-options-' + productOptionsTr);
+    var inputAvtProductOptions = document.getElementById('input-avt-product-options-' + productOptionsTr);
+
+    avtProductOptions.src = "/get-image/" + folderPathTemp + "/" + fileImageName;
+
+    inputAvtProductOptions.value = urlImage;
+  }
+
+  function loadReturnDirectoryContentProductOptions() {
+    var productOptionsTr = document.getElementById("modal-body-url-directory-product-options-tr").value;
+    var inputDirectoryValue = document.getElementById("modal-body-url-directory-product-options").value;
+    inputDirectoryValue = inputDirectoryValue.toString();
+    var rootDirectoryName = "/images";
+    if (inputDirectoryValue === rootDirectoryName) {
+      return true;
+    } else {
+      var newInputDirectoryValue = removeLastSegment(inputDirectoryValue);
+      $.ajax({
+        url: "/get-directory-in-directory",
+        type: "GET",
+        data: {directoryName: "", urlDirectory: newInputDirectoryValue},
+        success: function (response) {
+          var inputElement = document.getElementById("modal-body-url-directory-product-options");
+          inputElement.value = response.urlDirectory;
+          productOptionsTr.value = productOptionsTr;
+
+          $(".modal-body-directory-product-options").empty();
+          // Hiển thị danh sách thư mục
+          $.each(response.directories, function(index, directory) {
+            var urlDirectoryName = response.urlDirectory + "/" + directory;
+            var listItem = $("<div>").html(
+                    "<a href='#' data-name='" + directory + "' onclick='loadDirectoryContentProductOptions(this.getAttribute(\"data-name\"))'>" +
+                    "<div><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"60\" height=\"60\" fill=\"currentColor\" class=\"bi bi-folder-fill\" viewBox=\"0 0 16 16\">" +
+                    "<path d=\"M9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.825a2 2 0 0 1-1.991-1.819l-.637-7a2 2 0 0 1 .342-1.31L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3m-8.322.12q.322-.119.684-.12h5.396l-.707-.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981z\"/>" +
+                    "</svg></div></a>" +
+                    "<div><input type='checkbox' name='path[]' value='" + urlDirectoryName + "'><label for='directoryCheckbox" + index + "'>" + directory + "</label></div>"
+            );
+            var directoryDiv = $("<div>").append(listItem).addClass("col-md-3 text-center").css({"margin-bottom": "17px"});
+            $(".modal-body-directory-product-options").append(directoryDiv);
+          });
+
+          // Xóa nội dung hiện có của phần tử
+          $(".modal-body-image-product-options").empty();
+          // Tạo HTML mới bằng Thymeleaf
+          var html = '';
+          $.each(response.images, function(index, image) {
+            var urlImageName = response.urlDirectory ;
+            var url = urlImageName.replaceAll("/", ".");
+            var html = $("<div>").html(
+                    '<div><img src="' + '/get-image-upload/' + url + "/" + image.name + '" alt="Hình Ảnh"' + 'style="' + 'width: 110px; height: 110px"' + 'onclick="chooseImageProductOptionsFromFileManager(' + "'" + urlImageName + "/" + image.name + "'" + ')"' + '></div>' +
+                    "<div><input type='checkbox' name='path[]' value='" + urlImageName + "/" + image.name + "'><label>" + image.name + "</label></div>"
+            );
+            var imageDiv = $("<div>").append(html).addClass("col-md-3 text-center img-thumbnail").css({"margin-bottom": "17px", "object-fit": "cover", "image-rendering": "auto"});
+            $(".modal-body-image-product-options").append(imageDiv)
+          });
+        },
+        error: function (xhr, status, error) {
+          console.error(xhr.responseText);
+        }
+      });
+    }
+  }
+
+  function loadDeleteDirectoryContentProductOptions() {
+    var productOptionsTr = document.getElementById("modal-body-url-directory-product-options-tr").value;
+    var selectedValues = []; // Mảng để lưu giá trị của các input đã chọn
+    // Lặp qua tất cả các checkbox
+    $("input[name='path[]']").each(function() {
+      // Kiểm tra xem checkbox có được chọn không
+      if ($(this).is(":checked")) {
+        // Lấy giá trị của checkbox đã chọn và thêm vào mảng
+        selectedValues.push($(this).val());
+      }
+    });
+    if (selectedValues === 0) {
+      alert("không")
+    }
+    var inputDirectoryValue = document.getElementById("modal-body-url-directory-product-options").value;
+    inputDirectoryValue = inputDirectoryValue.toString();
+    var data = {
+      selectedValues: JSON.stringify(selectedValues),
+      inputDirectoryValue: inputDirectoryValue
+    };
+    $.ajax({
+      url: "/delete-directory",
+      type: "GET",
+      data: data,
+      success: function (response) {
+        alert("Xóa thư mục/hình ảnh thành công!")
+        var inputElement = document.getElementById("modal-body-url-directory-product-options");
+        inputElement.value = response.urlDirectory;
+        productOptionsTr.value = productOptionsTr;
+
+        $(".modal-body-directory-product-options").empty();
+        // Hiển thị danh sách thư mục
+        $.each(response.directories, function(index, directory) {
+          var urlDirectoryName = response.urlDirectory + "/" + directory;
+          var listItem = $("<div>").html(
+                  "<a href='#' data-name='" + directory + "' onclick='loadDirectoryContentProductOptions(this.getAttribute(\"data-name\"))'>" +
+                  "<div><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"60\" height=\"60\" fill=\"currentColor\" class=\"bi bi-folder-fill\" viewBox=\"0 0 16 16\">" +
+                  "<path d=\"M9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.825a2 2 0 0 1-1.991-1.819l-.637-7a2 2 0 0 1 .342-1.31L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3m-8.322.12q.322-.119.684-.12h5.396l-.707-.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981z\"/>" +
+                  "</svg></div></a>" +
+                  "<div><input type='checkbox' name='path[]' value='" + urlDirectoryName + "'><label for='directoryCheckbox" + index + "'>" + directory + "</label></div>"
+          );
+          var directoryDiv = $("<div>").append(listItem).addClass("col-md-3 text-center").css({"margin-bottom": "17px"});
+          $(".modal-body-directory-product-options").append(directoryDiv);
+        });
+
+        // Xóa nội dung hiện có của phần tử
+        $(".modal-body-image-product-options").empty();
+        // Tạo HTML mới bằng Thymeleaf
+        var html = '';
+        $.each(response.images, function(index, image) {
+          var urlImageName = response.urlDirectory ;
+          var url = urlImageName.replaceAll("/", ".");
+          var html = $("<div>").html(
+                  '<div><img src="' + '/get-image-upload/' + url + "/" + image.name + '" alt="Hình Ảnh"' + 'style="' + 'width: 110px; height: 110px"' + 'onclick="chooseImageProductOptionsFromFileManager(' + "'" + urlImageName + "/" + image.name + "'" + ')"' + '></div>' +
+                  "<div><input type='checkbox' name='path[]' value='" + urlImageName + "/" + image.name + "'><label>" + image.name + "</label></div>"
+          );
+          var imageDiv = $("<div>").append(html).addClass("col-md-3 text-center img-thumbnail").css({"margin-bottom": "17px", "object-fit": "cover", "image-rendering": "auto"});
+          $(".modal-body-image-product-options").append(imageDiv)
+        });
+      },
+      error: function (xhr, status, error) {
+        alert("Xóa thư mục/hình ảnh không thành công!")
+        console.error(error);
+      }
+    });
+  }
+
+  function uploadImageProductOptionsFileManager(file) {
+    document.getElementById('uploadImageProductOptionsFileManagerInput').click();
+  }
+
+  function handleImageProductOptionsUpload(event) {
+    const file = event.target.files[0];
+    if (file) {
+      var productOptionsTr = document.getElementById("modal-body-url-directory-product-options-tr").value;
+      var inputDirectoryValue = document.getElementById("modal-body-url-directory-product-options").value;
+      inputDirectoryValue = inputDirectoryValue.toString();
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('inputDirectoryValue', inputDirectoryValue);
+
+      var csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content'); // Lấy CSRF token từ thẻ meta trong mã HTML
+      var csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
+
+      var csrfTokenHeader = {};
+      csrfTokenHeader[csrfHeader] = csrfToken;
+      $.ajax({
+        url: '/upload-image',
+        type: 'POST', // Thay đổi từ 'GET' sang 'POST'
+        data: formData,
+        headers: csrfTokenHeader, // Thêm CSRF token vào header của yêu cầu
+        contentType: false, // Thêm dòng này để đảm bảo FormData không bị xử lý
+        processData: false, // Thêm dòng này để đảm bảo FormData không bị xử lý
+        success: function(response) {
+          alert('Upload ảnh thành công!');
+          var inputElement = document.getElementById("modal-body-url-directory-product-options");
+          inputElement.value = response.urlDirectory;
+          productOptionsTr.value = productOptionsTr;
+
+          $(".modal-body-directory-product-options").empty();
+          // Hiển thị danh sách thư mục
+          $.each(response.directories, function(index, directory) {
+            var urlDirectoryName = response.urlDirectory + "/" + directory;
+            var listItem = $("<div>").html(
+                    "<a href='#' data-name='" + directory + "' onclick='loadDirectoryContentProductOptions(this.getAttribute(\"data-name\"))'>" +
+                    "<div><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"60\" height=\"60\" fill=\"currentColor\" class=\"bi bi-folder-fill\" viewBox=\"0 0 16 16\">" +
+                    "<path d=\"M9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.825a2 2 0 0 1-1.991-1.819l-.637-7a2 2 0 0 1 .342-1.31L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3m-8.322.12q.322-.119.684-.12h5.396l-.707-.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981z\"/>" +
+                    "</svg></div></a>" +
+                    "<div><input type='checkbox' name='path[]' value='" + urlDirectoryName + "'><label for='directoryCheckbox" + index + "'>" + directory + "</label></div>"
+            );
+            var directoryDiv = $("<div>").append(listItem).addClass("col-md-3 text-center").css({"margin-bottom": "17px"});
+            $(".modal-body-directory-product-options").append(directoryDiv);
+          });
+
+          // Xóa nội dung hiện có của phần tử
+          $(".modal-body-image-product-options").empty();
+          // Tạo HTML mới bằng Thymeleaf
+          var html = '';
+          $.each(response.images, function(index, image) {
+            var urlImageName = response.urlDirectory ;
+            var url = urlImageName.replaceAll("/", ".");
+            var html = $("<div>").html(
+                    '<div><img src="' + '/get-image-upload/' + url + "/" + image.name + '" alt="Hình Ảnh"' + 'style="' + 'width: 110px; height: 110px"' + 'onclick="chooseImageProductOptionsFromFileManager(' + "'" + urlImageName + "/" + image.name + "'" + ')"' + '></div>' +
+                    "<div><input type='checkbox' name='path[]' value='" + urlImageName + "/" + image.name + "'><label>" + image.name + "</label></div>"
+            );
+            var imageDiv = $("<div>").append(html).addClass("col-md-3 text-center img-thumbnail").css({"margin-bottom": "17px", "object-fit": "cover", "image-rendering": "auto"});
+            $(".modal-body-image-product-options").append(imageDiv)
+          });
+        },
+        error: function(xhr, status, error) {
+          // Xử lý lỗi (nếu có)
+          alert('Đã xảy ra lỗi khi upload ảnh.');
+          console.error(error);
+        }
+      });
+    }
+  }
+
+  function createFolderProductOptionsFileManager(event) {
+    // Lấy giá trị từ input
+    var productOptionsTr = document.getElementById("modal-body-url-directory-product-options-tr").value;
+    var folderName = document.getElementById("input-create-folder-product-options").value;
+    var urlDirectory = document.getElementById("modal-body-url-directory-product-options").value;
+    const formData = new FormData();
+    formData.append('folderName', folderName);
+    formData.append('urlDirectory', urlDirectory);
+
+    var csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content'); // Lấy CSRF token từ thẻ meta trong mã HTML
+    var csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
+
+    var csrfTokenHeader = {};
+    csrfTokenHeader[csrfHeader] = csrfToken;
+    // Gửi dữ liệu đến máy chủ bằng AJAX
+    $.ajax({
+      url: '/create-folder',
+      type: 'POST', // Thay đổi từ 'GET' sang 'POST'
+      data: formData,
+      headers: csrfTokenHeader, // Thêm CSRF token vào header của yêu cầu
+      contentType: false, // Thêm dòng này để đảm bảo FormData không bị xử lý
+      processData: false, // Thêm dòng này để đảm bảo FormData không bị xử lý
+      success: function(response) {
+        alert("Tạo thư mục thành công!")
+        var inputElement = document.getElementById("modal-body-url-directory-product-options");
+        inputElement.value = response.urlDirectory;
+        productOptionsTr.value = productOptionsTr;
+
+        $(".modal-body-directory-product-options").empty();
+        // Hiển thị danh sách thư mục
+        $.each(response.directories, function(index, directory) {
+          var urlDirectoryName = response.urlDirectory + "/" + directory;
+          var listItem = $("<div>").html(
+                  "<a href='#' data-name='" + directory + "' onclick='loadDirectoryContentProductOptions(this.getAttribute(\"data-name\"))'>" +
+                  "<div><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"60\" height=\"60\" fill=\"currentColor\" class=\"bi bi-folder-fill\" viewBox=\"0 0 16 16\">" +
+                  "<path d=\"M9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.825a2 2 0 0 1-1.991-1.819l-.637-7a2 2 0 0 1 .342-1.31L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3m-8.322.12q.322-.119.684-.12h5.396l-.707-.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981z\"/>" +
+                  "</svg></div></a>" +
+                  "<div><input type='checkbox' name='path[]' value='" + urlDirectoryName + "'><label for='directoryCheckbox" + index + "'>" + directory + "</label></div>"
+          );
+          var directoryDiv = $("<div>").append(listItem).addClass("col-md-3 text-center").css({"margin-bottom": "17px"});
+          $(".modal-body-directory-product-options").append(directoryDiv);
+        });
+
+        // Xóa nội dung hiện có của phần tử
+        $(".modal-body-image-product-options").empty();
+        // Tạo HTML mới bằng Thymeleaf
+        var html = '';
+        $.each(response.images, function(index, image) {
+          var urlImageName = response.urlDirectory ;
+          var url = urlImageName.replaceAll("/", ".");
+          var html = $("<div>").html(
+                  '<div><img src="' + '/get-image-upload/' + url + "/" + image.name + '" alt="Hình Ảnh"' + 'style="' + 'width: 110px; height: 110px"' + 'onclick="chooseImageProductOptionsFromFileManager(' + "'" + urlImageName + "/" + image.name + "'" + ')"' + '></div>' +
+                  "<div><input type='checkbox' name='path[]' value='" + urlImageName + "/" + image.name + "'><label>" + image.name + "</label></div>"
+          );
+          var imageDiv = $("<div>").append(html).addClass("col-md-3 text-center img-thumbnail").css({"margin-bottom": "17px", "object-fit": "cover", "image-rendering": "auto"});
+          $(".modal-body-image-product-options").append(imageDiv)
+        });
+      },
+      error: function(xhr, status, error) {
+        alert('Đã xảy ra lỗi khi tạo thư mục.');
+        console.error(error);
+      }
+    });
+  }
+
+  ///////////////////////////////////////////////////////////////////////////////////////////////////
+  //\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+  $('#yourFormId').submit(function(event) {
+    event.preventDefault(); // Ngăn chặn form submit mặc định
+    var formData = new FormData(this); // Lấy dữ liệu từ form
+    $.ajax({
+      type: 'POST',
+      url: '/admin/product/edit-product', // Đường dẫn tới controller
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: function(response) {
+        // Xử lý kết quả trả về từ controller (nếu cần)
+      }
+    });
+  });
+
+  var idGallery = 0;
+  $("#rowAdder").click(function () {
+    idGallery++;
+    var newRowAdd =
+            '<tr>' +
+              '<td>' +
+                '<a class="btn btn-sm btn-danger btn-filemanager btn-delete-gallery">' +
+                  '<span>' +
+                    '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-dash-lg text-white" viewBox="0 0 16 16">' +
+                      '<path fill-rule="evenodd" d="M2 8a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 8"/>' +
+                    '</svg>' +
+                  '</span>' +
+                '</a>' +
+              '</td>' +
+              '<td>' +
+                '<div class="col-sm">' +
+                  '<a id="test-gallery-' + idGallery + '" data-toggle="image" class="test-img-thumbnail" onclick="showGalleryButtons(' + idGallery + ')"><img class="img-thumbnail avt-gallery" id="avt-image-' + idGallery + '" src="/images/noImage/img.png" alt="" title=""/></a>' +
+                  '<input type="hidden" name="imageGallery" value="/images/noImage/img.png" id="input-avt-image-' + idGallery + '" />' +
+                  '<div class="buttons-gallery-' + idGallery + ' hide-show-filemanager-button" style="display: none;">' +
+                    '<a class="btn btn-sm btn-primary btn-filemanager me-1" onclick="handleAddGalleryButtonClick(' + idGallery + ')" data-bs-toggle="modal" data-bs-target="#myModalGallery">' +
+                      '<span>' +
+                        '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill text-white" viewBox="0 0 16 16">' +
+                          '<path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z"/>' +
+                        '</svg>' +
+                      '<span>' +
+                    '</a>' +
+                    '<a class="btn btn-sm btn-danger btn-delete btn-filemanager me-1" onclick="deleteImagePresentButtonClick(' + idGallery + ')">' +
+                      '<span>' +
+                        '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill text-white" viewBox="0 0 16 16">' +
+                          '<path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"/>' +
+                        '</svg>' +
+                      '<span>' +
+                    '</a>' +
+                  '</div>' +
+                '</div>' +
+              '</td>' +
+            '</tr>';
+
+    $('#galleryBody').append(newRowAdd);
+  });
+
+  $("body").on("click", ".btn-delete-gallery", function () {
+    $(this).closest("tr").remove();
+  });
+
+
+  function showGalleryButtons(id) {
+    var divId = 'buttons-gallery-' + id;
+    var divElement = document.querySelector('.' + divId);
+    var displayStyle = divElement.style.display;
+    if (displayStyle === 'block') {
+      $('.' + divId).css('display', 'none');
+    } else {
+      $('.' + divId).css('display', 'block');
+    }
+  }
+
+  function handleAddGalleryButtonClick(id) {
+    processDataGalleryBeforeModal(id);
+  }
+
+
+  function chooseImageGalleryFromFileManager(urlImage) {
+    var myModalGallery = $('#myModalGallery');
+    myModalGallery.modal('hide');
+
+    var galleryTr = document.getElementById("modal-body-url-directory-gallery-tr").value;
+    var divId = 'buttons-gallery-' + galleryTr;
+    var divElement = document.querySelector('.' + divId);
+    var displayStyle = divElement.style.display;
+    if (displayStyle === 'block') {
+      $('.' + divId).css('display', 'none');
+    } else {
+      $('.' + divId).css('display', 'none');
+    }
+
+    var element = document.querySelector('.buttons.hide-show-filemanager-button');
+    element.style.display = 'none';
+
+    var lastIndex = urlImage.lastIndexOf("/");
+    var folderPath = urlImage.substring(0, lastIndex);
+    var folderPathTemp = folderPath.replaceAll("/", ".");
+    var fileImageName = urlImage.substring(lastIndex + 1);
+
+    var avtImage = document.getElementById('avt-image-' + galleryTr);
+    var inputAvtImage = document.getElementById('input-avt-image-' + galleryTr);
+
+    avtImage.src = "/get-image/" + folderPathTemp + "/" + fileImageName;
+
+    inputAvtImage.value = urlImage;
+  }
+
+  // Hàm xử lý dữ liệu trước khi mở modal
+  function processDataGalleryBeforeModal(id) {
+    $.ajax({
+      url: "/image-manager",
+      type: "GET",
+      success: function (response) {
+        var inputUrlDirectory = document.getElementById("modal-body-url-directory-gallery");
+        inputUrlDirectory.value = response.urlDirectory;
+        var inputUrlDirectory = document.getElementById("modal-body-url-directory-gallery-tr");
+        inputUrlDirectory.value = id;
+        $(".modal-body-directory-gallery").empty();
+        $.each(response.directories, function (index, directory) {
+          var urlDirectoryName = response.urlDirectory + "/" + directory;
+          var listItem = $("<div>").html(
+                  "<a href='#' data-name='" + directory + "' onclick='loadDirectoryContentGallery(this.getAttribute(\"data-name\"))'>" +
+                  "<div><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"60\" height=\"60\" fill=\"currentColor\" class=\"bi bi-folder-fill\" viewBox=\"0 0 16 16\">" +
+                  "<path d=\"M9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.825a2 2 0 0 1-1.991-1.819l-.637-7a2 2 0 0 1 .342-1.31L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3m-8.322.12q.322-.119.684-.12h5.396l-.707-.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981z\"/>" +
+                  "</svg></div></a>" +
+                  "<div><input type='checkbox' name='path[]' value='" + urlDirectoryName + "'><label for='directoryCheckbox" + index + "'>" + directory + "</label></div>"
+          );
+
+          var directoryDiv = $("<div>").append(listItem).addClass("col-md-3 text-center").css({"margin-bottom": "17px"});
+          $(".modal-body-directory-gallery").append(directoryDiv);
+        });
+
+        $(".modal-body-image-gallery").empty();
+        $.each(response.images, function (index, image) {
+          var urlImageName = response.urlDirectory ;
+          var url = urlImageName.replaceAll("/", ".");
+          var x = "/images/img"
+          var html = $("<div>").html(
+                  '<div><img src="' + '/get-image-upload/' + url + "/" + image.name + '" alt="Hình Ảnh"' + 'style="' + 'width: 110px; height: 110px"' + 'onclick="chooseImageGalleryFromFileManager(' + "'" + urlImageName + "/" + image.name + "'" + ')"' + '></div>' +
+                  "<div><input type='checkbox' name='path[]' value='" + urlImageName + "/" + image.name + "'><label>" + image.name + "</label></div>"
+          );
+          var imageDiv = $("<div>").append(html).addClass("col-md-3 text-center img-thumbnail").css({"margin-bottom": "17px", "object-fit": "cover", "image-rendering": "auto"});
+          $(".modal-body-image-gallery").append(imageDiv)
+        });
+      },
+      error: function (xhr, status, error) {
+        console.error(error);
+      }
+    });
+  }
+
+  function loadDirectoryContentGallery(directoryName) {
+    var inputDirectoryValue = document.getElementById("modal-body-url-directory-gallery").value;
+    var urlDirectory = inputDirectoryValue + "/" + directoryName;
+    var galleryTr = document.getElementById("modal-body-url-directory-gallery-tr").value;
+    // var urlDirectory = inputDirectoryValue + "/" + directoryName;
+    $.ajax({
+      url: "/get-directory-in-directory",
+      type: "GET",
+      data: { directoryName: directoryName, urlDirectory: urlDirectory},
+      success: function(response) {
+        var inputElement = document.getElementById("modal-body-url-directory-gallery");
+        inputElement.value = response.urlDirectory;
+        galleryTr.value = galleryTr;
+
+        $(".modal-body-directory-gallery").empty();
+        // Hiển thị danh sách thư mục
+        $.each(response.directories, function(index, directory) {
+          var urlDirectoryName = response.urlDirectory + "/" + directory;
+          var listItem = $("<div>").html(
+                  "<a href='#' data-name='" + directory + "' onclick='loadDirectoryContentGallery(this.getAttribute(\"data-name\"))'>" +
+                  "<div><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"60\" height=\"60\" fill=\"currentColor\" class=\"bi bi-folder-fill\" viewBox=\"0 0 16 16\">" +
+                  "<path d=\"M9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.825a2 2 0 0 1-1.991-1.819l-.637-7a2 2 0 0 1 .342-1.31L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3m-8.322.12q.322-.119.684-.12h5.396l-.707-.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981z\"/>" +
+                  "</svg></div></a>" +
+                  "<div><input type='checkbox' name='path[]' value='" + urlDirectoryName + "'><label for='directoryCheckbox" + index + "'>" + directory + "</label></div>"
+          );
+          var directoryDiv = $("<div>").append(listItem).addClass("col-md-3 text-center").css({"margin-bottom": "17px"});
+          $(".modal-body-directory-gallery").append(directoryDiv);
+        });
+
+        // Xóa nội dung hiện có của phần tử
+        $(".modal-body-image-gallery").empty();
+        // Tạo HTML mới bằng Thymeleaf
+        var html = '';
+        $.each(response.images, function(index, image) {
+          var urlImageName = response.urlDirectory ;
+          var url = urlImageName.replaceAll("/", ".");
+          var x = "/images/img"
+          var html = $("<div>").html(
+                  '<div><img src="' + '/get-image-upload/' + url + "/" + image.name + '" alt="Hình Ảnh"' + 'style="' + 'width: 110px; height: 110px"' + 'onclick="chooseImageGalleryFromFileManager(' + "'" + urlImageName + "/" + image.name + "'" + ')"' + '></div>' +
+                  "<div><input type='checkbox' name='path[]' value='" + urlImageName + "/" + image.name + "'><label>" + image.name + "</label></div>"
+          );
+          var imageDiv = $("<div>").append(html).addClass("col-md-3 text-center img-thumbnail").css({"margin-bottom": "17px", "object-fit": "cover", "image-rendering": "auto"});
+          $(".modal-body-image-gallery").append(imageDiv)
+        });
+      },
+      error: function(xhr, status, error) {
+        console.error(xhr.responseText);
+      }
+    });
+  }
+
+  function loadReturnDirectoryContentGallery() {
+    var galleryTr = document.getElementById("modal-body-url-directory-gallery-tr").value;
+    var inputDirectoryValue = document.getElementById("modal-body-url-directory-gallery").value;
+    inputDirectoryValue = inputDirectoryValue.toString();
+    var rootDirectoryName = "/images";
+    if (inputDirectoryValue === rootDirectoryName) {
+      return true;
+    } else {
+      var newInputDirectoryValue = removeLastSegment(inputDirectoryValue);
+      $.ajax({
+        url: "/get-directory-in-directory",
+        type: "GET",
+        data: {directoryName: "", urlDirectory: newInputDirectoryValue},
+        success: function (response) {
+          var inputElement = document.getElementById("modal-body-url-directory-gallery");
+          inputElement.value = response.urlDirectory;
+          galleryTr.value = galleryTr;
+
+          $(".modal-body-directory-gallery").empty();
+          // Hiển thị danh sách thư mục
+          $.each(response.directories, function (index, directory) {
+            var urlDirectoryName = response.urlDirectory + "/" + directory;
+            var listItem = $("<div>").html(
+                    "<a href='#' data-name='" + directory + "' onclick='loadDirectoryContentGallery(this.getAttribute(\"data-name\"))'>" +
+                    "<div><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"60\" height=\"60\" fill=\"currentColor\" class=\"bi bi-folder-fill\" viewBox=\"0 0 16 16\">" +
+                    "<path d=\"M9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.825a2 2 0 0 1-1.991-1.819l-.637-7a2 2 0 0 1 .342-1.31L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3m-8.322.12q.322-.119.684-.12h5.396l-.707-.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981z\"/>" +
+                    "</svg></div></a>" +
+                    "<div><input type='checkbox' name='path[]' value='" + urlDirectoryName + "'><label for='directoryCheckbox" + index + "'>" + directory + "</label></div>"
+            );
+            var directoryDiv = $("<div>").append(listItem).addClass("col-md-3 text-center").css({"margin-bottom": "17px"});
+            $(".modal-body-directory-gallery").append(directoryDiv);
+          });
+
+          // Xóa nội dung hiện có của phần tử
+          $(".modal-body-image-gallery").empty();
+          // Tạo HTML mới bằng Thymeleaf
+          $.each(response.images, function (index, image) {
+            var urlImageName = response.urlDirectory ;
+            var url = urlImageName.replaceAll("/", ".");
+            var x = "/images/img"
+            var html = $("<div>").html(
+                    '<div><img src="' + '/get-image-upload/' + url + "/" + image.name + '" alt="Hình Ảnh"' + 'style="' + 'width: 110px; height: 110px"' + 'onclick="chooseImageGalleryFromFileManager(' + "'" + urlImageName + "/" + image.name + "'" + ')"' + '></div>' +
+                    "<div><input type='checkbox' name='path[]' value='" + urlImageName + "/" + image.name + "'><label>" + image.name + "</label></div>"
+            );
+            var imageDiv = $("<div>").append(html).addClass("col-md-3 text-center img-thumbnail").css({"margin-bottom": "17px", "object-fit": "cover", "image-rendering": "auto"});
+            $(".modal-body-image-gallery").append(imageDiv)
+          });
+        },
+        error: function (xhr, status, error) {
+          console.error(xhr.responseText);
+        }
+      });
+    }
+  }
+
+  function loadDeleteDirectoryContentGallery() {
+    var galleryTr = document.getElementById("modal-body-url-directory-gallery-tr").value;
+    var selectedValues = []; // Mảng để lưu giá trị của các input đã chọn
+    // Lặp qua tất cả các checkbox
+    $("input[name='path[]']").each(function() {
+      // Kiểm tra xem checkbox có được chọn không
+      if ($(this).is(":checked")) {
+        // Lấy giá trị của checkbox đã chọn và thêm vào mảng
+        selectedValues.push($(this).val());
+      }
+    });
+    if (selectedValues === 0) {
+      alert("không")
+    }
+    var inputDirectoryValue = document.getElementById("modal-body-url-directory-gallery").value;
+    inputDirectoryValue = inputDirectoryValue.toString();
+    var data = {
+      selectedValues: JSON.stringify(selectedValues),
+      inputDirectoryValue: inputDirectoryValue
+    };
+    $.ajax({
+      url: "/delete-directory",
+      type: "GET",
+      data: data,
+      success: function (response) {
+        alert("Xóa thư mục/hình ảnh thành công!")
+        var inputElement = document.getElementById("modal-body-url-directory-gallery");
+        inputElement.value = response.urlDirectory;
+        galleryTr.value = galleryTr;
+
+        $(".modal-body-directory-gallery").empty();
+        // Hiển thị danh sách thư mục
+        $.each(response.directories, function (index, directory) {
+          var urlDirectoryName = response.urlDirectory + "/" + directory;
+          var listItem = $("<div>").html(
+                  "<a href='#' data-name='" + directory + "' onclick='loadDirectoryContentGallery(this.getAttribute(\"data-name\"))'>" +
+                  "<div><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"60\" height=\"60\" fill=\"currentColor\" class=\"bi bi-folder-fill\" viewBox=\"0 0 16 16\">" +
+                  "<path d=\"M9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.825a2 2 0 0 1-1.991-1.819l-.637-7a2 2 0 0 1 .342-1.31L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3m-8.322.12q.322-.119.684-.12h5.396l-.707-.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981z\"/>" +
+                  "</svg></div></a>" +
+                  "<div><input type='checkbox' name='path[]' value='" + urlDirectoryName + "'><label for='directoryCheckbox" + index + "'>" + directory + "</label></div>"
+          );
+          var directoryDiv = $("<div>").append(listItem).addClass("col-md-3 text-center").css({"margin-bottom": "17px"});
+          $(".modal-body-directory-gallery").append(directoryDiv);
+        });
+
+        // Xóa nội dung hiện có của phần tử
+        $(".modal-body-image-gallery").empty();
+        // Tạo HTML mới bằng Thymeleaf
+        $.each(response.images, function (index, image) {
+          var urlImageName = response.urlDirectory ;
+          var url = urlImageName.replaceAll("/", ".");
+          var x = "/images/img"
+          var html = $("<div>").html(
+                  '<div><img src="' + '/get-image-upload/' + url + "/" + image.name + '" alt="Hình Ảnh"' + 'style="' + 'width: 110px; height: 110px"' + 'onclick="chooseImageGalleryFromFileManager(' + "'" + urlImageName + "/" + image.name + "'" + ')"' + '></div>' +
+                  "<div><input type='checkbox' name='path[]' value='" + urlImageName + "/" + image.name + "'><label>" + image.name + "</label></div>"
+          );
+          var imageDiv = $("<div>").append(html).addClass("col-md-3 text-center img-thumbnail").css({"margin-bottom": "17px", "object-fit": "cover", "image-rendering": "auto"});
+          $(".modal-body-image-gallery").append(imageDiv)
+        });
+      },
+      error: function (xhr, status, error) {
+        alert("Xóa thư mục/hình ảnh không thành công!")
+        console.error(error);
+      }
+    });
+  }
+
+  function uploadImageGalleryFileManager(file) {
+    document.getElementById('uploadImageGalleryFileManagerInput').click();
+  }
+
+  function handleImageGalleryUpload(event) {
+    const file = event.target.files[0];
+    if (file) {
+      var galleryTr = document.getElementById("modal-body-url-directory-gallery-tr").value;
+      var inputDirectoryValue = document.getElementById("modal-body-url-directory-gallery").value;
+      inputDirectoryValue = inputDirectoryValue.toString();
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('inputDirectoryValue', inputDirectoryValue);
+
+      var csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content'); // Lấy CSRF token từ thẻ meta trong mã HTML
+      var csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
+
+      var csrfTokenHeader = {};
+      csrfTokenHeader[csrfHeader] = csrfToken;
+      $.ajax({
+        url: '/upload-image',
+        type: 'POST', // Thay đổi từ 'GET' sang 'POST'
+        data: formData,
+        headers: csrfTokenHeader, // Thêm CSRF token vào header của yêu cầu
+        contentType: false, // Thêm dòng này để đảm bảo FormData không bị xử lý
+        processData: false, // Thêm dòng này để đảm bảo FormData không bị xử lý
+        success: function(response) {
+          alert('Upload ảnh thành công!');
+          var inputElement = document.getElementById("modal-body-url-directory-gallery");
+          inputElement.value = response.urlDirectory;
+          galleryTr.value = galleryTr;
+
+          $(".modal-body-directory-gallery").empty();
+          // Hiển thị danh sách thư mục
+          $.each(response.directories, function(index, directory) {
+            var urlDirectoryName = response.urlDirectory + "/" + directory;
+            var listItem = $("<div>").html(
+                    "<a href='#' data-name='" + directory + "' onclick='loadDirectoryContentGallery(this.getAttribute(\"data-name\"))'>" +
+                    "<div><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"60\" height=\"60\" fill=\"currentColor\" class=\"bi bi-folder-fill\" viewBox=\"0 0 16 16\">" +
+                    "<path d=\"M9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.825a2 2 0 0 1-1.991-1.819l-.637-7a2 2 0 0 1 .342-1.31L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3m-8.322.12q.322-.119.684-.12h5.396l-.707-.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981z\"/>" +
+                    "</svg></div></a>" +
+                    "<div><input type='checkbox' name='path[]' value='" + urlDirectoryName + "'><label for='directoryCheckbox" + index + "'>" + directory + "</label></div>"
+            );
+            var directoryDiv = $("<div>").append(listItem).addClass("col-md-3 text-center").css({"margin-bottom": "17px"});
+            $(".modal-body-directory-gallery").append(directoryDiv);
+          });
+
+          // Xóa nội dung hiện có của phần tử
+          $(".modal-body-image-gallery").empty();
+          // Tạo HTML mới bằng Thymeleaf
+          var html = '';
+          $.each(response.images, function(index, image) {
+            var urlImageName = response.urlDirectory ;
+            var url = urlImageName.replaceAll("/", ".");
+            var x = "/images/img"
+            var html = $("<div>").html(
+                    '<div><img src="' + '/get-image-upload/' + url + "/" + image.name + '" alt="Hình Ảnh"' + 'style="' + 'width: 110px; height: 110px"' + 'onclick="chooseImageGalleryFromFileManager(' + "'" + urlImageName + "/" + image.name + "'" + ')"' + '></div>' +
+                    "<div><input type='checkbox' name='path[]' value='" + urlImageName + "/" + image.name + "'><label>" + image.name + "</label></div>"
+            );
+            var imageDiv = $("<div>").append(html).addClass("col-md-3 text-center img-thumbnail").css({"margin-bottom": "17px", "object-fit": "cover", "image-rendering": "auto"});
+            $(".modal-body-image-gallery").append(imageDiv)
+          });
+        },
+        error: function(xhr, status, error) {
+          // Xử lý lỗi (nếu có)
+          alert('Đã xảy ra lỗi khi upload ảnh.');
+          console.error(error);
+        }
+      });
+    }
+  }
+
+  function createFolderGalleryFileManager(event) {
+    // Lấy giá trị từ input
+    var folderName = document.getElementById("input-create-folder-gallery").value;
+    var urlDirectory = document.getElementById("modal-body-url-directory-gallery").value;
+    const formData = new FormData();
+    formData.append('folderName', folderName);
+    formData.append('urlDirectory', urlDirectory);
+
+    var csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content'); // Lấy CSRF token từ thẻ meta trong mã HTML
+    var csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
+
+    var csrfTokenHeader = {};
+    csrfTokenHeader[csrfHeader] = csrfToken;
+    // Gửi dữ liệu đến máy chủ bằng AJAX
+    $.ajax({
+      url: '/create-folder',
+      type: 'POST', // Thay đổi từ 'GET' sang 'POST'
+      data: formData,
+      headers: csrfTokenHeader, // Thêm CSRF token vào header của yêu cầu
+      contentType: false, // Thêm dòng này để đảm bảo FormData không bị xử lý
+      processData: false, // Thêm dòng này để đảm bảo FormData không bị xử lý
+      success: function(response) {
+        alert("Tạo thư mục thành công!")
+        var inputElement = document.getElementById("modal-body-url-directory-gallery");
+        inputElement.value = response.urlDirectory;
+
+        $(".modal-body-directory-gallery").empty();
+        // Hiển thị danh sách thư mục
+        $.each(response.directories, function(index, directory) {
+          var urlDirectoryName = response.urlDirectory + "/" + directory;
+          var listItem = $("<div>").html(
+                  "<a href='#' data-name='" + directory + "' onclick='loadDirectoryContentGallery(this.getAttribute(\"data-name\"))'>" +
+                  "<div><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"60\" height=\"60\" fill=\"currentColor\" class=\"bi bi-folder-fill\" viewBox=\"0 0 16 16\">" +
+                  "<path d=\"M9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.825a2 2 0 0 1-1.991-1.819l-.637-7a2 2 0 0 1 .342-1.31L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3m-8.322.12q.322-.119.684-.12h5.396l-.707-.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981z\"/>" +
+                  "</svg></div></a>" +
+                  "<div><input type='checkbox' name='path[]' value='" + urlDirectoryName + "'><label for='directoryCheckbox" + index + "'>" + directory + "</label></div>"
+          );
+          var directoryDiv = $("<div>").append(listItem).addClass("col-md-3 text-center").css({"margin-bottom": "17px"});
+          $(".modal-body-directory-gallery").append(directoryDiv);
+        });
+
+        // Xóa nội dung hiện có của phần tử
+        $(".modal-body-image-gallery").empty();
+        // Tạo HTML mới bằng Thymeleaf
+        var html = '';
+        $.each(response.images, function(index, image) {
+          var urlImageName = response.urlDirectory ;
+          var url = urlImageName.replaceAll("/", ".");
+          var x = "/images/img"
+          var html = $("<div>").html(
+                  '<div><img src="' + '/get-image-upload/' + url + "/" + image.name + '" alt="Hình Ảnh"' + 'style="' + 'width: 110px; height: 110px"' + 'onclick="chooseImageGalleryFromFileManager(' + "'" + urlImageName + "/" + image.name + "'" + ')"' + '></div>' +
+                  "<div><input type='checkbox' name='path[]' value='" + urlImageName + "/" + image.name + "'><label>" + image.name + "</label></div>"
+          );
+          var imageDiv = $("<div>").append(html).addClass("col-md-3 text-center img-thumbnail").css({"margin-bottom": "17px", "object-fit": "cover", "image-rendering": "auto"});
+          $(".modal-body-image-gallery").append(imageDiv)
+        });
+      },
+      error: function(xhr, status, error) {
+        alert('Đã xảy ra lỗi khi tạo thư mục.');
+        console.error(error);
+      }
+    });
+  }
+
+  $(document).ready(function () {
+    $('.choose-city').on('change', function () {
+      var city_id = $(this).val();
+      $.ajax({
+        type: 'GET',
+        url: '/feeship/get-all-district-by-city-id',
+        data: {city_id: city_id},
+        success: function (data) {
+          var result = '<option th:value="0">Chọn quận, huyện</option>';
+          for (var i = 0; i < data.length; i++) {
+            result = result + '<option value="' + data[i].district_id + '">' + data[i].district_name + '</option>'
+          }
+          $('#district').html(result);
+          // $('#wards').html('<option th:value="0">Chọn xã, thị trấn</option>');
+        },
+        error: function(xhr, status, error) {
+
+        }
+      });
+    });
+  });
+
+  $(document).ready(function(){
+    $('.choose-district').on('change', function(){
+      var district_id  = $(this).val();
+      $.ajax({
+        type: 'GET',
+        url: '/feeship/get-all-ward-by-district-id',
+        data: { district_id: district_id },
+        success: function(data) {
+          var result = '<option th:value="0">Chọn xã, phường, thị trấn</option>';
+          for (var i = 0; i < data.length; i++) {
+            result = result + '<option value="' + data[i].ward_id + '">' + data[i].ward_name + '</option>'
+          }
+          $('#ward').html(result);
+        },
+        error: function(xhr, status, error) {
+
+        }
+      });
+    });
+  });
+
+  var createAtString = document.querySelectorAll('.create_at');
+  for (var i = 0; i < createAtString.length; i++) {
+    var createdAtDate = new Date(createAtString[i].innerHTML);
+    var day = String(createdAtDate.getDate()).padStart(2, '0'); // Thêm số 0 vào trước nếu cần
+    var month = String(createdAtDate.getMonth() + 1).padStart(2, '0'); // Thêm số 0 vào trước nếu cần
+    var year = createdAtDate.getFullYear();
+    var formattedDate = day + '/' + month + '/' + year;
+    createAtString[i].innerHTML = formattedDate;
+  }
+
+  var orderDateTimeString = document.querySelectorAll('.order-date-time');
+  for (var i = 0; i < orderDateTimeString.length; i++) {
+    var orderDateTimeValue = orderDateTimeString[i].innerHTML;
+    var orderDateTime = new Date(orderDateTimeValue);
+    var day = ("0" + orderDateTime.getDate()).slice(-2);
+    var month = ("0" + (orderDateTime.getMonth() + 1)).slice(-2);
+    var year = orderDateTime.getFullYear();
+    var hours = ("0" + orderDateTime.getHours()).slice(-2);
+    var minutes = ("0" + orderDateTime.getMinutes()).slice(-2);
+    var formattedDate = day + '/' + month + '/' + year + ' ' + hours + ':' + minutes;
+    orderDateTimeString[i].innerHTML = formattedDate;
+  }
+
+  // Lấy tất cả các phần tử có class "price"
+  var priceElements = document.querySelectorAll('.price');
+  // Lặp qua từng phần tử và định dạng giá tiền
+  for (var i = 0; i < priceElements.length; i++) {
+    var price = parseFloat(priceElements[i].innerText); // Lấy giá trị giá tiền
+    var formattedPrice = formatCurrency(price); // Định dạng giá tiền
+
+    // Hiển thị giá tiền đã định dạng
+    priceElements[i].innerText = formattedPrice;
+  }
+
+  function formatCurrency(price) {
+    return price.toLocaleString('vi-VN', {style: 'currency', currency: 'VND'});
+  }
+
+  var discountElements = document.querySelectorAll('.discount-value');
+
+  for (var i = 0; i < discountElements.length; i++) {
+    var discountValue = parseFloat(discountElements[i].innerText);
+    var discountType = discountElements[i].getAttribute('data-discount_type'); // Lấy giá trị của thuộc tính data-type
+
+    // Thực hiện xử lý dựa trên loại giảm giá (discountType) ở đây
+    // Ví dụ:
+    var formattedDiscount = '';
+
+    if (discountType === 'AMOUNT') {
+      formattedDiscount = discountValue.toLocaleString('vi-VN', {style: 'currency', currency: 'VND'});
+    } else if (discountType === 'PERCENTAGE') {
+      formattedDiscount = discountValue.toLocaleString('vi-VN') + ' %';
+    } else if (discountType === 'NO') {
+      formattedDiscount = '';
+    }
+
+    // Hiển thị giá trị đã được định dạng
+    discountElements[i].innerText = formattedDiscount;
+  }
+
+  function loadDirectoryContent(directoryName) {
+    var inputDirectoryValue = document.getElementById("modal-body-url-directory").value;
+    var urlDirectory = inputDirectoryValue + "/" + directoryName;
+    $.ajax({
+      url: "/get-directory-in-directory",
+      type: "GET",
+      data: { directoryName: directoryName, urlDirectory: urlDirectory},
+      success: function(response) {
+        var inputElement = document.getElementById("modal-body-url-directory");
+        inputElement.value = response.urlDirectory;
+
+        $(".modal-body-directory").empty();
+        // Hiển thị danh sách thư mục
+        $.each(response.directories, function(index, directory) {
+          var urlDirectoryName = response.urlDirectory + "/" + directory;
+          var listItem = $("<div>").html(
+                  "<a href='#' data-name='" + directory + "' onclick='loadDirectoryContent(this.getAttribute(\"data-name\"))'>" +
+                  "<div><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"60\" height=\"60\" fill=\"currentColor\" class=\"bi bi-folder-fill\" viewBox=\"0 0 16 16\">" +
+                  "<path d=\"M9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.825a2 2 0 0 1-1.991-1.819l-.637-7a2 2 0 0 1 .342-1.31L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3m-8.322.12q.322-.119.684-.12h5.396l-.707-.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981z\"/>" +
+                  "</svg></div></a>" +
+                  "<div><input type='checkbox' name='path[]' value='" + urlDirectoryName + "'><label for='directoryCheckbox" + index + "'>" + directory + "</label></div>"
+          );
+          var directoryDiv = $("<div>").append(listItem).addClass("col-md-3 text-center").css({"margin-bottom": "17px"});
+          $(".modal-body-directory").append(directoryDiv);
+        });
+
+        // Xóa nội dung hiện có của phần tử
+        $(".modal-body-image").empty();
+        // Tạo HTML mới bằng Thymeleaf
+        var html = '';
+        $.each(response.images, function(index, image) {
+          var urlImageName = response.urlDirectory ;
+          var url = urlImageName.replaceAll("/", ".");
+          var x = "/images/img"
+          var html = $("<div>").html(
+                  '<div><img src="' + '/get-image-upload/' + url + "/" + image.name + '" alt="Hình Ảnh"' + 'style="' + 'width: 110px; height: 110px"' + 'onclick="chooseImageFromFileManager(' + "'" + urlImageName + "/" + image.name + "'" + ')"' + '></div>' +
+                  "<div><input type='checkbox' name='path[]' value='" + urlImageName + "/" + image.name + "'><label>" + image.name + "</label></div>"
+          );
+          var imageDiv = $("<div>").append(html).addClass("col-md-3 text-center img-thumbnail").css({"margin-bottom": "17px", "object-fit": "cover", "image-rendering": "auto"});
+          $(".modal-body-image").append(imageDiv)
+        });
+      },
+      error: function(xhr, status, error) {
+        console.error(xhr.responseText);
+      }
+    });
+  }
+
+  function removeLastSegment(path) {
+    return path.substring(0, path.lastIndexOf("/"));
+  }
+
+  function loadReturnDirectoryContent() {
+    var inputDirectoryValue = document.getElementById("modal-body-url-directory").value;
+    inputDirectoryValue = inputDirectoryValue.toString();
+    var rootDirectoryName = "/images";
+    if (inputDirectoryValue === rootDirectoryName) {
+      return true;
+    } else {
+      var newInputDirectoryValue = removeLastSegment(inputDirectoryValue);
+      $.ajax({
+        url: "/get-directory-in-directory",
+        type: "GET",
+        data: {directoryName: "", urlDirectory: newInputDirectoryValue},
+        success: function (response) {
+          var inputElement = document.getElementById("modal-body-url-directory");
+          inputElement.value = response.urlDirectory;
+
+          $(".modal-body-directory").empty();
+          // Hiển thị danh sách thư mục
+          $.each(response.directories, function (index, directory) {
+            var urlDirectoryName = response.urlDirectory + "/" + directory;
+            var listItem = $("<div>").html(
+                    "<a href='#' data-name='" + directory + "' onclick='loadDirectoryContent(this.getAttribute(\"data-name\"))'>" +
+                    "<div><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"60\" height=\"60\" fill=\"currentColor\" class=\"bi bi-folder-fill\" viewBox=\"0 0 16 16\">" +
+                    "<path d=\"M9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.825a2 2 0 0 1-1.991-1.819l-.637-7a2 2 0 0 1 .342-1.31L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3m-8.322.12q.322-.119.684-.12h5.396l-.707-.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981z\"/>" +
+                    "</svg></div></a>" +
+                    "<div><input type='checkbox' name='path[]' value='" + urlDirectoryName + "'><label for='directoryCheckbox" + index + "'>" + directory + "</label></div>"
+            );
+            var directoryDiv = $("<div>").append(listItem).addClass("col-md-3 text-center").css({"margin-bottom": "17px"});
+            $(".modal-body-directory").append(directoryDiv);
+          });
+
+          // Xóa nội dung hiện có của phần tử
+          $(".modal-body-image").empty();
+          // Tạo HTML mới bằng Thymeleaf
+          $.each(response.images, function (index, image) {
+            var urlImageName = response.urlDirectory ;
+            var url = urlImageName.replaceAll("/", ".");
+            var x = "/images/img"
+            var html = $("<div>").html(
+                    '<div><img src="' + '/get-image-upload/' + url + "/" + image.name + '" alt="Hình Ảnh"' + 'style="' + 'width: 110px; height: 110px"' + 'onclick="chooseImageFromFileManager(' + "'" + urlImageName + "/" + image.name + "'" + ')"' + '></div>' +
+                    "<div><input type='checkbox' name='path[]' value='" + urlImageName + "/" + image.name + "'><label>" + image.name + "</label></div>"
+            );
+            var imageDiv = $("<div>").append(html).addClass("col-md-3 text-center img-thumbnail").css({"margin-bottom": "17px", "object-fit": "cover", "image-rendering": "auto"});
+            $(".modal-body-image").append(imageDiv)
+          });
+        },
+        error: function (xhr, status, error) {
+          console.error(xhr.responseText);
+        }
+      });
+    }
+  }
+
+  $(document).ready(function() {
+    $("#test-image").click(function(e) {
+      e.preventDefault(); // Ngăn chặn hành động mặc định của thẻ a
+
+      // Hiển thị hoặc ẩn các button
+      $(".buttons").toggle();
+    });
+  });
+
+  function handleAddButtonClick() {
+    // Gọi hàm xử lý dữ liệu trước khi mở modal
+    processDataBeforeModal();
+  }
+
+  // Hàm xử lý dữ liệu trước khi mở modal
+  function processDataBeforeModal() {
+    $.ajax({
+      url: "/image-manager",
+      type: "GET",
+      success: function (response) {
+        var inputUrlDirectory = document.getElementById("modal-body-url-directory");
+        inputUrlDirectory.value = response.urlDirectory;
+        $(".modal-body-directory").empty();
+        $.each(response.directories, function (index, directory) {
+          var urlDirectoryName = response.urlDirectory + "/" + directory;
+          var listItem = $("<div>").html(
+                  "<a href='#' data-name='" + directory + "' onclick='loadDirectoryContent(this.getAttribute(\"data-name\"))'>" +
+                  "<div><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"60\" height=\"60\" fill=\"currentColor\" class=\"bi bi-folder-fill\" viewBox=\"0 0 16 16\">" +
+                  "<path d=\"M9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.825a2 2 0 0 1-1.991-1.819l-.637-7a2 2 0 0 1 .342-1.31L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3m-8.322.12q.322-.119.684-.12h5.396l-.707-.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981z\"/>" +
+                  "</svg></div></a>" +
+                  "<div><input type='checkbox' name='path[]' value='" + urlDirectoryName + "'><label for='directoryCheckbox" + index + "'>" + directory + "</label></div>"
+          );
+
+          var directoryDiv = $("<div>").append(listItem).addClass("col-md-3 text-center").css({"margin-bottom": "17px"});
+          $(".modal-body-directory").append(directoryDiv);
+        });
+
+        $(".modal-body-image").empty();
+        $.each(response.images, function (index, image) {
+          var urlImageName = response.urlDirectory ;
+          var url = urlImageName.replaceAll("/", ".");
+          var x = "/images/img"
+          var html = $("<div>").html(
+                  '<div><img src="' + '/get-image-upload/' + url + "/" + image.name + '" alt="Hình Ảnh"' + 'style="' + 'width: 110px; height: 110px"' + 'onclick="chooseImageFromFileManager(' + "'" + urlImageName + "/" + image.name + "'" + ')"' + '></div>' +
+                  "<div><input type='checkbox' name='path[]' value='" + urlImageName + "/" + image.name + "'><label>" + image.name + "</label></div>"
+          );
+          var imageDiv = $("<div>").append(html).addClass("col-md-3 text-center img-thumbnail").css({"margin-bottom": "17px", "object-fit": "cover", "image-rendering": "auto"});
+          $(".modal-body-image").append(imageDiv)
+        });
+      },
+      error: function (xhr, status, error) {
+        console.error(error);
+      }
+    });
+  }
+
+  function loadDirectoryAndImageAfterDelete() {
+    var inputDirectoryValue = document.getElementById("modal-body-url-directory").value;
+    $.ajax({
+      url: "/get-directory-in-directory",
+      type: "GET",
+      data: { directoryName: "", urlDirectory: urlDirectory},
+      success: function(response) {
+        var inputElement = document.getElementById("modal-body-url-directory");
+        inputElement.value = response.urlDirectory;
+
+        $(".modal-body-directory").empty();
+        // Hiển thị danh sách thư mục
+        $.each(response.directories, function(index, directory) {
+          var urlDirectoryName = response.urlDirectory + "/" + directory;
+          var listItem = $("<div>").html(
+                  "<a href='#' data-name='" + directory + "' onclick='loadDirectoryContent(this.getAttribute(\"data-name\"))'>" +
+                  "<div><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"60\" height=\"60\" fill=\"currentColor\" class=\"bi bi-folder-fill\" viewBox=\"0 0 16 16\">" +
+                  "<path d=\"M9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.825a2 2 0 0 1-1.991-1.819l-.637-7a2 2 0 0 1 .342-1.31L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3m-8.322.12q.322-.119.684-.12h5.396l-.707-.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981z\"/>" +
+                  "</svg></div></a>" +
+                  "<div><input type='checkbox' name='path[]' value='" + urlDirectoryName + "'><label for='directoryCheckbox" + index + "'>" + directory + "</label></div>"
+          );
+          var directoryDiv = $("<div>").append(listItem).addClass("col-md-3 text-center").css({"margin-bottom": "17px"});
+          $(".modal-body-directory").append(directoryDiv);
+        });
+
+        // Xóa nội dung hiện có của phần tử
+        $(".modal-body-image").empty();
+        // Tạo HTML mới bằng Thymeleaf
+        var html = '';
+        $.each(response.images, function(index, image) {
+          var urlImageName = response.urlDirectory ;
+          var url = urlImageName.replaceAll("/", ".");
+          var x = "/images/img"
+          var html = $("<div>").html(
+                  '<div><img src="' + '/get-image-upload/' + url + "/" + image.name + '" alt="Hình Ảnh"' + 'style="' + 'width: 110px; height: 110px"' + 'onclick="chooseImageFromFileManager(' + "'" + urlImageName + "/" + image.name + "'" + ')"' + '></div>' +
+                  "<div><input type='checkbox' name='path[]' value='" + urlImageName + "/" + image.name + "'><label>" + image.name + "</label></div>"
+          );
+          var imageDiv = $("<div>").append(html).addClass("col-md-3 text-center img-thumbnail").css({"margin-bottom": "17px", "object-fit": "cover", "image-rendering": "auto"});
+          $(".modal-body-image").append(imageDiv)
+        });
+      },
+      error: function(xhr, status, error) {
+        console.error(xhr.responseText);
+      }
+    });
+  }
+
+  function loadDeleteDirectoryContent() {
+    var selectedValues = []; // Mảng để lưu giá trị của các input đã chọn
+    // Lặp qua tất cả các checkbox
+    $("input[name='path[]']").each(function() {
+      // Kiểm tra xem checkbox có được chọn không
+      if ($(this).is(":checked")) {
+        // Lấy giá trị của checkbox đã chọn và thêm vào mảng
+        selectedValues.push($(this).val());
+      }
+    });
+    if (selectedValues === 0) {
+      alert("không")
+    }
+    var inputDirectoryValue = document.getElementById("modal-body-url-directory").value;
+    inputDirectoryValue = inputDirectoryValue.toString();
+    var data = {
+      selectedValues: JSON.stringify(selectedValues),
+      inputDirectoryValue: inputDirectoryValue
+    };
+    $.ajax({
+      url: "/delete-directory",
+      type: "GET",
+      data: data,
+      success: function (response) {
+        alert("Xóa thư mục/hình ảnh thành công!")
+        var inputElement = document.getElementById("modal-body-url-directory");
+        inputElement.value = response.urlDirectory;
+
+        $(".modal-body-directory").empty();
+        // Hiển thị danh sách thư mục
+        $.each(response.directories, function(index, directory) {
+          var urlDirectoryName = response.urlDirectory + "/" + directory;
+          var listItem = $("<div>").html(
+                  "<a href='#' data-name='" + directory + "' onclick='loadDirectoryContent(this.getAttribute(\"data-name\"))'>" +
+                  "<div><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"60\" height=\"60\" fill=\"currentColor\" class=\"bi bi-folder-fill\" viewBox=\"0 0 16 16\">" +
+                  "<path d=\"M9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.825a2 2 0 0 1-1.991-1.819l-.637-7a2 2 0 0 1 .342-1.31L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3m-8.322.12q.322-.119.684-.12h5.396l-.707-.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981z\"/>" +
+                  "</svg></div></a>" +
+                  "<div><input type='checkbox' name='path[]' value='" + urlDirectoryName + "'><label for='directoryCheckbox" + index + "'>" + directory + "</label></div>"
+          );
+          var directoryDiv = $("<div>").append(listItem).addClass("col-md-3 text-center").css({"margin-bottom": "17px"});
+          $(".modal-body-directory").append(directoryDiv);
+        });
+
+        // Xóa nội dung hiện có của phần tử
+        $(".modal-body-image").empty();
+        // Tạo HTML mới bằng Thymeleaf
+        var html = '';
+        $.each(response.images, function(index, image) {
+          var urlImageName = response.urlDirectory ;
+          var url = urlImageName.replaceAll("/", ".");
+          var x = "/images/img"
+          var html = $("<div>").html(
+                  '<div><img src="' + '/get-image-upload/' + url + "/" + image.name + '" alt="Hình Ảnh"' + 'style="' + 'width: 110px; height: 110px"' + 'onclick="chooseImageFromFileManager(' + "'" + urlImageName + "/" + image.name + "'" + ')"' + '></div>' +
+                  "<div><input type='checkbox' name='path[]' value='" + urlImageName + "/" + image.name + "'><label>" + image.name + "</label></div>"
+          );
+          var imageDiv = $("<div>").append(html).addClass("col-md-3 text-center img-thumbnail").css({"margin-bottom": "17px", "object-fit": "cover", "image-rendering": "auto"});
+          $(".modal-body-image").append(imageDiv)
+        });
+      },
+      error: function (xhr, status, error) {
+        alert("Xóa thư mục/hình ảnh không thành công!")
+        console.error(error);
+      }
+    });
+  }
+
+  function uploadImageFileManager(file) {
+    document.getElementById('uploadImageFileManagerInput').click();
+  }
+
+  function handleImageUpload(event) {
+    const file = event.target.files[0];
+    if (file) {
+      var inputDirectoryValue = document.getElementById("modal-body-url-directory").value;
+      inputDirectoryValue = inputDirectoryValue.toString();
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('inputDirectoryValue', inputDirectoryValue);
+
+      var csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content'); // Lấy CSRF token từ thẻ meta trong mã HTML
+      var csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
+
+      var csrfTokenHeader = {};
+      csrfTokenHeader[csrfHeader] = csrfToken;
+      $.ajax({
+        url: '/upload-image',
+        type: 'POST', // Thay đổi từ 'GET' sang 'POST'
+        data: formData,
+        headers: csrfTokenHeader, // Thêm CSRF token vào header của yêu cầu
+        contentType: false, // Thêm dòng này để đảm bảo FormData không bị xử lý
+        processData: false, // Thêm dòng này để đảm bảo FormData không bị xử lý
+        success: function(response) {
+          alert('Upload ảnh thành công!');
+          var inputElement = document.getElementById("modal-body-url-directory");
+          inputElement.value = response.urlDirectory;
+
+          $(".modal-body-directory").empty();
+          // Hiển thị danh sách thư mục
+          $.each(response.directories, function(index, directory) {
+            var urlDirectoryName = response.urlDirectory + "/" + directory;
+            var listItem = $("<div>").html(
+                    "<a href='#' data-name='" + directory + "' onclick='loadDirectoryContent(this.getAttribute(\"data-name\"))'>" +
+                    "<div><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"60\" height=\"60\" fill=\"currentColor\" class=\"bi bi-folder-fill\" viewBox=\"0 0 16 16\">" +
+                    "<path d=\"M9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.825a2 2 0 0 1-1.991-1.819l-.637-7a2 2 0 0 1 .342-1.31L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3m-8.322.12q.322-.119.684-.12h5.396l-.707-.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981z\"/>" +
+                    "</svg></div></a>" +
+                    "<div><input type='checkbox' name='path[]' value='" + urlDirectoryName + "'><label for='directoryCheckbox" + index + "'>" + directory + "</label></div>"
+            );
+            var directoryDiv = $("<div>").append(listItem).addClass("col-md-3 text-center").css({"margin-bottom": "17px"});
+            $(".modal-body-directory").append(directoryDiv);
+          });
+
+          // Xóa nội dung hiện có của phần tử
+          $(".modal-body-image").empty();
+          // Tạo HTML mới bằng Thymeleaf
+          var html = '';
+          $.each(response.images, function(index, image) {
+            var urlImageName = response.urlDirectory ;
+            var url = urlImageName.replaceAll("/", ".");
+            var x = "/images/img"
+            var html = $("<div>").html(
+                    '<div><img src="' + '/get-image-upload/' + url + "/" + image.name + '" alt="Hình Ảnh"' + 'style="' + 'width: 110px; height: 110px"' + 'onclick="chooseImageFromFileManager(' + "'" + urlImageName + "/" + image.name + "'" + ')"' + '></div>' +
+                    "<div><input type='checkbox' name='path[]' value='" + urlImageName + "/" + image.name + "'><label>" + image.name + "</label></div>"
+            );
+            var imageDiv = $("<div>").append(html).addClass("col-md-3 text-center img-thumbnail").css({"margin-bottom": "17px", "object-fit": "cover", "image-rendering": "auto"});
+            $(".modal-body-image").append(imageDiv)
+          });
+        },
+        error: function(xhr, status, error) {
+          // Xử lý lỗi (nếu có)
+          alert('Đã xảy ra lỗi khi upload ảnh.');
+          console.error(error);
+        }
+      });
+    }
+  }
+
+  function createFolderFileManager(event) {
+      // Lấy giá trị từ input
+      var folderName = document.getElementById("input-create-folder").value;
+      var urlDirectory = document.getElementById("modal-body-url-directory").value;
+      const formData = new FormData();
+      formData.append('folderName', folderName);
+      formData.append('urlDirectory', urlDirectory);
+
+      var csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content'); // Lấy CSRF token từ thẻ meta trong mã HTML
+      var csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
+
+      var csrfTokenHeader = {};
+      csrfTokenHeader[csrfHeader] = csrfToken;
+      // Gửi dữ liệu đến máy chủ bằng AJAX
+      $.ajax({
+        url: '/create-folder',
+        type: 'POST', // Thay đổi từ 'GET' sang 'POST'
+        data: formData,
+        headers: csrfTokenHeader, // Thêm CSRF token vào header của yêu cầu
+        contentType: false, // Thêm dòng này để đảm bảo FormData không bị xử lý
+        processData: false, // Thêm dòng này để đảm bảo FormData không bị xử lý
+        success: function(response) {
+          alert("Tạo thư mục thành công!")
+          var inputElement = document.getElementById("modal-body-url-directory");
+          inputElement.value = response.urlDirectory;
+
+          $(".modal-body-directory").empty();
+          // Hiển thị danh sách thư mục
+          $.each(response.directories, function(index, directory) {
+            var urlDirectoryName = response.urlDirectory + "/" + directory;
+            var listItem = $("<div>").html(
+                    "<a href='#' data-name='" + directory + "' onclick='loadDirectoryContent(this.getAttribute(\"data-name\"))'>" +
+                    "<div><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"60\" height=\"60\" fill=\"currentColor\" class=\"bi bi-folder-fill\" viewBox=\"0 0 16 16\">" +
+                    "<path d=\"M9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.825a2 2 0 0 1-1.991-1.819l-.637-7a2 2 0 0 1 .342-1.31L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3m-8.322.12q.322-.119.684-.12h5.396l-.707-.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981z\"/>" +
+                    "</svg></div></a>" +
+                    "<div><input type='checkbox' name='path[]' value='" + urlDirectoryName + "'><label for='directoryCheckbox" + index + "'>" + directory + "</label></div>"
+            );
+            var directoryDiv = $("<div>").append(listItem).addClass("col-md-3 text-center").css({"margin-bottom": "17px"});
+            $(".modal-body-directory").append(directoryDiv);
+          });
+
+          // Xóa nội dung hiện có của phần tử
+          $(".modal-body-image").empty();
+          // Tạo HTML mới bằng Thymeleaf
+          var html = '';
+          $.each(response.images, function(index, image) {
+            var urlImageName = response.urlDirectory ;
+            var url = urlImageName.replaceAll("/", ".");
+            var x = "/images/img"
+            var html = $("<div>").html(
+                    '<div><img src="' + '/get-image-upload/' + url + "/" + image.name + '" alt="Hình Ảnh"' + 'style="' + 'width: 110px; height: 110px"' + 'onclick="chooseImageFromFileManager(' + "'" + urlImageName + "/" + image.name + "'" + ')"' + '></div>' +
+                    "<div><input type='checkbox' name='path[]' value='" + urlImageName + "/" + image.name + "'><label>" + image.name + "</label></div>"
+            );
+            var imageDiv = $("<div>").append(html).addClass("col-md-3 text-center img-thumbnail").css({"margin-bottom": "17px", "object-fit": "cover", "image-rendering": "auto"});
+            $(".modal-body-image").append(imageDiv)
+          });
+        },
+        error: function(xhr, status, error) {
+          alert('Đã xảy ra lỗi khi tạo thư mục.');
+          console.error(error);
+        }
+      });
+  }
+
+  function chooseImageFromFileManager(urlImage) {
+    // Lấy đối tượng modal
+    var myModal = $('#myModal');
+    // Gọi phương thức hide() để ẩn modal
+    myModal.modal('hide');
+
+    // Lấy đối tượng phần tử HTML cần thay đổi style
+    var element = document.querySelector('.buttons.hide-show-filemanager-button');
+
+    // Thay đổi style của phần tử
+    element.style.display = 'none'; // Hoặc 'inline', 'flex', 'inline-block', tùy thuộc vào yêu cầu của bạn
+
+    var lastIndex = urlImage.lastIndexOf("/");
+    var folderPath = urlImage.substring(0, lastIndex);
+    var folderPathTemp = folderPath.replaceAll("/", ".");
+    var fileImageName = urlImage.substring(lastIndex + 1);
+    console.log("+, Folder:" + folderPath + " | file name: " + fileImageName)
+
+    var avtImage = document.getElementById('avt-image');
+    var inputAvtImage = document.getElementById('input-avt-image');
+
+    avtImage.src = "/get-image/" + folderPathTemp + "/" + fileImageName;
+
+    inputAvtImage.value = urlImage;
+  }
+
+  function deleteImagePresentButtonClick() {
+    // Lấy đối tượng phần tử HTML cần thay đổi style
+    var element = document.querySelector('.buttons.hide-show-filemanager-button');
+
+    // Thay đổi style của phần tử
+    element.style.display = 'none'; // Hoặc 'inline', 'flex', 'inline-block', tùy thuộc vào yêu cầu của bạn
+
+    var avtImage = document.getElementById('avt-image');
+    var inputAvtImage = document.getElementById('input-avt-image');
+
+    var urlImage = "/images/noImage/img.png";
+
+    avtImage.src = urlImage;
+    inputAvtImage.value = urlImage;
+  }
+
+  // Lấy tất cả các phần tử có lớp CSS là "src-image"
+  var imageElements = document.querySelectorAll('.src-image');
+  // Lặp qua từng phần tử và lấy giá trị của thuộc tính "src"
+  for (var i = 0; i < imageElements.length; i++) {
+    var srcValue = imageElements[i].getAttribute("src");
+    var lastIndex = srcValue.lastIndexOf("/");
+    var folderPath = srcValue.substring(0, lastIndex);
+    var folderPathTemp = folderPath.replaceAll("/", ".");
+    var fileImageName = srcValue.substring(lastIndex + 1);
+    imageElements[i].src = "/get-image/" + folderPathTemp + "/" + fileImageName;
+  }
+
+  var imageEditElement = document.querySelector('.img-edit');
+  var srcValue = imageEditElement.getAttribute("src");
+  var lastIndex = srcValue.lastIndexOf("/");
+  var folderPath = srcValue.substring(0, lastIndex);
+  var folderPathTemp = folderPath.replaceAll("/", ".");
+  var fileImageName = srcValue.substring(lastIndex + 1);
+  imageEditElement.src = "/get-image/" + folderPathTemp + "/" + fileImageName;
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var formInputs = document.querySelectorAll('form input');
+
+    formInputs.forEach(function(input) {
+      input.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+          event.preventDefault(); // Ngăn chặn hành động mặc định của nút "Enter"
+        }
+      });
+    });
+  });
+
+
+
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+</body>
+</html>

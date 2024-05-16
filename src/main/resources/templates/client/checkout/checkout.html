@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{client/layout-main/layout-main}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+</head>
+<body>
+
+  <div layout:fragment="content">
+
+    <!-- Breadcrumb Start -->
+    <div class="container-fluid">
+      <div class="row px-xl-5">
+        <div class="col-12">
+          <nav class="breadcrumb bg-light mb-30">
+            <a class="breadcrumb-item text-black" href="#">Trang chủ</a>
+            <span class="breadcrumb-item active">Thanh toán</span>
+          </nav>
+        </div>
+      </div>
+    </div>
+    <!-- Breadcrumb End -->
+
+    <!-- Checkout Start -->
+    <div class="container-fluid">
+      <div class="row px-xl-5">
+        <div class="col-lg-12">
+          <div class="bg-light mb-5 information-address-of-my">
+            <h5 class="color-main">
+              <svg xmlns="http://www.w3.org/2000/svg" width="1.1em" height="1.1em" fill="currentColor" class="bi bi-geo-alt mr-1" viewBox="0 0 16 16">
+                <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"/>
+                <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+              </svg>
+              <span>Thông tin địa chỉ giao hàng</span>
+            </h5>
+            <th:block th:if="${shipping != null}">
+              <div class="p-2">
+                <div class="d-flex">
+                  <th:block th:if="${shipping.getAddressType() == T(com.example.webshopcosmetics.model.AddressType).HOME}">
+                    <div class="custom-address-type">
+                      <span>Nhà Riêng</span>
+                    </div>
+                  </th:block>
+                  <th:block th:if='${shipping.getAddressType() == T(com.example.webshopcosmetics.model.AddressType).OFFICE}'>
+                    <div class="custom-address-type">
+                      <span>Công Ty</span>
+                    </div>
+                  </th:block>
+                  <h6 th:text="${shipping.getFullName()}" class="mr-2 mb-3"></h6>
+                  <h6 class="mr-2">|</h6>
+                  <h6 th:text="${shipping.getPhone()}" class="mr-5"></h6>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <div class="d-flex">
+                    <span th:text="@{${shipping.getAddressSpecific()} + ' - ' + ${shipping.getWard().getWard_name()} + ', ' + ${shipping.getDistrict().getDistrict_name()} + ', ' + ${shipping.getDistrict().getDistrict_name()} + ', ' + ${shipping.getCity().getCity_name()}}" class="mr-2"></span>
+                    <p class="shipping-default mr-5"><span>Mặc định</span></p>
+                  </div>
+                  <div>
+                    <a class="card-a" onclick="getAllAddressOfCustomer()">Thay đổi</a>
+                  </div>
+                </div>
+              </div>
+            </th:block>
+            <th:block th:if="${shipping == null}">
+              <div class="d-flex p-2">
+                <a class="card-a" onclick="addAddressNewOfCustomer()">Thêm mới</a>
+              </div>
+            </th:block>
+          </div>
+        </div>
+      </div>
+
+      <div class="row px-xl-5 mb-4">
+        <div class="col-lg-12">
+          <div class="bg-light pt-4 pr-4 pb-1 pl-4 d-flex justify-content-between">
+            <h5 class="color-main d-inline-block">Hình thức thanh toán</h5>
+            <a class="card-a" onclick="changePayment()">Thay đổi</a>
+          </div>
+          <div class="bg-light pb-4 pl-4">
+            <input type="radio" name="payments" class="d-inline-block mr-2" checked/>
+            <img src="/images/payments/cod-money.jpg" width="50" height="50" class="d-inline-block mr-2 img-thumbnail"/>
+            <span>Thanh toán khi nhận hàng (COD)</span>
+          </div>
+        </div>
+      </div>
+
+      <th:block th:unless="${not #lists.isEmpty(cart)}">
+        <div class="text-center">
+          <div><svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" fill="currentColor" class="bi bi-cart4 mb-3" viewBox="0 0 16 16">
+            <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5M3.14 5l.5 2H5V5zM6 5v2h2V5zm3 0v2h2V5zm3 0v2h1.36l.5-2zm1.11 3H12v2h.61zM11 8H9v2h2zM8 8H6v2h2zM5 8H3.89l.5 2H5zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0m9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0"/>
+          </svg></div>
+          <p>Bạn chưa chọn sản phẩm.</p>
+          <div class="text-center btn-cart">
+            <a href="/cosmetic" type="button" class="btn"><span>Tiếp tục mua sắm</span></a>
+          </div>
+        </div>
+      </th:block>
+      <th:block th:if="${not #lists.isEmpty(cart)}">
+        <div class="px-xl-5"><p th:text="@{'Giỏ hàng (' + ${cart.size()} +' sản phẩm)'}"></p></div>
+        <div class="row px-xl-5">
+          <div class="col-lg-8 table-responsive mb-5">
+            <table class="table table-light table-borderless table-hover text-center mb-2">
+              <thead class="thead-dark">
+              <tr>
+                <th>Id</th>
+                <th>Ảnh</th>
+                <th>Sản phẩm</th>
+                <th>Màu son</th>
+                <th>Giá</th>
+                <th>Số lượng</th>
+                <th>Tổng giá</th>
+              </tr>
+              </thead>
+              <tbody class="align-middle">
+              <tr th:each="item : ${cart}" th:id="@{'row_' + ${item.getProductOptionId()}}">
+                <td class="align-middle" th:id="@{'row_' + ${item.getProductOptionId()}}"><span th:text="${item.getProductOptionId()}"></span></td>
+                <td class="align-middle"><img th:src="${item.getProductOptionImage()}" alt="" width="60" height="60"></td>
+                <td class="align-middle"><span th:text="${#strings.length(item.getProductName()) > 30 ? item.getProductName().substring(0, 30) + '...' : item.getProductName()}"></span></td>
+                <td class="align-middle"><span th:text="${#strings.length(item.getProductOptionName()) > 20 ? item.getProductOptionName().substring(0, 20) + '...' : item.getProductOptionName()}"></span></td>
+                <td class="align-middle product-page-cart" th:data-id="${item.getProductOptionId()}">
+                  <span th:id="@{'price-product-options-' + ${item.getProductOptionId()}}" class="price-product-options-page-cart d-block font-weight-bold" th:text="${item.getProductOptionPrice()}"></span>
+                  <del th:id="@{'discount-product-' + ${item.getProductOptionId()}}" class="discount-product-page-cart d-block" th:data-discount_price="${item.getDiscountPrice()}" th:data-discount_type="${item.getDiscountType()}"></del>
+                </td>
+                <td class="align-middle">
+                  <div class="input-group quantity mx-auto" th:data-id="${item.getProductOptionId()}" style="width: 100px;">
+                    <input type="text" class="form-control form-control-sm bg-secondary border-0 text-center" min="1" th:id-amount_product_option="${item.getProductOptionAmount()}" th:id="@{'quantity_' + ${item.getProductOptionId()}}" th:value="${item.getQuantity()}" readonly>
+                    <input type="hidden" th:id="@{'price-product-option-input-' + ${item.getProductOptionId()}}" th:value="${item.getProductOptionPrice()}" readonly/>
+                    <input type="hidden" th:id="@{'type-discount-product-input-' + ${item.getProductOptionId()}}" th:value="${item.getDiscountType()}" readonly/>
+                    <input type="hidden" th:id="@{'value-discount-product-input-' + ${item.getProductOptionId()}}" th:value="${item.getDiscountPrice()}" readonly/>
+                  </div>
+                </td>
+                <td class="align-middle"><span th:id="@{'price-total-product-options-' + ${item.getProductOptionId()}}"></span></td>
+              </tr>
+              </tbody>
+            </table>
+            <div>
+              <a href="/cosmetic" class="card-a">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-left-fill" viewBox="0 0 16 16">
+                  <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
+                </svg>
+                <span>Tiếp tục mua hàng</span>
+              </a>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Hóa đơn của bạn</span></h5>
+            <div class="bg-light p-30 mb-5">
+              <div class="border-bottom pb-2">
+                <div class="d-flex justify-content-between mb-3">
+                  <h6>Tạm tính:</h6>
+                  <h6 id="total-price-of-the-products"></h6>
+                </div>
+                <div class="d-flex justify-content-between mb-3">
+                  <h6>Giảm giá:</h6>
+                  <h6>-0 ₫</h6>
+                </div>
+                <div class="d-flex justify-content-between mb-3">
+                  <h6>Phí vận chuyển:</h6>
+                  <h6>0 ₫</h6>
+                </div>
+              </div>
+              <div class="pt-2">
+                <div class="d-flex justify-content-between mt-2">
+                  <h5>Tổng giá (Đã VAT):</h5>
+                  <h5 id="total-price-of-the-products-and-discounts"></h5>
+                </div>
+                <button class="btn btn-block btn-primary font-weight-bold my-3 py-3" onclick="proceedToCheckAndPlaceAnOrder()">Đặt hàng</button>
+              </div>
+              <div class="mt-2">
+                <span class="text-center small d-inline-block">
+                  Đã bao gồm VAT, phí đóng gói, phí vận chuyển và các chi phí khác vui lòng xem Chính sách vận chuyển
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </th:block>
+    </div>
+  </div>
+
+</body>
+</html>

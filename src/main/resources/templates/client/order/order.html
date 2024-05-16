@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{client/layout-main/layout-main}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+</head>
+<body>
+
+<div layout:fragment="content">
+
+    <div class="container-fluid">
+        <div class="row px-xl-5">
+            <div class="col-12">
+                <nav class="breadcrumb bg-light mb-30">
+                    <a class="breadcrumb-item text-black" href="#">Trang chủ</a>
+                    <span class="breadcrumb-item active">Đơn hàng của tôi</span>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row px-xl-5">
+            <div class="col-lg-3">
+               <div class="bg-light">
+                   <div>
+                       <h4 th:text="${session.s_customer.fullName()}"></h4>
+                   </div>
+               </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="bg-light">
+                    <div class="nav nav-tabs mb-4 p-2 px-xl-5">
+                        <a class="nav-item nav-link text-black" data-toggle="tab" href="#tab-pane-1">Tất cả</a>
+                        <a class="nav-item nav-link text-black active" data-toggle="tab" href="#tab-pane-2">Chờ thanh toán</a>
+                        <a class="nav-item nav-link text-black" data-toggle="tab" href="#tab-pane-4">Đang giao hàng</a>
+                        <a class="nav-item nav-link text-black" data-toggle="tab" href="#tab-pane-5">Hoàn thành</a>
+                        <a class="nav-item nav-link text-black" data-toggle="tab" href="#tab-pane-6">Đã hủy</a>
+                        <a class="nav-item nav-link text-black" data-toggle="tab" href="#tab-pane-7">Trả hàng/Hoàn tiền</a>
+                    </div>
+                    <hr class="mb-5 line-hr-thick">
+                    <div class="tab-content">
+                        <div class="tab-pane fade" id="tab-pane-1">
+                            <th:block th:if="${listOrderAndOrderDetails != null and not #lists.isEmpty(listOrderAndOrderDetails)}">
+                                <th:block th:with="shippedOrderExists = false">
+                                    <div th:each="orders : ${listOrderAndOrderDetails}">
+                                        <th:block th:if="${orders.getOrderDetails() != null and not #lists.isEmpty(orders.getOrderDetails())}">
+                                            <div check-all-order="true"></div>
+                                            <div th:each="orderDetail : ${orders.getOrderDetails()}">
+                                                <div class="d-flex mb-3 px-xl-5">
+                                                    <img class="src-product-options-img img-thumbnail d-inline-block mr-3" th:src="${orderDetail.getProductOption().getImage()}" width="90" height="90">
+                                                    <div>
+                                                        <span th:text="${#strings.abbreviate(orderDetail.getProductOption().getProduct().getName(), 45)}" class="mb-2 d-inline-block color-main"></span>
+                                                        <p th:text="@{'Màu: ' + ${#strings.abbreviate(orderDetail.getProductOption().getName(), 30)}}" class="mb-2"></p>
+                                                        <p th:text="@{'x' + ${orderDetail.getQuantity()}}" class="mb-1"></p>
+                                                    </div>
+                                                </div>
+                                                <div class="mt-2 mb-3 px-xl-5">
+                                                    <hr class="line-hr">
+                                                </div>
+                                            </div>
+                                            <th:block th:if="${orders.getStatus() == T(com.example.webshopcosmetics.model.OrderStatus).CANCELLED}">
+                                                <div class="d-flex justify-content-between px-xl-5">
+                                                    <p class="text-black" th:text="${orders.getStatus().getDisplayName()}"></p>
+                                                    <div>
+                                                        <div class="text-center btn-cancel-order">
+                                                            <a href="#" type="button" class="btn"><span>Xem Chi Tiết Hủy Đơn</span></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </th:block>
+                                            <th:block th:unless="${orders.getStatus() == T(com.example.webshopcosmetics.model.OrderStatus).CANCELLED}">
+                                                <div class="d-flex justify-content-between px-xl-5">
+                                                    <p class="color-main" th:text="${orders.getStatus().getDisplayName()}"></p>
+                                                    <div>
+                                                        <div class="text-center btn-cancel-order">
+                                                            <a type="button" class="btn" th:data-id="${orders.getId()}" onclick="openTheTableToSelectTheReasonForCancelingTheOrder(this.getAttribute('data-id'))"><span>Hủy đơn hàng</span></a>
+                                                        </div>
+                                                        <div class="text-center btn-order">
+                                                            <a type="button" class="btn text-white"><span>Xem chi tiết</span></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </th:block>
+                                        </th:block>
+                                        <hr class="mt-5 mb-5 line-hr-thick">
+                                    </div>
+                                    <div class="text-center my-order-empty my-order-all">
+                                        <img src="/images/order/hinh-anh-quyen-xo.jpg" width="150" height="150" class="d-block mx-auto">
+                                        <span class="d-block">Chưa có đơn hàng</span>
+                                    </div>
+                                </th:block>
+                            </th:block>
+                            <th:block th:unless="${listOrderAndOrderDetails != null and not #lists.isEmpty(listOrderAndOrderDetails)}">
+                                <div class="text-center my-order-empty">
+                                    <img src="/images/order/hinh-anh-quyen-xo.jpg" width="150" height="150" class="d-block mx-auto">
+                                    <span class="d-block">Chưa có đơn hàng</span>
+                                </div>
+                            </th:block>
+                        </div>
+                        <div class="tab-pane fade show active" id="tab-pane-2">
+                            <th:block th:if="${listOrderAndOrderDetails != null and not #lists.isEmpty(listOrderAndOrderDetails)}">
+                                <div th:each="orders : ${listOrderAndOrderDetails}">
+                                    <th:block th:if="${orders.getStatus() == T(com.example.webshopcosmetics.model.OrderStatus).PROCESSING}">
+                                        <div check-processing-order="true"></div>
+                                        <div th:each="orderDetail : ${orders.getOrderDetails()}">
+                                            <div class="d-flex mb-3 px-xl-5">
+                                                <img class="src-product-options-img img-thumbnail d-inline-block mr-3" th:src="${orderDetail.getProductOption().getImage()}" width="90" height="90">
+                                                <div>
+                                                    <span th:text="${#strings.abbreviate(orderDetail.getProductOption().getProduct().getName(), 38)}" class="mb-2 d-inline-block color-main"></span>
+                                                    <p th:text="@{'Màu: ' + ${#strings.abbreviate(orderDetail.getProductOption().getName(), 30)}}" class="mb-2"></p>
+                                                    <p th:text="@{'x' + ${orderDetail.getQuantity()}}" class="mb-1"></p>
+                                                </div>
+                                            </div>
+                                            <div class="mt-2 mb-3 px-xl-5">
+                                                <hr class="line-hr">
+                                            </div>
+                                        </div>
+                                        <div class="d-flex justify-content-between px-xl-5">
+                                            <p class="color-main" th:text="${orders.getStatus().getDisplayName()}"></p>
+                                            <div>
+                                                <div class="text-center btn-cancel-order">
+                                                    <a href="#" type="button" class="btn" onclick="openTheTableToSelectTheReasonForCancelingTheOrder()"><span>Hủy đơn hàng</span></a>
+                                                </div>
+                                                <div class="text-center btn-order">
+                                                    <a href="#" type="button" class="btn text-white"><span>Xem chi tiết</span></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr class="mt-5 mb-5 line-hr-thick">
+                                    </th:block>
+                                </div>
+                                <div class="text-center my-order-empty my-order-processing">
+                                    <img src="/images/order/hinh-anh-quyen-xo.jpg" width="150" height="150" class="d-block mx-auto">
+                                    <span class="d-block">Chưa có đơn hàng</span>
+                                </div>
+                            </th:block>
+                            <th:block th:unless="${listOrderAndOrderDetails != null and not #lists.isEmpty(listOrderAndOrderDetails)}">
+                                <div class="text-center my-order-empty">
+                                    <img src="/images/order/hinh-anh-quyen-xo.jpg" width="150" height="150" class="d-block mx-auto">
+                                    <span class="d-block">Chưa có đơn hàng</span>
+                                </div>
+                            </th:block>
+                        </div>
+                        <div class="tab-pane fade" id="tab-pane-4">
+                            <th:block th:if="${listOrderAndOrderDetails != null and not #lists.isEmpty(listOrderAndOrderDetails)}">
+                                <div th:each="orders : ${listOrderAndOrderDetails}">
+                                    <th:block th:if="${orders.getStatus() == T(com.example.webshopcosmetics.model.OrderStatus).SHIPPED}">
+                                        <div check-shipped-order="true"></div>
+                                        <div th:each="orderDetail : ${orders.getOrderDetails()}">
+                                            <div class="d-flex mb-3 px-xl-5">
+                                                <img class="src-product-options-img img-thumbnail d-inline-block mr-3" th:src="${orderDetail.getProductOption().getImage()}" width="90" height="90">
+                                                <div>
+                                                    <span th:text="${#strings.abbreviate(orderDetail.getProductOption().getProduct().getName(), 38)}" class="mb-2 d-inline-block color-main"></span>
+                                                    <p th:text="@{'Màu: ' + ${#strings.abbreviate(orderDetail.getProductOption().getName(), 30)}}" class="mb-2"></p>
+                                                    <p th:text="@{'x' + ${orderDetail.getQuantity()}}" class="mb-1"></p>
+                                                </div>
+                                            </div>
+                                            <div class="mt-2 mb-3 px-xl-5">
+                                                <hr class="line-hr">
+                                            </div>
+                                        </div>
+                                        <div class="d-flex justify-content-between px-xl-5">
+                                            <p class="color-main" th:text="${orders.getStatus().getDisplayName()}"></p>
+                                            <div>
+                                                <div class="text-center btn-cancel-order">
+                                                    <a href="#" type="button" class="btn" onclick="openTheTableToSelectTheReasonForCancelingTheOrder()"><span>Hủy đơn hàng</span></a>
+                                                </div>
+                                                <div class="text-center btn-order">
+                                                    <a href="#" type="button" class="btn text-white"><span>Xem chi tiết</span></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr class="mt-5 mb-5 line-hr-thick">
+                                    </th:block>
+                                </div>
+                                <div class="text-center my-order-empty my-order-shipped">
+                                    <img src="/images/order/hinh-anh-quyen-xo.jpg" width="150" height="150" class="d-block mx-auto">
+                                    <span class="d-block">Chưa có đơn hàng</span>
+                                </div>
+                            </th:block>
+                        </div>
+                        <div class="tab-pane fade" id="tab-pane-5">
+                            <th:block th:if="${listOrderAndOrderDetails != null and not #lists.isEmpty(listOrderAndOrderDetails)}">
+                                <div th:each="orders : ${listOrderAndOrderDetails}">
+                                    <th:block th:if="${orders.getStatus() == T(com.example.webshopcosmetics.model.OrderStatus).DELIVERED}">
+                                        <div check-delivered-order="true"></div>
+                                        <div th:each="orderDetail : ${orders.getOrderDetails()}">
+                                            <div class="d-flex mb-3 px-xl-5">
+                                                <img class="src-product-options-img img-thumbnail d-inline-block mr-3" th:src="${orderDetail.getProductOption().getImage()}" width="90" height="90">
+                                                <div>
+                                                    <span th:text="${#strings.abbreviate(orderDetail.getProductOption().getProduct().getName(), 38)}" class="mb-2 d-inline-block color-main"></span>
+                                                    <p th:text="@{'Màu: ' + ${#strings.abbreviate(orderDetail.getProductOption().getName(), 30)}}" class="mb-2"></p>
+                                                    <p th:text="@{'x' + ${orderDetail.getQuantity()}}" class="mb-1"></p>
+                                                </div>
+                                            </div>
+                                            <div class="mt-2 mb-3 px-xl-5">
+                                                <hr class="line-hr">
+                                            </div>
+                                        </div>
+                                        <div class="d-flex justify-content-between px-xl-5">
+                                            <p class="color-main" th:text="${orders.getStatus().getDisplayName()}"></p>
+                                            <div>
+                                                <div class="text-center btn-cancel-order">
+                                                    <a href="#" type="button" class="btn" onclick="openTheTableToSelectTheReasonForCancelingTheOrder()"><span>Hủy đơn hàng</span></a>
+                                                </div>
+                                                <div class="text-center btn-order">
+                                                    <a href="#" type="button" class="btn text-white"><span>Xem chi tiết</span></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr class="mt-5 mb-5 line-hr-thick">
+                                    </th:block>
+                                </div>
+                                <div class="text-center my-order-empty my-order-delivered">
+                                    <img src="/images/order/hinh-anh-quyen-xo.jpg" width="150" height="150" class="d-block mx-auto">
+                                    <span class="d-block">Chưa có đơn hàng</span>
+                                </div>
+                            </th:block>
+                            <th:block th:unless="${listOrderAndOrderDetails != null and not #lists.isEmpty(listOrderAndOrderDetails)}">
+                                <div class="text-center my-order-empty">
+                                    <img src="/images/order/hinh-anh-quyen-xo.jpg" width="150" height="150" class="d-block mx-auto">
+                                    <span class="d-block">Chưa có đơn hàng</span>
+                                </div>
+                            </th:block>
+                        </div>
+                        <div class="tab-pane fade" id="tab-pane-6">
+                            <th:block th:if="${listOrderAndOrderDetails != null and not #lists.isEmpty(listOrderAndOrderDetails)}">
+                                <div th:each="orders : ${listOrderAndOrderDetails}">
+                                    <th:block th:if="${orders.getStatus() == T(com.example.webshopcosmetics.model.OrderStatus).CANCELLED}">
+                                        <div check-cancelled-order="true"></div>
+                                        <div th:each="orderDetail : ${orders.getOrderDetails()}">
+                                            <div class="d-flex mb-3 px-xl-5">
+                                                <img class="src-product-options-img img-thumbnail d-inline-block mr-3" th:src="${orderDetail.getProductOption().getImage()}" width="90" height="90">
+                                                <div>
+                                                    <span th:text="${#strings.abbreviate(orderDetail.getProductOption().getProduct().getName(), 38)}" class="mb-2 d-inline-block color-main"></span>
+                                                    <p th:text="@{'Màu: ' + ${#strings.abbreviate(orderDetail.getProductOption().getName(), 30)}}" class="mb-2"></p>
+                                                    <p th:text="@{'x' + ${orderDetail.getQuantity()}}" class="mb-1"></p>
+                                                </div>
+                                            </div>
+                                            <div class="mt-2 mb-3 px-xl-5">
+                                                <hr class="line-hr">
+                                            </div>
+                                        </div>
+                                        <div class="d-flex justify-content-between px-xl-5">
+                                            <p class="color-main" th:text="${orders.getStatus().getDisplayName()}"></p>
+                                            <div>
+                                                <div class="text-center btn-cancel-order">
+                                                    <a href="#" type="button" class="btn" onclick="openTheTableToSelectTheReasonForCancelingTheOrder()"><span>Hủy đơn hàng</span></a>
+                                                </div>
+                                                <div class="text-center btn-order">
+                                                    <a href="#" type="button" class="btn text-white"><span>Xem chi tiết</span></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr class="mt-5 mb-5 line-hr-thick">
+                                    </th:block>
+                                </div>
+                                <div class="text-center my-order-empty my-order-cancelled">
+                                    <img src="/images/order/hinh-anh-quyen-xo.jpg" width="150" height="150" class="d-block mx-auto">
+                                    <span class="d-block">Chưa có đơn hàng</span>
+                                </div>
+                            </th:block>
+                            <th:block th:unless="${listOrderAndOrderDetails != null and not #lists.isEmpty(listOrderAndOrderDetails)}">
+                                <div class="text-center my-order-empty">
+                                    <img src="/images/order/hinh-anh-quyen-xo.jpg" width="150" height="150" class="d-block mx-auto">
+                                    <span class="d-block">Chưa có đơn hàng</span>
+                                </div>
+                            </th:block>
+                        </div>
+                        <div class="tab-pane fade" id="tab-pane-7">
+                            <div class="text-center my-order-empty">
+                                <img src="/images/order/hinh-anh-quyen-xo.jpg" width="150" height="150" class="d-block mx-auto">
+                                <span class="d-block">Chưa có đơn hàng</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

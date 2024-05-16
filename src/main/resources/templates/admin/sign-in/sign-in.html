@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <title>Portal</title>
+
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="Portal - Bootstrap 5 Admin Dashboard Template For Developers">
+    <meta name="author" content="Xiaoying Riley at 3rd Wave Media">
+    <link rel="shortcut icon" href="favicon.ico">
+
+    <!-- FontAwesome JS-->
+    <script defer th:src="@{/js/all.min.js}"></script>
+
+    <!-- App CSS -->
+    <link id="theme-style" rel="stylesheet" th:href="@{/css/portal.css}">
+    <link rel="stylesheet" th:href="@{/css/admin-style.css}">
+</head>
+
+<body class="app app-login p-0">
+<div class="row g-0 app-auth-wrapper">
+    <div class="col-12 col-md-7 col-lg-6 auth-main-col text-center p-5">
+        <div class="d-flex flex-column align-content-end">
+            <div class="app-auth-body mx-auto">
+                <div class="app-auth-branding mb-2"><img width="100px" height="100px" class="logo-icon me-2 rounded-circle" th:src="@{/images/logo/logosignin1.jpg}"></div>
+                <h2 class="auth-heading text-center mb-5">Đăng nhập vào Portal</h2>
+                <div class="auth-form-container text-start">
+                    <form th:action="@{j_spring_security_check}" method="POST" class="auth-form login-form" >
+                        <div class="email mb-3">
+                            <label class="sr-only" for="signin-user">Tên đăng nhập</label>
+                            <input id="signin-user" name="username" type="text" class="form-control signin-email" placeholder="Nhập tên đăng nhập" required="required">
+                        </div>
+                        <div class="password mb-3">
+                            <label class="sr-only" for="signin-password">Mật khẩu</label>
+                            <div class="custom-input-password-eye">
+                                <input id="signin-password" name="password" type="password" class="form-control signin-password" placeholder="Nhập mật khẩu" required="required">
+                                <i class="fa-regular fa-eye-slash" onclick="eyeTransformation('password-eye')" id="password-eye"></i>
+                            </div>
+                        </div>
+                            <div class="extra mt-3 row justify-content-between">
+                                <div class="col-6">
+                                    <div class="form-check">
+                                        <input class="form-check-input" name="remember-me" type="checkbox" id="remember-me">
+                                        <label class="form-check-label" for="remember-me">
+                                            Lưu tài khoản
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="forgot-password text-end">
+                                        <a href="reset-password.html">Quên mật khẩu?</a>
+                                    </div>
+                                </div>
+                            </div>
+                        <div th:if="${param.error}">
+                            <p class="text-danger">Tên đăng nhập hoặc mật khẩu không chính xác. Vui lòng thử lại.</p>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn app-btn-primary w-100 theme-btn mx-auto">Đăng Nhập</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <footer class="app-auth-footer">
+                <div class="container text-center py-3">
+                    <small class="copyright">Được thiết kế by Thắng <i class="fas fa-heart" style="color: #fb866a;"></i> Dung</small>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <div class="col-12 col-md-5 col-lg-6 h-100 auth-background-col">
+        <div class="auth-background-holder"></div>
+        <div class="auth-background-mask"></div>
+    </div>
+</div>
+
+<script th:src="@{/js/script-style.js}"></script>
+
+</body>
+</html>
+

@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/layout-main/layout-main}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+</head>
+<body>
+<div layout:fragment="content">
+    <h2>HỆ THỐNG ĐANG NÂNG CẤP ...</h2>
+<!--    <div class="row g-3 mb-4 align-items-center justify-content-between">-->
+<!--        <div class="col-auto">-->
+<!--            <h1 class="app-page-title mb-0">DANH SÁCH PHÍ VẬN CHUYỂN</h1>-->
+<!--        </div>-->
+<!--        <div class="col-auto">-->
+<!--            <div class="page-utilities">-->
+<!--                <div class="row g-2 justify-content-start justify-content-md-end align-items-center">-->
+<!--                    <div class="col-auto">-->
+<!--                        <a class="btn app-btn-secondary" href="/admin/feeship/add-feeship">Thêm mới</a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div th:if="${errorMessage != null}" class="alert alert-danger" role="alert">-->
+<!--        <span th:text="${errorMessage}"></span>-->
+<!--    </div>-->
+<!--    <div class="tab-content">-->
+<!--        <div class="tab-pane fade show active">-->
+<!--            <div class="app-card app-card-orders-table shadow-sm mb-5">-->
+<!--                <div class="app-card-body">-->
+<!--                    <div class="table-responsive">-->
+<!--                        <table class="table app-table-hover mb-0 text-left">-->
+<!--                            <thead>-->
+<!--                            <tr>-->
+<!--                                <th class="cell">Id</th>-->
+<!--                                <th class="cell">Thành Phố</th>-->
+<!--                                <th class="cell">Quận, Huyện</th>-->
+<!--                                <th class="cell">Xã Phường</th>-->
+<!--                                <th class="cell">Trạng Thái</th>-->
+<!--                                <th class="cell">Sửa</th>-->
+<!--                                <th class="cell">Xóa</th>-->
+<!--                            </tr>-->
+<!--                            </thead>-->
+<!--                            <tbody>-->
+<!--&lt;!&ndash;                            <tr th:each="category : ${categories}">&ndash;&gt;-->
+<!--&lt;!&ndash;                                <td th:text="${category.getCategory_id()}"></td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <td><img height="50px" width="50px" th:src="@{'/get-image-category/'+${category.getImage()}}"></td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <td><span th:text="${category.getName()}"></span></td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <td><b th:style="${category.isFeatured() == true ? 'color: #15a362' : ''}" th:text="${category.isFeatured() == true ? 'Nổi bật' : 'Không nổi bật'}"></b></td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <td><b th:style="${category.isStatus() == true ? 'color: #15a362' : ''}" th:text="${category.isStatus() == true ? 'Cho phép' : 'Không cho phép'}"></b></td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <td><a th:href="@{'/category/edit-category?id=' + ${category.getCategory_id()}}"><i class="far fa-edit edit-icon"></i></a></td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <td><a th:data-name="${category.getCategory_id()}" th:onclick="confirmCategoryDelete(this.getAttribute('data-name'))"><i class="fa-regular fa-trash-can delete-icon"></i></a></td>&ndash;&gt;-->
+<!--&lt;!&ndash;                            </tr>&ndash;&gt;-->
+<!--                            </tbody>-->
+<!--                        </table>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+</div>
+</body>
+</html>

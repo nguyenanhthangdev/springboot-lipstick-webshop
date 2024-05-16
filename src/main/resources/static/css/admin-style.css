@@ -1,0 +1,204 @@
+.edit-icon, .delete-icon{
+    font-size: 25px;
+    color: #5d6778;
+}
+.edit-icon:hover {
+    color: #15a362;
+}
+.delete-icon:hover {
+    color: red;
+}
+
+/*Thay đổi phần text của lable của input của form edit, add của admin*/
+.custom-input-form {
+    border-color: #b2b2b2;
+}
+.custom-input-form:focus {
+    border-color: #15a362;
+}
+.custom-label-input-form {
+    margin-bottom: 15px;
+}
+
+/*Tạo hình ngôi sao màu đổ để thông báo trường này bắt buộc phải nhập*/
+.required-star {
+    color: red;
+    font-size: 18px;
+}
+
+/*custom con mắt ở input password*/
+.custom-input-password-eye {
+    position: relative;
+    z-index: 1;
+}
+.custom-input-password-eye #password-eye-old, .custom-input-password-eye #password-eye-new,
+.custom-input-password-eye #comfirm-password-eye-new, .custom-input-password-eye #password-eye{
+    position: absolute;
+    top: 12px;
+    right: 19px;
+    z-index: 2;
+    font-size: 13px;
+}
+
+/* Custom CSS for dropdown button */
+.custom-dropdown-btn {
+ background-color: #fff; /* Màu nền */
+ color: #5D6778; /* Màu chữ */
+ width: 100%; /* Độ rộng */
+ border: 1px solid #b2b2b2; /* Viền */
+ border-radius: 5px; /* Bo góc */
+ padding: 10px; /* Khoảng cách bên trong */
+ text-align: left; /* Căn lề văn bản sang trái */
+ font-weight: normal;
+}
+
+/* Custom CSS for dropdown menu */
+.custom-dropdown-menu {
+    width: 100%; /* Độ rộng */
+    border: 1px solid #b2b2b2; /* Viền */
+    color: #5D6778; /* Màu chữ */
+    border-top: none; /* Loại bỏ viền trên cùng */
+    border-radius: 0 0 5px 5px; /* Bo góc */
+    padding: 5px 10px;
+    font-size: 14px;
+}
+
+/*Taọ dấu hỏi chấm để người dung di chuột vô để xem cái title*/
+label.control-label span:after {
+    font-family: FontAwesome;
+    color: #15a362;
+    content: "\f059";
+    margin-left: 4px;
+    font-size: 12px;
+}
+
+.form-checkbox-input:checked {
+    background-color: #15a362;
+    border-color: #15a362;
+}
+
+/* Màu chữ của các tab khi active */
+.nav-tabs-form .nav-link.active {
+    color: #15a362; /* Thay đổi màu chữ khi tab đang active */
+}
+
+/* Màu chữ của các tab khi không active */
+.nav-tabs-form .nav-link:not(.active) {
+    color: black; /* Màu chữ mặc định cho các tab không active */
+}
+
+.nav-tab-content {
+    background-color: white;
+}
+
+.star-requied {
+    color: red;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.error-message {
+    position: relative;
+    padding: 0.6rem;
+    border: 1px solid #dc3545;
+    border-radius: 0.25rem;
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.error-text {
+    margin-right: 0.5rem;
+}
+
+.close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0.5rem 1rem;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.ck-content {
+    height: 300px;
+}
+
+/*Phân trang*/
+.page-link {
+    color: #15a362; /* Đặt màu chữ cho các nút trang */
+}
+
+.page-item.active .page-link {
+    background-color: #15a362; /* Màu nền của ô trang khi active */
+    border-color: #15a362; /* Màu viền của ô trang khi active */
+    color: white; /* Màu chữ của ô trang khi active */
+}
+
+#rowAdder {
+    font-weight: normal;
+    padding: 0px 8px;
+    font-size: .875rem;
+    border: none;
+}
+
+table.custom-table {
+    border-collapse: collapse;
+    border: 1px solid #b2b2b2;
+    width: 100%;
+}
+table.custom-table td, table.custom-table th {
+    border: 1px solid #b2b2b2;
+}
+
+#avt-image, .avt-gallery, .avt-gallery-edit, .avt-product-options {
+    width: 110px; height: 110px;
+}
+
+.btn-primary.btn-filemanager, .btn-danger.btn-filemanager {
+    height: 35px; width: 35px; display: inline-block; position: relative; margin-top: 4px;
+}
+
+.btn-primary.btn-filemanager span, .btn-danger.btn-filemanager span{
+    display: inline-block; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+}
+
+.not-allowed {outline: none; cursor: not-allowed; background-color: #e1e1e1;}
+.not-allowed:focus, .not-allowed:active {outline: none; background-color: #e1e1e1; border-color: #e1e1e1;}
+
+.status-order { padding: 3px 11px; color: white; display: inline-block; font-size: 17px; border-radius: 5px;}
+.cancelled { background-color: #dc3545;}
+.delivered { background-color: #28a745; }
+.shipped { background-color: #b3d7ff; }
+.processing {background-color: #fcd203; }
+
+.custom-btn-order { padding: 8px 16px; color: white; display: inline-block; border-radius: 5px; cursor: pointer; }
+.custom-btn-order svg { width: 21px; height: 21px; margin-right: 3px; margin-top: -3px; display: inline-block;}
+
+.custom-btn-order.cancelled:hover { background-color: #c51325; }
+.custom-btn-order.delivered:hover { background-color: #15a636; }
+.custom-btn-order.shipped:hover { background-color: #86bdfb; }
+.custom-btn-order.processing:hover { background-color: #e4be01; }
+
+.modal-reason-for-cancellation {display: none;position: fixed;z-index: 1;padding-top: 100px;left: 0;top: 0;width: 100%;height: 100%;overflow: auto; background-color: rgb(0,0,0);background-color: rgba(0,0,0,0.4);}
+.modal-reason-for-cancellation .modal-content {position: relative;background-color: #fefefe;margin: auto;padding: 0;border: 1px solid #888;width: 50%;box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);-webkit-animation-name: animatetop;-webkit-animation-duration: 0.4s;animation-name: animatetop-adrress1;animation-duration: 0.4s}
+@-webkit-keyframes animatetop-adrress1 { from {top:-300px; opacity:0} to {top:0; opacity:1} }
+@keyframes animatetop-adrress1 { from {top:-300px; opacity:0} to {top:0; opacity:1} }
+.modal-reason-for-cancellation .close {color: white;float: right;font-size: 28px;font-weight: bold;}
+.modal-reason-for-cancellation .close:hover
+.modal-reason-for-cancellation .close:focus {color: #000;text-decoration: none;cursor: pointer;}
+.modal-reason-for-cancellation .modal-header {padding: 2px 16px;background-color: #ffffff;color: black;}
+.modal-reason-for-cancellation .modal-body {padding: 16px 16px 18px 16px;}
+.modal-reason-for-cancellation .modal-footer {padding: 16px;background-color: #ffffff;color: black;}
+.modal-reason-for-cancellation button {background-color: #FF9689; border-radius: 5px; border-color: #FF9689; color: white;}
+.modal-reason-for-cancellation button:hover {background-color: #ffb1a8; border-radius: 5px; border-color: #ffb1a8; color: white;}
+.modal-reason-for-cancellation input { display: inline-block; margin-right: 7px; }
+
+.notification { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #565656; color: white; padding: 20px; border: 1px solid #565656; border-radius: 5px; opacity: 0.9; z-index: 9999; }
+
+.notification .notification-svg { margin-bottom: 15px; }
+.notification .notification-svg svg { width: 40px; height: 40px; }
+
+.my-order-empty { height: 300px; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 0px 10px 30px 10px;}
+.my-order-empty img { max-width: 100%; max-height: 100%;}
+.my-order-empty span { margin-top: 10px; }

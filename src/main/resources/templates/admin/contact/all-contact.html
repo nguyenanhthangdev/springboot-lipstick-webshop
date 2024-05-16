@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/layout-main/layout-main}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="row g-3 mb-4 align-items-center justify-content-between">
+        <div class="col-auto">
+            <h1 class="app-page-title mb-0">Ý KIẾN TỪ KHÁCH HÀNG</h1>
+        </div>
+    </div>
+    <th:block th:if="${contacts != null and !#lists.isEmpty(contacts)}">
+        <div class="tab-content">
+            <div class="tab-pane fade show active">
+                <div class="app-card app-card-orders-table shadow-sm mb-5">
+                    <div class="app-card-body">
+                        <div class="table-responsive">
+                            <table class="table app-table-hover mb-0 text-left">
+                                <thead>
+                                <tr>
+                                    <th class="cell">Người Gửi</th>
+                                    <th class="cell">Tiêu Đề</th>
+                                    <th class="cell">Ngày Gửi</th>
+                                    <th class="cell text-center">Xem chi tiết</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="contact : ${contacts}">
+                                    <td th:text="${contact.getFullName()}"></td>
+                                    <td th:text="${contact.getContactTitle()}"></td>
+                                    <td class="create_at" th:text="${contact.getCreatedAt()}"></td>
+                                    <td class="text-center"><a th:href="@{'/admin/contact/contact-details?id=' + ${contact.getContact_id()}}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="bi bi-eye edit-icon" viewBox="0 0 16 16">
+                                            <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"/>
+                                            <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
+                                        </svg>
+                                    </a></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </th:block>
+    <th:block th:unless="${contacts != null and !#lists.isEmpty(contacts)}">
+        <div class="text-center my-order-empty">
+            <img src="/images/order/hinh-anh-quyen-xo.jpg" width="150" height="150" class="d-block mx-auto">
+            <span class="d-block">Không tìm thấy phản hồi nào</span>
+        </div>
+    </th:block>
+</div>
+</body>
+</html>

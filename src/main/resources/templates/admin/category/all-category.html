@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/layout-main/layout-main}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="row g-3 mb-4 align-items-center justify-content-between">
+        <div class="col-auto">
+            <h1 class="app-page-title mb-0">DANH SÁCH DANH MỤC SẢN PHẨM</h1>
+        </div>
+        <div class="col-auto">
+            <div class="page-utilities">
+                <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
+                    <div class="col-auto">
+                        <a class="btn app-btn-secondary" href="/admin/category/add-category">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
+                            </svg>
+                            Thêm mới</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:if="${successMessage != null}" class="alert alert-success" role="alert">
+        <span th:text="${successMessage}"></span>
+        <button type="button" class="close" aria-label="Close" onclick="hideErrorMessage(this)">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div th:if="${errorMessage != null}" class="alert alert-danger" role="alert">
+        <span th:text="${errorMessage}"></span>
+        <button type="button" class="close" aria-label="Close" onclick="hideErrorMessage(this)">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="tab-content">
+        <div class="tab-pane fade show active">
+            <div class="app-card app-card-orders-table shadow-sm mb-5">
+                <form action="#" th:action="@{/admin/category}" method="GET">
+                    <div class="app-card-body" style="padding: 15px;">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="custom-label-input-form">
+                                    <label for="keyword" class="col-form-label col-form-label-sm text-md-end">Tên nhà sản xuất</label>
+                                    <div>
+                                        <input type="text" th:value="${keyword}" name="keyword" class="form-control form-control-sm custom-input-form" id="keyword">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="custom-label-input-form">
+                                    <label for="status" class="col-form-label col-form-label-sm text-md-end">Trạng thái</label>
+                                    <div>
+                                        <select class="form-control form-control-sm custom-input-form" name="status" id="status">
+                                            <option th:value="2" th:selected="${status == 2}">Tất cả</option>
+                                            <option th:value="1" th:selected="${status == 1}">Hoạt động</option>
+                                            <option th:value="0" th:selected="${status == 0}">Không hoạt động</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="custom-label-input-form">
+                                    <label for="size" class="col-form-label col-form-label-sm text-md-end">Kích thước trang</label>
+                                    <div>
+                                        <select class="form-control form-control-sm custom-input-form" name="size" id="size">
+                                            <option value="10" th:selected="${size == 10}">10</option>
+                                            <option value="15" th:selected="${size == 15}">15</option>
+                                            <option value="20" th:selected="${size == 20}">20</option>
+                                            <option value="25" th:selected="${size == 25}">25</option>
+                                            <option value="50" th:selected="${size == 50}">50</option>
+                                            <option value="100" th:selected="${size == 100}">100</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="custom-label-input-form">
+                                    <button type="submit" class="btn btn-primary text-white">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                                        </svg>
+                                        Tìm kiếm</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <th:block th:if="${categories != null and #lists.size(categories.content) > 0}">
+        <div class="tab-content">
+            <div class="tab-pane fade show active">
+                <div class="app-card app-card-orders-table shadow-sm mb-5">
+                    <div class="app-card-body">
+                        <div class="table-responsive">
+                            <table class="table app-table-hover mb-0 text-left">
+                                <thead>
+                                <tr>
+                                    <th class="cell">Id</th>
+                                    <th class="cell">Ảnh</th>
+                                    <th class="cell">Tên Danh Mục</th>
+                                    <th class="cell">Tính Nổi Bật</th>
+                                    <th class="cell">Trạng Thái</th>
+                                    <th class="cell">Ngày Tạo</th>
+                                    <th class="cell">Sửa</th>
+                                    <th class="cell">Xóa</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="category : ${categories}">
+                                        <td th:text="${category.getCategory_id()}"></td>
+                                        <td><img class="src-image" height="60" width="60" th:src="${category.getImage()}"></td>
+                                        <td><span th:text="${category.getName()}"></span></td>
+                                        <td><b th:style="${category.isFeatured() == true ? 'color: #15a362' : ''}" th:text="${category.isFeatured() == true ? 'Nổi bật' : 'Không nổi bật'}"></b></td>
+                                        <td><b th:style="${category.isStatus() == true ? 'color: #15a362' : ''}" th:text="${category.isStatus() == true ? 'Cho phép' : 'Không cho phép'}"></b></td>
+                                        <td class="create_at" th:text="${category.getCreatedAt()}"></td>
+                                        <td><a th:href="@{'/admin/category/edit-category?id=' + ${category.getCategory_id()}}">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="bi bi-pencil-square edit-icon" viewBox="0 0 16 16">
+                                                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                                <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+                                            </svg>
+                                        </a></td>
+                                        <td><a th:data-name="${category.getCategory_id()}" th:onclick="confirmCategoryDelete(this.getAttribute('data-name'))">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="bi bi-trash3 delete-icon" viewBox="0 0 16 16">
+                                                <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
+                                            </svg>
+                                        </a></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ////////////// Phân trang \\\\\\\\\\\\\\ -->
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item" th:classappend="${pageNo == 1 ? 'disabled' : ''}">
+                    <a class="page-link" th:href="@{${keyword != null && keyword != '' ? '?keyword=' + keyword + '&' : '?'} + 'pageNo=' + ${pageNo - 1} + '&size=' + ${size} + '&status=' + ${status}}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li th:each="i:${#numbers.sequence(1,totalPage)}" th:classappend="${pageNo == i ? 'active' : ''}" class="page-item">
+                    <a th:text="${i}" th:href="@{${keyword != null && keyword != '' ? '?keyword=' + keyword + '&' : '?'} + 'pageNo=' + ${i} + '&size=' + ${size}+ '&status=' + ${status}}" class="page-link" href="#"></a>
+                </li>
+                <li class="page-item" th:classappend="${pageNo == totalPage ? 'disabled' : ''}">
+                    <a class="page-link" th:href="@{${keyword != null && keyword != '' ? '?keyword=' + keyword + '&' : '?'} + 'pageNo=' + ${pageNo + 1} + '&size=' + ${size} + '&status=' + ${status}}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <!-- ////////////// Kết thúc phân trang \\\\\\\\\\\\\\ -->
+    </th:block>
+
+    <th:block th:if="${categories == null or #lists.size(categories.content) == 0}">
+        <div class="text-center my-order-empty">
+            <img src="/images/order/hinh-anh-quyen-xo.jpg" width="150" height="150" class="d-block mx-auto">
+            <span class="d-block">Không tìm thấy danh mục nào</span>
+        </div>
+    </th:block>
+
+</div>
+</body>
+</html>

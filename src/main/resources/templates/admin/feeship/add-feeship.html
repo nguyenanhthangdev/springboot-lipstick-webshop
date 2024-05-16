@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/layout-main/layout-main}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="row g-3 mb-4 align-items-center justify-content-between">
+        <div class="col-auto">
+            <h1 class="app-page-title mb-0">THÊM DANH PHÍ VẬN CHUYỂN</h1>
+        </div>
+        <div class="col-auto">
+            <div class="page-utilities">
+                <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
+                    <div class="col-auto">
+                        <button type="submit" form="form-feeship" data-toggle="tooltip" title="Lưu" class="btn app-btn-secondary">Lưu</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tab-content">
+        <div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
+            <div class="app-card app-card-orders-table shadow-sm mb-5">
+                <form action="#" th:action="@{/admin/feeship/add-feeship}" method="post" id="form-feeship" enctype="multipart/form-data" onsubmit="return validateCategory()">
+                    <div class="app-card-body" style="padding: 15px;">
+                        <div class="row custom-label-input-form">
+                            <label for="city" class="col-sm-2 col-form-label col-form-label-sm text-sm-end">Tỉnh, Thành Phố</label>
+                            <div class="col-sm">
+                                <select class="form-control form-control-sm custom-input-form choose-city" name="city" id="city">
+                                    <option th:value="0">Chọn tỉnh, thành phố</option>
+                                    <tr th:each="city : ${cities}">
+                                        <option th:value="${city.getCity_id()}" th:text="${city.getCity_name()}"></option>
+                                    </tr>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row custom-label-input-form">
+                            <label for="district" class="col-sm-2 col-form-label col-form-label-sm text-sm-end">Quận, huyện</label>
+                            <div class="col-sm">
+                                <select class="form-control form-control-sm custom-input-form choose-district" name="district" id="district">
+                                    <option th:value="0">Chọn quận, huyện</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row custom-label-input-form">
+                            <label for="ward" class="col-sm-2 col-form-label col-form-label-sm text-sm-end">Thị xã, phường</label>
+                            <div class="col-sm">
+                                <select class="form-control form-control-sm custom-input-form" name="ward" id="ward">
+                                    <option th:value="0">Chọn xã, phường, thị trấn</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

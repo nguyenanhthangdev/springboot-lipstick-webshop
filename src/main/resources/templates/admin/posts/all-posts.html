@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/layout-main/layout-main}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="row g-3 mb-4 align-items-center justify-content-between">
+        <div class="col-auto">
+            <h1 class="app-page-title mb-0">DANH SÁCH BÀI VIẾT</h1>
+        </div>
+        <div class="col-auto">
+            <div class="page-utilities">
+                <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
+                    <div class="col-auto">
+                        <a class="btn app-btn-secondary" href="/admin/posts/add-posts">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
+                            </svg>
+                            Thêm mới</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:if="${successMessage != null}" class="alert alert-success" role="alert">
+        <span th:text="${successMessage}"></span>
+        <button type="button" class="close" aria-label="Close" onclick="hideErrorMessage(this)">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div th:if="${errorMessage != null}" class="alert alert-danger" role="alert">
+        <span th:text="${errorMessage}"></span>
+        <button type="button" class="close" aria-label="Close" onclick="hideErrorMessage(this)">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <th:block th:if="${posts != null and !#lists.isEmpty(posts)}">
+        <div class="tab-content">
+            <div class="tab-pane fade show active">
+                <div class="app-card app-card-orders-table shadow-sm mb-5">
+                    <div class="app-card-body">
+                        <div class="table-responsive">
+                            <table class="table app-table-hover mb-0 text-left">
+                                <thead>
+                                <tr>
+                                    <th class="cell">Id</th>
+                                    <th class="cell">Ảnh</th>
+                                    <th class="cell">Tiêu đề</th>
+                                    <th class="cell">Trạng Thái</th>
+                                    <th class="cell">Ngày Tạo</th>
+                                    <th class="cell">Sửa</th>
+                                    <th class="cell">Xóa</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="post : ${posts}">
+                                        <td th:text="${post.getPosts_id()}"></td>
+                                        <td><img class="src-image" height="60" width="60" th:src="${post.getImage()}"></td>
+                                        <td th:text="${post.getPostsTitle()}"></td>
+                                        <td><b th:style="${post.isStatus() == true ? 'color: #15a362' : ''}" th:text="${post.isStatus() == true ? 'Hoạt động' : 'Không hoạt động'}"></b></td>
+                                        <td class="create_at" th:text="${post.getCreatedAt()}"></td>
+                                        <td><a th:href="@{'/admin/posts/edit-posts?id=' + ${post.getPosts_id()}}">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="bi bi-pencil-square edit-icon" viewBox="0 0 16 16">
+                                                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                                <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+                                            </svg>
+                                        </a></td>
+                                        <td><a th:data-name="${post.getPosts_id()}" th:onclick="confirmPostsDelete(this.getAttribute('data-name'))">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="bi bi-trash3 delete-icon" viewBox="0 0 16 16">
+                                                <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
+                                            </svg>
+                                        </a></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </th:block>
+    <th:block th:unless="${posts != null and !#lists.isEmpty(posts)}">
+        <div class="text-center my-order-empty">
+            <img src="/images/order/hinh-anh-quyen-xo.jpg" width="150" height="150" class="d-block mx-auto">
+            <span class="d-block">Không tìm thấy bài viết nào</span>
+        </div>
+    </th:block>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/layout-main/layout-main}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="row g-3 mb-4 align-items-center justify-content-between">
+        <div class="col-auto">
+            <h1 class="app-page-title mb-0">THÔNG TIN ĐƠN HÀNG</h1>
+        </div>
+    </div>
+
+    <div class="tab-content">
+        <div class="tab-pane fade show active">
+            <div class="app-card app-card-orders-table shadow-sm mb-5">
+                <div class="app-card-body">
+                    <div class="table-responsive">
+                        <table class="table app-table-hover mb-0 text-left">
+                            <thead>
+                            <tr>
+                                <th class="cell">Mã đơn hàng</th>
+                                <th class="cell">Người Đặt Hàng</th>
+                                <th class="cell">Trạng Thái</th>
+                                <th class="cell">Tổng đơn giá</th>
+                                <th class="cell">Ngày Tạo Đơn</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td th:text="${order.getOrderCode()}"></td>
+                                <td th:text="${order.getShipping().getFullName()}"></td>
+                                <th:block th:if="${order.getStatus() == T(com.example.webshopcosmetics.model.OrderStatus).PROCESSING}">
+                                    <th><span class="status-order processing" th:text="${order.getStatus().getDisplayName()}"></span></th>
+                                </th:block>
+                                <th:block th:if="${order.getStatus() == T(com.example.webshopcosmetics.model.OrderStatus).CANCELLED}">
+                                    <th><span class="status-order cancelled" th:text="${order.getStatus().getDisplayName()}"></span></th>
+                                </th:block>
+                                <th:block th:if="${order.getStatus() == T(com.example.webshopcosmetics.model.OrderStatus).SHIPPED}">
+                                    <th><span class="status-order shipped" th:text="${order.getStatus().getDisplayName()}"></span></th>
+                                </th:block>
+                                <th:block th:if="${order.getStatus() == T(com.example.webshopcosmetics.model.OrderStatus).DELIVERED}">
+                                    <th><span class="status-order delivered" th:text="${order.getStatus().getDisplayName()}"></span></th>
+                                </th:block>
+                                <td class="price" th:text="${order.getTotalAmount()}"></td>
+                                <td class="order-date-time" th:text="${order.getOrderDate()}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tab-content">
+        <div class="tab-pane fade show active">
+            <div class="app-card app-card-orders-table shadow-sm mb-5">
+                <div class="app-card-body">
+                    <div class="table-responsive">
+                        <table class="table app-table-hover mb-0 text-left">
+                            <thead>
+                                <tr>
+                                    <th class="cell">Sản Phẩm</th>
+                                    <th class="cell">Màu</th>
+                                    <th class="cell">Số Lượng</th>
+                                    <th class="cell">Giá Tiền</th>
+                                    <th class="cell">Tổng Giá Tiền</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="orderDetail : ${order.getOrderDetails()}">
+                                    <td th:text="${#strings.abbreviate(orderDetail.getProductOption().getProduct().getName(), 35)}"></td>
+                                    <td th:text="${#strings.abbreviate(orderDetail.getProductOption().getName(), 30)}"></td>
+                                    <td th:text="${orderDetail.getQuantity()}"></td>
+                                    <td class="price" th:text="${orderDetail.getUnitPrice()}"></td>
+                                    <td class="price" th:text="${orderDetail.getTotalPrice()}"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-3 mb-4 align-items-center justify-content-between">
+        <div class="col-auto"></div>
+        <div class="col-auto">
+            <div class="page-utilities">
+                <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
+                    <div class="col-auto">
+                        <th:block th:unless="${order.getStatus() == T(com.example.webshopcosmetics.model.OrderStatus).DELIVERED}">
+                            <th:block th:unless="${order.getStatus() == T(com.example.webshopcosmetics.model.OrderStatus).CANCELLED}">
+                                <a class="custom-btn-order cancelled" th:data-id="${order.getId()}" onclick="openTheTableToSelectTheReasonForCancelingTheOrder(this.getAttribute('data-id'))">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
+                                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+                                    </svg>
+                                    <span>Hủy đơn hàng</span>
+                                </a>
+                                <th:block th:if="${order.getStatus() == T(com.example.webshopcosmetics.model.OrderStatus).PROCESSING}">
+                                    <a class="custom-btn-order shipped" th:data-id="${order.getId()}" onclick="deliveryConfirmation(this.getAttribute('data-id'))">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-truck" viewBox="0 0 16 16">
+                                            <path d="M0 3.5A1.5 1.5 0 0 1 1.5 2h9A1.5 1.5 0 0 1 12 3.5V5h1.02a1.5 1.5 0 0 1 1.17.563l1.481 1.85a1.5 1.5 0 0 1 .329.938V10.5a1.5 1.5 0 0 1-1.5 1.5H14a2 2 0 1 1-4 0H5a2 2 0 1 1-3.998-.085A1.5 1.5 0 0 1 0 10.5zm1.294 7.456A2 2 0 0 1 4.732 11h5.536a2 2 0 0 1 .732-.732V3.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .294.456M12 10a2 2 0 0 1 1.732 1h.768a.5.5 0 0 0 .5-.5V8.35a.5.5 0 0 0-.11-.312l-1.48-1.85A.5.5 0 0 0 13.02 6H12zm-9 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2m9 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2"/>
+                                        </svg>
+                                        <span>Giao Hàng</span>
+                                    </a>
+                                </th:block>
+                                <th:block th:if="${order.getStatus() == T(com.example.webshopcosmetics.model.OrderStatus).SHIPPED}">
+                                    <a class="custom-btn-order delivered" th:data-id="${order.getId()}" onclick="deliveredSuccessfully(this.getAttribute('data-id'))">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
+                                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                                            <path d="m10.97 4.97-.02.022-3.473 4.425-2.093-2.094a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05"/>
+                                        </svg>
+                                        <span>Đã Giao Hàng</span>
+                                    </a>
+                                </th:block>
+                            </th:block>
+                        </th:block>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

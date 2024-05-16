@@ -1,0 +1,82 @@
+<div id="id01" class="modal-login">
+
+    <form class="modal-content animate" method="POST" >
+        <div class="imgcontainer">
+            <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+            <img src="img_avatar2.png" alt="Avatar" class="avatar">
+        </div>
+        <span class="text-center mb-2 mt-2">Đăng nhập vào Havana.vn</span>
+        <span class="text-center mb-2 text-danger" id="error-login-message"></span>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 form-group mb-2">
+                    <label for="costumer">Tên đăng nhập</label>
+                    <input type="text" id="costumer" name="costumer" class="form-control" value="" required>
+                </div>
+
+                <div class="mb-2 col-md-12 form-group">
+                    <label for="pwd">Mật khẩu</label>
+                    <input type="password" id="pwd" name="pwd" class="form-control" value="" required>
+                </div>
+            </div>
+
+            <div>
+                <label>
+                    <input type="checkbox" checked="checked" name="remember"> Nhớ tài khoản
+                </label>
+                <span class="psw">Quên <a href="#">mật khẩu?</a></span>
+            </div>
+
+            <button type="submit" id="loginButton">Đăng nhập</button>
+            <span>Bạn chưa có tài khoản? <a onclick="openRegisterModal()">ĐĂNG KÍ NGAY</a></span>
+        </div>
+    </form>
+</div>
+
+<div id="id02" class="modal-register">
+    <meta name="_csrf" th:content="${_csrf.token}" />
+    <form class="modal-content animate" onsubmit="return validateCustomer()">
+        <input type="hidden" name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+        <div class="imgcontainer">
+            <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
+            <img src="img_avatar2.png" alt="Avatar" class="avatar">
+        </div>
+        <span class="text-center mb-2 mt-2">Đăng kí tài khoản Havana</span>
+        <div class="container">
+            <div class="mb-2">
+                <label for="fullName">Tên người dùng</label>
+                <input type="text" id="fullName" name="fullName" class="form-control fullName" value="" required>
+                <div id="fullNameError" class="fullNameError" style="display: none">
+                    <span id="fullNameTextError" class="small text-danger fullNameTextError"></span>
+                </div>
+            </div>
+
+            <div class="mb-2">
+                <label for="account">Tên đăng nhập</label>
+                <input type="text" id="account" name="account" class="form-control" value="" required>
+                <div id="accountError" class="accountError" style="display: none">
+                    <span id="accountTextError" class="small text-danger accountTextError"></span>
+                </div>
+            </div>
+
+            <div class="mb-2">
+                <label for="email">Email</label>
+                <input type="text" id="email" name="email" class="form-control" value="" required>
+                <div id="emailError" class="emailError" style="display: none">
+                    <span id="emailTextError" class="small text-danger emailTextError"></span>
+                </div>
+            </div>
+
+            <div class="mb-2">
+                <label for="password">Mật khẩu</label>
+                <input type="password" id="password" name="password" class="form-control" value="" required>
+                <div id="passwordError" class="passwordError" style="display: none">
+                    <span id="passwordTextError" class="small text-danger passwordTextError"></span>
+                </div>
+            </div>
+
+            <button type="submit">Đăng kí</button>
+            <span>Bạn đã có tài khoản? <a onclick="openLoginModal()">ĐĂNG NHẬP</a></span>
+        </div>
+    </form>
+</div>

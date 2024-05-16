@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/layout-main/layout-main}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="row g-3 mb-4 align-items-center justify-content-between">
+        <div class="col-auto">
+            <h1 class="app-page-title mb-0">CÀI ĐẶT HỆ THỐNG</h1>
+        </div>
+        <div class="col-auto">
+            <div class="page-utilities">
+                <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
+                    <div class="col-auto">
+                        <a onclick="systemFixBug()" data-toggle="tooltip" title="Lưu"  class="btn app-btn-secondary">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="bi bi-floppy" viewBox="0 0 16 16">
+                                <path d="M11 2H9v3h2z"/>
+                                <path d="M1.5 0h11.586a1.5 1.5 0 0 1 1.06.44l1.415 1.414A1.5 1.5 0 0 1 16 2.914V14.5a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 14.5v-13A1.5 1.5 0 0 1 1.5 0M1 1.5v13a.5.5 0 0 0 .5.5H2v-4.5A1.5 1.5 0 0 1 3.5 9h9a1.5 1.5 0 0 1 1.5 1.5V15h.5a.5.5 0 0 0 .5-.5V2.914a.5.5 0 0 0-.146-.353l-1.415-1.415A.5.5 0 0 0 13.086 1H13v4.5A1.5 1.5 0 0 1 11.5 7h-7A1.5 1.5 0 0 1 3 5.5V1H1.5a.5.5 0 0 0-.5.5m3 4a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5V1H4zM3 15h10v-4.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5z"/>
+                            </svg>
+                            Lưu</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:if="${errorMessage != null}" class="alert alert-danger" role="alert">
+        <span th:text="${errorMessage}"></span>
+        <button type="button" class="close" aria-label="Close" onclick="hideErrorMessage(this)">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div th:if="${successMessage != null}" class="alert alert-success" role="alert">
+        <span th:text="${successMessage}"></span>
+        <button type="button" class="close" aria-label="Close" onclick="hideErrorMessage(this)">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+<!--    action="#" th:action="@{'/admin/setting'}" method="post" id="form-setting" enctype="multipart/form-data" onsubmit="return validateWebshopSettings()"-->
+
+    <form>
+        <nav>
+            <div class="nav nav-tabs nav-tabs-form" id="nav-tab" role="tablist">
+                <button class="nav-link active" id="nav-one-tab" data-bs-toggle="tab" data-bs-target="#nav-one" type="button" role="tab" aria-controls="nav-one" aria-selected="true">Thông Tin Cửa Hàng</button>
+                <button class="nav-link" id="nav-true-tab" data-bs-toggle="tab" data-bs-target="#nav-true" type="button" role="tab" aria-controls="nav-true" aria-selected="false">Giới Hạn</button>
+                <button class="nav-link" id="nav-three-tab" data-bs-toggle="tab" data-bs-target="#nav-three" type="button" role="tab" aria-controls="nav-three" aria-selected="false">Khác</button>
+            </div>
+        </nav>
+        <div class="tab-content p-3 border bg-light nav-tab-content" id="nav-tabContent">
+
+            <div class="tab-pane fade active show" id="nav-one" role="tabpanel" aria-labelledby="nav-one-tab">
+                <div class="app-card-body" style="padding: 15px;">
+                    <div class="row custom-label-input-form">
+                        <label for="name" class="col-sm-2 col-form-label col-form-label-sm text-sm-end"><span class="star-requied">*</span>Tên Webshop</label>
+                        <div class="col-sm">
+                            <input type="text" name="name" th:value="${name}" class="form-control form-control-sm custom-input-form" id="name" required>
+                            <div class="error-message" id="nameError" style="display: none">
+                                <span id="nameTextError" class="error-text"></span>
+                                <button type="button" class="close" aria-label="Close" onclick="hideErrorMessage(this)">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row custom-label-input-form">
+                        <label for="address" class="col-sm-2 col-form-label col-form-label-sm text-sm-end"><span class="star-requied">*</span>Địa chỉ</label>
+                        <div class="col-sm">
+                            <input type="text" name="address" th:value="${address}" class="form-control form-control-sm custom-input-form" id="address" required>
+                            <div class="error-message" id="addressError" style="display: none">
+                                <span id="addressTextError" class="error-text"></span>
+                                <button type="button" class="close" aria-label="Close" onclick="hideErrorMessage(this)">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row custom-label-input-form">
+                        <label for="googleMapEmbed" class="col-sm-2 col-form-label col-form-label-sm text-sm-end"><span class="star-requied">*</span>Bản đồ</label>
+                        <div class="col-sm">
+                            <textarea type="text" name="google_map_embed" style="width: 100%; height: 100px;" th:value="${google_map_embed}" th:text="${google_map_embed}" class="form-control form-control-sm custom-input-form" id="googleMapEmbed"></textarea>
+                            <div class="error-message" id="googleMapEmbedError" style="display: none">
+                                <span id="googleMapEmbedErrorTextError" class="error-text"></span>
+                                <button type="button" class="close" aria-label="Close" onclick="hideErrorMessage(this)">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row custom-label-input-form">
+                        <label for="email" class="col-sm-2 col-form-label col-form-label-sm text-sm-end"><span class="star-requied">*</span>Email</label>
+                        <div class="col-sm">
+                            <input type="text" name="email" th:value="${email}" class="form-control form-control-sm custom-input-form" id="email" required>
+                            <div class="error-message" id="emailError" style="display: none">
+                                <span id="emailTextError" class="error-text"></span>
+                                <button type="button" class="close" aria-label="Close" onclick="hideErrorMessage(this)">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row custom-label-input-form">
+                        <label for="phone" class="col-sm-2 col-form-label col-form-label-sm text-sm-end"><span class="star-requied">*</span>Số điện thoại</label>
+                        <div class="col-sm">
+                            <input type="text" name="phone" th:value="${phone}" class="form-control form-control-sm custom-input-form" id="phone" required>
+                            <div class="error-message" id="phoneError" style="display: none">
+                                <span id="phoneTextError" class="error-text"></span>
+                                <button type="button" class="close" aria-label="Close" onclick="hideErrorMessage(this)">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row custom-label-input-form custom-table">
+                        <label for="imageLogo" class="col-sm-2 col-form-label col-form-label-sm text-sm-end control-label">
+                            <span data-toggle="tooltip" title="Logo sẽ xuất hiện bên trang admin">Logo</span>
+                        </label>
+                        <div class="col-sm">
+                            <table class="table table-bordered custom-table">
+                                <thead>
+                                <tr>
+                                    <td>Logo cũ</td>
+                                    <td>Logo mới</td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        <img th:src="@{'/get-image-logo/'+${image_logo}}" width="100" height="100" class="img-thumbnail">
+                                    </td>
+                                    <td>
+                                        <input type="file" name="imageLogo" class="form-control form-control-sm custom-input-form" id="imageLogo" accept="image/*">
+                                        <input type="hidden" name="imageLogoOld" th:value="${image_logo}" class="form-control"
+                                               aria-describedby="emailHelp" accept="image/*">
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row custom-label-input-form">
+                        <label for="imageFavicon" class="col-sm-2 col-form-label col-form-label-sm text-sm-end control-label">
+                            <span data-toggle="tooltip" title="Favicon sẽ xuất hiện bên trang chủ">Favicon</span>
+                        </label>
+                        <div class="col-sm">
+                            <table class="table table-bordered custom-table">
+                                <thead>
+                                <tr>
+                                    <td>Favicon cũ</td>
+                                    <td>Favicon mới</td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        <img th:src="@{'/get-image-logo/'+${image_favicon}}" width="100" height="100" class="img-thumbnail">
+                                    </td>
+                                    <td>
+                                        <input type="file" name="imageFavicon" class="form-control form-control-sm custom-input-form" id="imageFavicon" accept="image/*">
+                                        <input type="hidden" name="imageFaviconOld" th:value="${image_favicon}" class="form-control"
+                                               aria-describedby="emailHelp" accept="image/*">
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="nav-true" role="tabpanel" aria-labelledby="nav-true-tab">
+                <div class="app-card-body" style="padding: 15px;">
+                    <h1>22</h1>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="nav-three" role="tabpanel" aria-labelledby="nav-three-tab">
+                <div class="app-card-body" style="padding: 15px;">
+                   <h1>333</h1>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

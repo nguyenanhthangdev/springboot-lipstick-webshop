@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/layout-main/layout-main}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+</head>
+<body>
+<div layout:fragment="content">
+  <div class="row g-3 mb-4 align-items-center justify-content-between">
+    <div class="col-auto">
+      <h1 class="app-page-title mb-0">SỬA THÔNG TIN NHÂN VIÊN</h1>
+    </div>
+    <div class="col-auto">
+      <div class="page-utilities">
+        <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
+          <div class="col-auto">
+            <button type="submit" form="form-user" data-toggle="tooltip" title="Lưu" class="btn app-btn-secondary">Lưu</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="tab-content">
+    <div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
+      <div class="app-card app-card-orders-table shadow-sm mb-5">
+        <form action="#" th:action="@{/admin/user/edit-user}" th:object="${user}" method="post" id="form-user" enctype="multipart/form-data" onsubmit="return validateUser()">
+          <div class="app-card-body" style="padding: 15px;">
+            <input type="hidden" th:field="*{id}" name="id" class="form-control" id="exampleInputEmail" aria-describedby="emailHelp" readonly>
+            <div class="row custom-label-input-form">
+              <label for="test-image" class="col-sm-2 col-form-label col-form-label-sm text-sm-end">Ảnh đại diện</label>
+              <div class="col-sm">
+                <a href="" id="test-image" data-toggle="image" class="test-img-thumbnail"><img class="img-thumbnail" id="avt-image" th:src="${user.getImage()}" alt="" title=""/></a>
+                <input type="hidden" name="image" th:value="${user.getImage()}" id="input-avt-image" />
+                <div class="buttons hide-show-filemanager-button" style="display: none;">
+                  <a type="button" class="btn btn-sm btn-primary btn-filemanager" onclick="handleAddButtonClick()" data-bs-toggle="modal" data-bs-target="#myModal">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill text-white" viewBox="0 0 16 16">
+                      <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z"/>
+                    </svg>
+                  </a>
+                  <a class="btn btn-sm btn-danger btn-delete btn-filemanager" onclick="deleteImagePresentButtonClick()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill text-white" viewBox="0 0 16 16">
+                      <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"/>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div class="row custom-label-input-form">
+              <label for="fullname" class="col-sm-2 col-form-label col-form-label-sm text-sm-end"><span class="star-requied">* </span>Họ & tên</label>
+              <div class="col-sm">
+                <input type="text" name="fullname" th:field="*{fullname}" class="form-control form-control-sm custom-input-form" id="fullname" required>
+                <div class="error-message" id="fullNameError" style="display: none">
+                  <span class="error-text">Tên nhân viên không hợp lệ. Vui lòng nhập lại</span>
+                  <button type="button" class="close" aria-label="Close" onclick="hideErrorMessage(this)">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="row custom-label-input-form">
+              <label for="email" class="col-sm-2 col-form-label col-form-label-sm text-sm-end"><span class="star-requied">* </span>Email</label>
+              <div class="col-sm">
+                <input type="text" name="email" th:field="*{email}" class="form-control form-control-sm custom-input-form" id="email" required>
+                <div class="error-message" id="emailError" style="display: none">
+                  <span class="error-text">Email không hợp lệ. Vui lòng kiểm tra lại</span>
+                  <button type="button" class="close" aria-label="Close" onclick="hideErrorMessage(this)">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="row custom-label-input-form">
+              <label for="phone" class="col-sm-2 col-form-label col-form-label-sm text-sm-end"><span class="star-requied">* </span>Số điện thoại</label>
+              <div class="col-sm">
+                <input type="text" name="phone" th:field="*{phone}" class="form-control form-control-sm custom-input-form" id="phone" required>
+                <div class="error-message" id="phoneError" style="display: none">
+                  <span class="error-text">Số điện thoại không hợp lệ. Vui lòng kiểm tra lại</span>
+                  <button type="button" class="close" aria-label="Close" onclick="hideErrorMessage(this)">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="row custom-label-input-form">
+              <label for="status" class="col-sm-2 col-form-label col-form-label-sm text-sm-end">Trạng thái</label>
+              <div class="col-sm">
+                <select th:field="*{status}" class="form-control form-control-sm custom-input-form" name="status" id="status">
+                  <option th:value="1">Hoạt động</option>
+                  <option th:value="0" th:if="${user.getUsername() != 'admin'}">Tắt</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

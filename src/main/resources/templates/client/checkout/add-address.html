@@ -1,0 +1,334 @@
+<div id="myModalAddress" class="modal-address">
+    <div class="modal-content">
+        <div class="modal-header pt-3 pb-3">
+            <h2>Địa chỉ của tôi</h2>
+            <span class="close-address">&times;</span>
+        </div>
+        <div class="modal-body">
+            <div class="myModalBodyAddress"></div>
+            <button type="button" class="btn mb-3" id="btn-add-address" onclick="myModalAddAddress2()">Thêm mới</button>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn" onclick="allAddressCancel()">Hủy</button>
+            <button type="button" class="btn" onclick="selectThisAddressAsTheDefaultAddress()">Xác nhận</button>
+        </div>
+    </div>
+</div>
+
+
+<div id="myModalAddAddress" class="modal-add-address">
+    <div class="modal-content">
+        <div class="modal-header pt-3 pb-3">
+            <h2>Thêm địa chỉ giao hàng mới</h2>
+            <span class="close-add-address">&times;</span>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-6 form-group">
+                    <label>Tên người nhận</label>
+                    <input class="form-control" type="text" name="fullname">
+                </div>
+                <div class="col-md-6 form-group">
+                    <label>Số điện thoại</label>
+                    <input class="form-control" type="text" name="phone">
+                </div>
+                <div class="col-md-6 form-group">
+                    <label>Email</label>
+                    <input class="form-control" type="text" name="email">
+                </div>
+                <div class="col-md-6 form-group">
+                    <label>Tỉnh, thành phố</label>
+                    <select class="custom-select choose-city" name="city" id="city">
+                        <option value="0">Chọn tỉnh, thành phố</option>
+                        <tr th:each="city : ${cities}">
+                            <option th:value="${city.getCity_id()}" th:text="${city.getCity_name()}"></option>
+                        </tr>
+                    </select>
+                </div>
+                <div class="col-md-6 form-group">
+                    <label>Quận huyện</label>
+                    <select class="custom-select choose-district" name="district" id="district">
+                        <option th:value="0">Chọn quận, huyện</option>
+                    </select>
+                </div>
+                <div class="col-md-6 form-group">
+                    <label>Xã, phường</label>
+                    <select class="custom-select choose-ward" id="ward">
+                        <option>Chọn xã, phường</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn" id="btn-add-address-return">Quay lại</button>
+            <button type="button" class="btn">Lưu</button>
+        </div>
+    </div>
+</div>
+
+<div id="myModalAddAddress1" class="modal-add-address1">
+    <div class="modal-content">
+        <div class="modal-header pt-3 pb-3">
+            <h2>Thêm địa chỉ giao hàng 1</h2>
+            <span class="close-add-address">&times;</span>
+        </div>
+        <div class="modal-body">
+            <form id="form-add-shipping1" onsubmit="return validateShipping()">
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label>Tên người nhận</label>
+                        <input class="form-control" type="text" id="fullNameShipping" name="fullNameShipping" required>
+                        <div id="fullNameShippingError" class="fullNameShippingError" style="display: none">
+                            <span id="fullNameShippingTextError" class="small text-danger fullNameShippingTextError"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Số điện thoại</label>
+                        <input class="form-control" type="text" id="phoneShipping" name="phoneShipping" required>
+                        <div id="phoneShippingError" class="phoneShippingError" style="display: none">
+                            <span id="phoneShippingTextError" class="small text-danger phoneShippingTextError"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Email</label>
+                        <input class="form-control" type="text" id="emailShipping" name="emailShipping" required>
+                        <div id="emailShippingError" class="emailShippingError" style="display: none">
+                            <span id="emailShippingTextError" class="small text-danger emailShippingTextError"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Tỉnh, thành phố</label>
+                        <select class="custom-select choose-city" name="city1" id="city1" required>
+                            <option value="0">Chọn tỉnh, thành phố</option>
+                            <tr th:each="city : ${cities}">
+                                <option th:value="${city.getCity_id()}" th:text="${city.getCity_name()}"></option>
+                            </tr>
+                        </select>
+                        <div id="cityShippingError" class="cityShippingError" style="display: none">
+                            <span id="cityShippingTextError" class="small text-danger cityShippingTextError"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Quận huyện</label>
+                        <select class="custom-select choose-district" name="district1" id="district1" required>
+                            <option th:value="0">Chọn quận, huyện</option>
+                        </select>
+                        <div id="districtShippingError" class="districtShippingError" style="display: none">
+                            <span id="districtShippingTextError" class="small text-danger districtShippingTextError"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Xã, phường</label>
+                        <select class="custom-select choose-ward" name="ward1" id="ward1" required>
+                            <option th:value="0">Chọn xã, phường</option>
+                        </select>
+                        <div id="wardShippingError" class="wardShippingError" style="display: none">
+                            <span id="wardShippingTextError" class="small text-danger wardShippingTextError"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Địa chỉ cụ thể</label>
+                    <input class="form-control" type="text" id="addressSpecificShipping" name="addressSpecificShipping" required>
+                    <div id="addressSpecificShippingError" class="addressSpecificShippingError" style="display: none">
+                        <span id="addressSpecificShippingTextError" class="small text-danger addressSpecificShippingTextError"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Loại địa chỉ</label>
+                    <div class="d-flex">
+                        <label class="radio-block mr-2" onclick="handleRadioClick('radio-home')">
+                            <input type="radio" id="radio-home" class="radio-home" name="radio-shipping" value="HOME">
+                            <span class="radio-text">Nhà Riêng</span>
+                        </label>
+                        <label class="radio-block" onclick="handleRadioClick('radio-office')">
+                            <input type="radio" id="radio-office" class="radio-office" name="radio-shipping" value="OFFICE">
+                            <span class="radio-text">Công Ty</span>
+                        </label>
+                        <label class="radio-block d-none selected">
+                            <input type="radio" id="radio-no" class="radio-no" name="radio-shipping" value="NO" checked>
+                        </label>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn" id="btn-add-address-return-home" onclick="returnPageCheckout()">Quay lại</button>
+            <button type="submit" form="form-add-shipping1" data-toggle="tooltip" title="Lưu" class="btn">Lưu</button>
+        </div>
+    </div>
+</div>
+
+<div id="myModalAddAddress2" class="modal-add-address2">
+    <div class="modal-content">
+        <div class="modal-header pt-3 pb-3">
+            <h2>Thêm địa chỉ giao hàng</h2>
+            <span class="close-add-address">&times;</span>
+        </div>
+        <div class="modal-body">
+            <form id="form-add-shipping2" onsubmit="return validateShipping2()">
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label>Tên người nhận</label>
+                        <input class="form-control" type="text" id="fullNameShipping2" name="fullNameShipping2" required>
+                        <div id="fullNameShippingError2" class="fullNameShippingError2" style="display: none">
+                            <span id="fullNameShippingTextError2" class="small text-danger fullNameShippingTextError2"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Số điện thoại</label>
+                        <input class="form-control" type="text" id="phoneShipping2" name="phoneShipping2" required>
+                        <div id="phoneShippingError2" class="phoneShippingError2" style="display: none">
+                            <span id="phoneShippingTextError2" class="small text-danger phoneShippingTextError2"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Email</label>
+                        <input class="form-control" type="text" id="emailShipping2" name="emailShipping2" required>
+                        <div id="emailShippingError2" class="emailShippingError2" style="display: none">
+                            <span id="emailShippingTextError2" class="small text-danger emailShippingTextError2"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Tỉnh, thành phố</label>
+                        <select class="custom-select choose-city" name="city2" id="city2" required>
+                            <option value="0">Chọn tỉnh, thành phố</option>
+                            <tr th:each="city : ${cities}">
+                                <option th:value="${city.getCity_id()}" th:text="${city.getCity_name()}"></option>
+                            </tr>
+                        </select>
+                        <div id="cityShippingError2" class="cityShippingError2" style="display: none">
+                            <span id="cityShippingTextError2" class="small text-danger cityShippingTextError2"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Quận huyện</label>
+                        <select class="custom-select choose-district" name="district2" id="district2" required>
+                            <option th:value="0">Chọn quận, huyện</option>
+                        </select>
+                        <div id="districtShippingError2" class="districtShippingError2" style="display: none">
+                            <span id="districtShippingTextError2" class="small text-danger districtShippingTextError2"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Xã, phường</label>
+                        <select class="custom-select choose-ward" name="ward2" id="ward2" required>
+                            <option th:value="0">Chọn xã, phường</option>
+                        </select>
+                        <div id="wardShippingError2" class="wardShippingError2" style="display: none">
+                            <span id="wardShippingTextError2" class="small text-danger wardShippingTextError2"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Địa chỉ cụ thể</label>
+                    <input class="form-control" type="text" id="addressSpecificShipping2" name="addressSpecificShipping2" required>
+                    <div id="addressSpecificShippingError2" class="addressSpecificShippingError2" style="display: none">
+                        <span id="addressSpecificShippingTextError2" class="small text-danger addressSpecificShippingTextError2"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Loại địa chỉ</label>
+                    <div class="d-flex">
+                        <label class="radio-block2 mr-2" onclick="handleRadioClick2('radio-home2')">
+                            <input type="radio" id="radio-home2" class="radio-home2" name="radio-shipping2" value="HOME">
+                            <span class="radio-text">Nhà Riêng</span>
+                        </label>
+                        <label class="radio-block2" onclick="handleRadioClick2('radio-office2')">
+                            <input type="radio" id="radio-office2" class="radio-office2" name="radio-shipping2" value="OFFICE">
+                            <span class="radio-text">Công Ty</span>
+                        </label>
+                        <label class="radio-block2 d-none selected">
+                            <input type="radio" id="radio-no2" class="radio-no2" name="radio-shipping2" value="NO" checked>
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="custom-checkbox" for="defaultShipping">Đặt làm địa chỉ mặc định
+                        <input type="checkbox" id="defaultShipping" name="defaultShipping">
+                        <span class="checkmark"></span>
+                    </label>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn" onclick="addAddressCustomerReturn2()">Trở lại</button>
+            <button type="submit" form="form-add-shipping2" data-toggle="tooltip" title="Lưu" class="btn">Lưu</button>
+        </div>
+    </div>
+</div>
+
+<div id="myModalPayments" class="modal-payments">
+    <div class="modal-content">
+        <div class="modal-header pt-3 pb-3">
+            <h2>Hình thức thanh toán</h2>
+            <span class="close-address">&times;</span>
+        </div>
+        <div class="modal-body">
+            <div class="mt-3 mb-1">
+                <input type="radio" value="THANH_TOAN_KHI_NHAN_HANG" class="d-inline-block mr-2" checked/>
+                <img src="/images/payments/cod-money.jpg" width="50" height="50" class="d-inline-block mr-2 img-thumbnail"/>
+                <span>Thanh toán khi nhận hàng (COD)</span>
+            </div>
+            <div class="mt-2 mb-1 bg-payments-disabled">
+                <input type="radio" name="payments" class="d-inline-block mr-2" disabled/>
+                <img src="/images/payments/airpay.jpg" width="50" height="50" class="d-inline-block mr-2 img-thumbnail"/>
+                <span>Thanh toán trực tuyến AIRPAY</span>
+            </div>
+            <div class="mt-2 mb-1 bg-payments-disabled">
+                <input type="radio" name="payments" class="d-inline-block mr-2" disabled/>
+                <img src="/images/payments/momo.jpg" width="50" height="50" class="d-inline-block mr-2 img-thumbnail"/>
+                <span>Thanh toán trực tuyến MOMO</span>
+            </div>
+            <div class="mt-2 mb-1 bg-payments-disabled">
+                <input type="radio" name="payments" class="d-inline-block mr-2" disabled/>
+                <img src="/images/payments/payoo.jpg" width="50" height="50" class="d-inline-block mr-2 img-thumbnail"/>
+                <span>Thanh toán trực tuyến PAYOO)</span>
+            </div>
+            <div class="mt-2 mb-1 bg-payments-disabled">
+                <input type="radio" name="payments" class="d-inline-block mr-2" disabled/>
+                <img src="/images/payments/QRcode.jpg" width="50" height="50" class="d-inline-block mr-2 img-thumbnail"/>
+                <span>Thanh toán trực tuyến QR CODE</span>
+            </div>
+            <div class="mt-2 mb-1 bg-payments-disabled">
+                <input type="radio" name="payments" class="d-inline-block mr-2" disabled/>
+                <img src="/images/payments/chuyen-khoan-ngan-hang.jpg" width="50" height="50" class="d-inline-block mr-2 img-thumbnail"/>
+                <span>Chuyển khoản ngân hàng</span>
+            </div>
+            <div class="mt-2 mb-1 bg-payments-disabled">
+                <input type="radio" name="payments" class="d-inline-block mr-2" disabled/>
+                <img src="/images/payments/zalopay.jpg" width="50" height="50" class="d-inline-block mr-2 img-thumbnail"/>
+                <span>Thanh toán trực tuyến ZALO PAY</span>
+            </div>
+            <div class="mt-2 mb-1 bg-payments-disabled">
+                <input type="radio" name="payments" class="d-inline-block mr-2" disabled/>
+                <img src="/images/payments/vnpay.jpg" width="50" height="50" class="d-inline-block mr-2 img-thumbnail"/>
+                <span>Thanh toán trực tuyến VNPAY</span>
+            </div>
+            <div class="mt-2 mb-1 bg-payments-disabled">
+                <input type="radio" name="payments" class="d-inline-block mr-2" disabled/>
+                <img src="/images/payments/viettelpay.png" width="50" height="50" class="d-inline-block mr-2 img-thumbnail"/>
+                <span>Thanh toán trực tuyến VIETTEL PAY</span>
+            </div>
+            <div class="mt-2 mb-1 bg-payments-disabled">
+                <input type="radio" name="payments" class="d-inline-block mr-2" disabled/>
+                <img src="/images/payments/nap-the-dt.jpg" width="50" height="50" class="d-inline-block mr-2 img-thumbnail"/>
+                <span>Thanh toán bằng thẻ điện thoại</span>
+            </div>
+            <div class="mt-2 mb-1 bg-payments-disabled">
+                <input type="radio" name="payments" class="d-inline-block mr-2" disabled/>
+                <img src="/images/payments/thanh-toan-truc-tuyen.jpg" width="50" height="50" class="d-inline-block mr-2 img-thumbnail"/>
+                <span>Thanh toán trực tuyến</span>
+            </div>
+            <div class="mt-2 mb-3 bg-payments-disabled">
+                <input type="radio" name="payments" class="d-inline-block mr-2" disabled/>
+                <img src="/images/payments/loai-khac.jpg" width="50" height="50" class="d-inline-block mr-2 img-thumbnail"/>
+                <span>Loại khác</span>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn" onclick="changePaymentsCancel()">Quay lại</button>
+            <button type="button" class="btn" onclick="savePayments()">Xác nhận</button>
+        </div>
+    </div>
+</div>

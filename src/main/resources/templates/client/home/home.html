@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{client/layout-main/layout-main}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+</head>
+<body>
+
+<!-- Carousel Start -->
+<div layout:fragment="content">
+<div class="container-fluid mb-3">
+    <div class="row px-xl-5">
+        <div class="col-lg-8">
+            <div id="header-carousel" class="carousel slide carousel-fade mb-30 mb-lg-0" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li th:each="banner, iterStat : ${bannersBig}" data-target="#header-carousel"
+                        th:data-slide-to="${iterStat.index}" th:classappend="${iterStat.index == 0} ? 'active' : ''"></li>
+                </ol>
+                <div class="carousel-inner">
+                    <div th:each="banner, iterStat : ${bannersBig}" class="carousel-item position-relative" style="height: 430px; image-rendering: auto;"
+                         th:classappend="${iterStat.index == 0} ? 'active' : ''">
+                        <img class="position-absolute w-100 h-100 src-banner" th:src="${banner.getImage()}" style="object-fit: cover; image-rendering: auto;">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="product-offer mb-30" style="height: 200px;" th:each="banner : ${bannersSmall}">
+                <img class="img-fluid" th:src="${banner.getImage()}" alt="">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Carousel End -->
+
+<!-- Categories Start -->
+<div class="container-fluid py-5">
+    <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">DANH MỤC</span></h2>
+    <div class="row px-xl-5">
+        <div class="col">
+            <div class="related-carousel-wrapper">
+                <div class="custom-nav-prev custom-nav">
+                    <a class="prev">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="bi bi-arrow-left-square-fill" viewBox="0 0 16 16">
+                            <path d="M16 14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2zm-4.5-6.5H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5a.5.5 0 0 0 0-1"/>
+                        </svg>
+                    </a>
+                </div>
+                <div class="owl-carousel related-carousel">
+                    <div th:each="category : ${categories}" class="product-item pt-1 pr-1 pl-1">
+                        <a th:href="@{'/cosmetic/category?id=' + ${category.getCategory_id()}}">
+                            <div class="product-img position-relative overflow-hidden">
+                                <img class="img-fluid w-100 src-category" th:src="${category.getImage()}" style="object-fit: cover; image-rendering: crisp-edges;" alt="">
+                            </div>
+                            <div>
+                                <p class="text-center p-2" th:text="${category.getName()}"></p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="custom-nav-next custom-nav">
+                    <a class="next">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="bi bi-arrow-right-square-fill" viewBox="0 0 16 16">
+                            <path d="M0 14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2zm4.5-6.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5a.5.5 0 0 1 0-1"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Products End -->
+
+<!-- Products Start -->
+<div class="container-fluid pt-5 pb-3">
+    <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">SẢM PHẨM NỔI BẬT</span></h2>
+    <div class="row px-xl-5">
+        <div th:each="product : ${products}" class="col-lg-3 col-md-4 col-sm-6 pb-1 product-home-page">
+            <div class="product-item bg-light mb-4">
+                <a th:href="@{'/cosmetic/product-details?id=' + ${product.getProduct_id()}}" class="product-link">
+                <div th:if="${product.discountType == T(com.example.webshopcosmetics.model.DiscountType).NO}">
+                    <span class="discount-value" th:data-id="${product.getProduct_id()}" th:data-discount_type="${product.getDiscountType()}" th:text="${product.getDiscountValue()}"></span>
+                    <div class="product-img position-relative overflow-hidden">
+                        <img class="img-fluid w-100 src-product" style="width:100%; height:auto;max-width: 100%; max-height: 100%; object-fit: cover; image-rendering: crisp-edges;" th:src="${product.getImage()}" alt="" onload="adjustImageHeight(this)">
+                    </div>
+                </div>
+                <div th:if="${product.discountType == T(com.example.webshopcosmetics.model.DiscountType).AMOUNT}" class="wrap">
+                    <span class="product-img-sale discount-value" th:data-id="${product.getProduct_id()}" th:data-discount_type="${product.getDiscountType()}" th:text="${product.getDiscountValue()}"></span>
+                    <div class="product-img position-relative overflow-hidden">
+                        <img class="img-fluid w-100 src-product" style="width:100%; height:auto;max-width: 100%; max-height: 100%; object-fit: cover; image-rendering: auto;" th:src="${product.getImage()}" alt="" onload="adjustImageHeight(this)">
+                    </div>
+                </div>
+                <div th:if="${product.discountType == T(com.example.webshopcosmetics.model.DiscountType).PERCENTAGE}" class="wrap">
+                    <span class="product-img-sale discount-value" th:data-id="${product.getProduct_id()}" th:data-discount_type="${product.getDiscountType()}" th:text="${product.getDiscountValue()}"></span>
+                    <div class="product-img position-relative overflow-hidden">
+                        <img class="img-fluid w-100 src-product" style="width:100%; height:auto;max-width: 100%; max-height: 100%; object-fit: cover; image-rendering: auto;" th:src="${product.getImage()}" alt="" onload="adjustImageHeight(this)">
+                    </div>
+                </div>
+                <div class="p-3">
+                    <p class="mb-0 manufacturer-name" th:text="${product.getManufacturer().getName()}"></p>
+                    <p class="mb-0" th:text="${#strings.abbreviate(product.getName(), 50)}"></p>
+                    <div class="d-flex align-items-center mt-2">
+                        <h5 class="color-main" th:id="@{'price_' + ${product.getProduct_id()}}" th:text="${product.price}"></h5>
+                        <h6 class="text-muted ml-3"><del th:id="@{'price_del_' + ${product.getProduct_id()}}"></del></h6>
+                    </div>
+                </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Products End -->
+
+    <th:block>
+        <div class="container-fluid pt-5 pb-3">
+            <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">BÀI VIẾT LIÊN QUAN</span></h2>
+            <div class="row px-xl-5">
+                <div class="col-lg-3 col-md-4 col-sm-6 pb-1" th:each="post : ${posts}">
+                    <div class="product-item bg-light mb-4">
+                        <a th:href="@{'/cosmetic/posts-details?id=' + ${post.getPosts_id()}}" class="product-link">
+                            <div class="product-img position-relative overflow-hidden">
+                                <img class="img-fluid w-100 src-post" th:src="${post.getImage()}">
+                            </div>
+                            <div class="text-center py-4">
+                                <p th:text="${#strings.abbreviate(post.getPostsTitle(), 30)}"></p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </th:block>
+
+
+<!-- Manufacturer Start -->
+    <div class="container-fluid py-5">
+        <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">THƯƠNG HIỆU</span></h2>
+        <div class="row px-xl-5">
+            <div class="col">
+                <div class="related-carousel-wrapper">
+                    <div class="custom-nav-prev custom-nav">
+                        <a class="prev">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="bi bi-arrow-left-square-fill" viewBox="0 0 16 16">
+                                <path d="M16 14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2zm-4.5-6.5H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5a.5.5 0 0 0 0-1"/>
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="owl-carousel related-carousel">
+                        <div th:each="manufacturer : ${manufacturers}" class="product-item pt-2 pr-2 pl-2">
+                            <a th:href="@{'/cosmetic/manufacturer?id=' + ${manufacturer.getManufacturer_id()}}">
+                                <div class="product-img position-relative overflow-hidden">
+                                    <img class="img-fluid w-100 src-manufacturer" th:src="${manufacturer.getImage()}" style="object-fit: cover; image-rendering: crisp-edges;" alt="">
+                                </div>
+                                <div>
+                                    <p class="text-center p-2" th:text="${manufacturer.getName()}"></p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="custom-nav-next custom-nav">
+                        <a class="next">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="bi bi-arrow-right-square-fill" viewBox="0 0 16 16">
+                                <path d="M0 14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2zm4.5-6.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5a.5.5 0 0 1 0-1"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Products End -->
+
+</body>
+</html>

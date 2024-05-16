@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/layout-main/layout-main}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="row g-3 mb-4 align-items-center justify-content-between">
+        <div class="col-auto">
+            <h1 class="app-page-title mb-0">DANH SÁCH ĐƠN HÀNG</h1>
+        </div>
+    </div>
+    <div th:if="${successMessage != null}" class="alert alert-success" role="alert">
+        <span th:text="${successMessage}"></span>
+        <button type="button" class="close" aria-label="Close" onclick="hideErrorMessage(this)">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div th:if="${errorMessage != null}" class="alert alert-danger" role="alert">
+        <span th:text="${errorMessage}"></span>
+        <button type="button" class="close" aria-label="Close" onclick="hideErrorMessage(this)">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="tab-content">
+        <div class="tab-pane fade show active">
+            <div class="app-card app-card-orders-table shadow-sm mb-5">
+                <form action="#" th:action="@{/admin/order}" method="GET">
+                    <div class="app-card-body" style="padding: 15px;">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="custom-label-input-form">
+                                    <label for="ordercode" class="col-form-label col-form-label-sm text-md-end">Mã đơn hàng</label>
+                                    <div>
+                                        <input type="text" th:value="${orderCode}" name="order-code" class="form-control form-control-sm custom-input-form" id="ordercode">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="custom-label-input-form">
+                                    <label for="status" class="col-form-label col-form-label-sm text-md-end">Trạng thái đơn hàng</label>
+                                    <div>
+                                        <select class="form-control form-control-sm custom-input-form" name="status" id="status">
+                                            <option th:value="NO" th:selected="${status == ''}">Tất cả</option>
+                                            <option th:value="PROCESSING" th:selected="${status == 'PROCESSING'}">Đang xử lý</option>
+                                            <option th:value="SHIPPED" th:selected="${status == 'SHIPPED'}">Đang giao hàng</option>
+                                            <option th:value="DELIVERED" th:selected="${status == 'DELIVERED'}">Đã giao hàng</option>
+                                            <option th:value="CANCELLED" th:selected="${status == 'CANCELLED'}">Đơn hàng đã hủy</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="custom-label-input-form">
+                                    <label for="size" class="col-form-label col-form-label-sm text-md-end">Kích thước trang</label>
+                                    <div>
+                                        <select class="form-control form-control-sm custom-input-form" name="size" id="size">
+                                            <option value="10" th:selected="${size == 10}">10</option>
+                                            <option value="15" th:selected="${size == 15}">15</option>
+                                            <option value="20" th:selected="${size == 20}">20</option>
+                                            <option value="25" th:selected="${size == 25}">25</option>
+                                            <option value="50" th:selected="${size == 50}">50</option>
+                                            <option value="100" th:selected="${size == 100}">100</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="custom-label-input-form">
+                                    <button type="submit" class="btn btn-primary text-white">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                                        </svg>
+                                        Tìm kiếm</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <th:block th:if="${orders != null and #lists.size(orders.content) > 0}">
+        <div class="tab-content">
+            <div class="tab-pane fade show active">
+                <div class="app-card app-card-orders-table shadow-sm mb-5">
+                    <div class="app-card-body">
+                        <div class="table-responsive">
+                            <table class="table app-table-hover mb-0 text-left">
+                                <thead>
+                                <tr>
+                                    <th class="cell">Mã đơn hàng</th>
+                                    <th class="cell">Người Đặt Hàng</th>
+                                    <th class="cell">Trạng Thái</th>
+                                    <th class="cell">Ngày Tạo Đơn</th>
+                                    <th class="cell text-center">Xem Chi Tiết</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="order : ${orders}">
+                                    <td th:text="${order.getOrderCode()}"></td>
+                                    <td th:text="${order.getShipping().getFullName()}"></td>
+                                    <th:block th:if="${order.getStatus() == T(com.example.webshopcosmetics.model.OrderStatus).PROCESSING}">
+                                        <th><span class="status-order processing" th:text="${order.getStatus().getDisplayName()}"></span></th>
+                                    </th:block>
+                                    <th:block th:if="${order.getStatus() == T(com.example.webshopcosmetics.model.OrderStatus).CANCELLED}">
+                                        <th><span class="status-order cancelled" th:text="${order.getStatus().getDisplayName()}"></span></th>
+                                    </th:block>
+                                    <th:block th:if="${order.getStatus() == T(com.example.webshopcosmetics.model.OrderStatus).SHIPPED}">
+                                        <th><span class="status-order shipped" th:text="${order.getStatus().getDisplayName()}"></span></th>
+                                    </th:block>
+                                    <th:block th:if="${order.getStatus() == T(com.example.webshopcosmetics.model.OrderStatus).DELIVERED}">
+                                        <th><span class="status-order delivered" th:text="${order.getStatus().getDisplayName()}"></span></th>
+                                    </th:block>
+                                    <td class="order-date-time" th:text="${order.getOrderDate()}"></td>
+                                    <td class="text-center"><a th:href="@{'/admin/order/order-details?order_code=' + ${order.getOrderCode()}}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="0.8em" height="0.8em" fill="currentColor" class="bi bi-eye edit-icon" viewBox="0 0 16 16">
+                                            <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"/>
+                                            <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
+                                        </svg>
+                                    </a></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item" th:classappend="${pageNo == 1 ? 'disabled' : ''}">
+                    <a class="page-link" th:href="@{${orderCode != null && orderCode != '' ? '?order-code=' + orderCode + '&' : '?'} + 'pageNo=' + ${pageNo - 1} + '&size=' + ${size} + '&status=' + ${status}}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li th:each="i:${#numbers.sequence(1,totalPage)}" th:classappend="${pageNo == i ? 'active' : ''}" class="page-item">
+                    <a th:text="${i}" th:href="@{${orderCode != null && orderCode != '' ? '?order-code=' + orderCode + '&' : '?'} + 'pageNo=' + ${i} + '&size=' + ${size}+ '&status=' + ${status}}" class="page-link" href="#"></a>
+                </li>
+                <li class="page-item" th:classappend="${pageNo == totalPage ? 'disabled' : ''}">
+                    <a class="page-link" th:href="@{${orderCode != null && orderCode != '' ? '?order-code=' + orderCode + '&' : '?'} + 'pageNo=' + ${pageNo + 1} + '&size=' + ${size} + '&status=' + ${status}}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </th:block>
+    <th:block th:if="${orders == null or #lists.size(orders.content) == 0}">
+        <div class="text-center my-order-empty">
+            <img src="/images/order/hinh-anh-quyen-xo.jpg" width="150" height="150" class="d-block mx-auto">
+            <span class="d-block">Không tìm thấy đơn hàng nào</span>
+        </div>
+    </th:block>
+
+</div>
+</body>
+</html>

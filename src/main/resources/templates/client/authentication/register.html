@@ -1,0 +1,100 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">-->
+<!--<head>-->
+<!--	<meta charset="utf-8">-->
+<!--	<meta name="author" content="Muhamad Nauval Azhar">-->
+<!--	<meta name="viewport" content="width=device-width,initial-scale=1">-->
+<!--	<meta name="description" content="This is a login page template based on Bootstrap 5">-->
+<!--	<title>Bootstrap 5 Register Page</title>-->
+<!--	&lt;!&ndash;  FontAwersome v6.5.1&ndash;&gt;-->
+<!--	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />-->
+<!--	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">-->
+<!--	<link rel="stylesheet" th:href="@{/css/admin-style.css}">-->
+<!--	<meta name="_csrf" th:content="${_csrf.token}" />-->
+<!--    <meta name="_csrf_header" th:content="${_csrf.headerName}" />-->
+<!--</head>-->
+
+<!--<body>-->
+<!--	<section class="h-100">-->
+<!--		<div class="container h-100">-->
+<!--			<div class="row justify-content-sm-center h-100">-->
+<!--				<div class="col-xxl-4 col-xl-5 col-lg-5 col-md-7 col-sm-9">-->
+<!--					<div class="text-center my-5">-->
+<!--						<img src="https://getbootstrap.com/docs/5.0/assets/brand/bootstrap-logo.svg" alt="logo" width="100">-->
+<!--					</div>-->
+<!--					<meta name="_csrf" th:content="${_csrf.token}" />-->
+<!--					<div class="card shadow-lg">-->
+<!--						<div class="card-body p-5">-->
+<!--							<h1 class="fs-4 card-title fw-bold mb-4">ĐĂNG KÍ</h1>-->
+<!--							<div th:if="${errorMessage != null}" class="alert alert-danger" role="alert">-->
+<!--								<span th:text="${errorMessage}"></span>-->
+<!--								<button type="button" class="close" aria-label="Close" onclick="hideErrorMessage(this)">-->
+<!--									<span aria-hidden="true">&times;</span>-->
+<!--								</button>-->
+<!--							</div>-->
+<!--							<form method="POST" th:action="@{/register}" onsubmit="return validateCustomer()">-->
+<!--								<input type="hidden" name="${_csrf.parameterName}" th:value="${_csrf.token}" />-->
+<!--								<div class="mb-3">-->
+<!--									<label class="mb-2 text-muted" for="fullname">Tên người dùng</label>-->
+<!--									<input id="fullname" type="text" class="form-control fullname" name="fullname" value="" required>-->
+<!--									<div id="fullNameError" class="fullnameError" style="display: none">-->
+<!--										<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-exclamation-circle text-danger" viewBox="0 0 16 16">-->
+<!--											<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>-->
+<!--											<path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z"/>-->
+<!--										</svg>-->
+<!--										<span id="fullNameTextError" class="small text-danger fullnameTextError"></span>-->
+<!--									</div>-->
+<!--								</div>-->
+
+<!--								<div class="mb-3">-->
+<!--									<label class="mb-2 text-muted" for="account">Tên đăng nhập</label>-->
+<!--									<input id="account" type="text" class="form-control" name="account" value="" required>-->
+<!--									<div id="accountError" class="accountError" style="display: none">-->
+<!--										<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-exclamation-circle text-danger" viewBox="0 0 16 16">-->
+<!--											<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>-->
+<!--											<path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z"/>-->
+<!--										</svg>-->
+<!--										<span id="accountTextError" class="small text-danger accountTextError"></span>-->
+<!--									</div>-->
+<!--								</div>-->
+
+<!--								<div class="mb-3">-->
+<!--									<label class="mb-2 text-muted" for="password">Mật khẩu</label>-->
+<!--									<div class="custom-input-password-eye">-->
+<!--										<input id="signin-password" type="password" class="form-control" name="password" value="" required>-->
+<!--										<i class="fa-regular fa-eye-slash" onclick="eyeTransformation('password-eye')" id="password-eye"></i>-->
+<!--									</div>-->
+<!--									<div id="passwordError" class="passwordError" style="display: none">-->
+<!--										<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-exclamation-circle text-danger" viewBox="0 0 16 16">-->
+<!--											<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>-->
+<!--											<path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z"/>-->
+<!--										</svg>-->
+<!--										<span id="passwordTextError" class="small text-danger passwordTextError"></span>-->
+<!--									</div>-->
+<!--								</div>-->
+
+<!--								<div class="align-items-center d-flex">-->
+<!--									<button type="submit" class="btn btn-primary ms-auto">-->
+<!--										Đăng kí	-->
+<!--									</button>-->
+<!--								</div>-->
+<!--							</form>-->
+<!--						</div>-->
+<!--						<div class="card-footer py-3 border-0">-->
+<!--							<div class="text-center">-->
+<!--								Bạn đã có tài khoản? <a href="/cosmetic/login" class="text-dark">Đăng nhập</a>-->
+<!--							</div>-->
+<!--						</div>-->
+<!--					</div>-->
+<!--					<div class="text-center mt-5 text-muted">-->
+<!--						Copyright &copy; 2017-2021 &mdash; Your Company -->
+<!--					</div>-->
+<!--				</div>-->
+<!--			</div>-->
+<!--		</div>-->
+<!--	</section>-->
+<!--	<script th:src="@{/js/validate.js}"></script>-->
+<!--	<script th:src="@{/js/script-style.js}"></script>-->
+<!--	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
+<!--</body>-->
+<!--</html>-->

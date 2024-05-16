@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/layout-main/layout-main}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="row g-3 mb-4 align-items-center justify-content-between">
+        <div class="col-auto">
+            <h1 class="app-page-title mb-0">GIỚI THIỆU VỀ SHOP</h1>
+        </div>
+        <div class="col-auto">
+            <div class="page-utilities">
+                <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
+                    <div class="col-auto">
+                        <button type="submit" form="form-about" data-toggle="tooltip" title="Lưu" class="btn app-btn-secondary">Lưu</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:if="${successMessage != null}" class="alert alert-success" role="alert">
+        <span th:text="${successMessage}"></span>
+        <button type="button" class="close" aria-label="Close" onclick="hideErrorMessage(this)">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div th:if="${errorMessage != null}" class="alert alert-danger" role="alert">
+        <span th:text="${errorMessage}"></span>
+        <button type="button" class="close" aria-label="Close" onclick="hideErrorMessage(this)">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="tab-content">
+        <div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
+            <div class="app-card app-card-orders-table shadow-sm mb-5">
+                <form action="#" th:action="@{/admin/about/edit-about}" method="post" id="form-about" enctype="multipart/form-data" onsubmit="return validateManufacturer()">
+                    <div class="app-card-body" style="padding: 15px; " th:each="about : ${abouts}">
+                        <input type="hidden" name="about_id" th:value="${about.getAbout_id()}" readonly>
+                        <div class="row custom-label-input-form">
+                            <label for="name" class="col-sm-2 col-form-label col-form-label-sm text-sm-end">Tên Shop</label>
+                            <div class="col-sm">
+                                <input type="text" name="name_shop" th:value="${about.getNameShop()}" class="form-control form-control-sm custom-input-form" id="name" required>
+                            </div>
+                        </div>
+                        <div class="row custom-label-input-form">
+                            <label for="productDescription" class="col-sm-2 col-form-label col-form-label-sm text-sm-end">Giới thiệu về Shop</label>
+                            <div class="col-sm">
+                                <textarea name="introduce" rows="8" th:value="${about.getIntroduce()}" th:text="${about.getIntroduce()}" class="form-control form-control-sm custom-input-form" id="productDescription"></textarea>
+                            </div>
+                        </div>
+                        <div class="row custom-label-input-form">
+                            <label class="col-sm-2 col-form-label col-form-label-sm text-sm-end">Thông tin về Shop</label>
+                            <div class="col-sm">
+                                <textarea name="information" rows="8" th:value="${about.getInformation()}" th:text="${about.getInformation()}" class="form-control form-control-sm custom-input-form" id="information"></textarea>
+                            </div>
+                        </div>
+                        <div class="row custom-label-input-form">
+                            <label class="col-sm-2 col-form-label col-form-label-sm text-sm-end">Địa chỉ Shop</label>
+                            <div class="col-sm">
+                                <input type="text" name="address" th:value="${about.getAddress()}" class="form-control form-control-sm custom-input-form" required>
+                            </div>
+                        </div>
+                        <div class="row custom-label-input-form">
+                            <label class="col-sm-2 col-form-label col-form-label-sm text-sm-end">Địa chỉ trên bản đồ</label>
+                            <div class="col-sm">
+                                <textarea type="text" name="google_map" th:value="${about.getGoogleMap()}" th:text="${about.getGoogleMap()}" class="form-control form-control-sm custom-input-form" required></textarea>
+                            </div>
+                        </div>
+                        <div class="row custom-label-input-form">
+                            <label class="col-sm-2 col-form-label col-form-label-sm text-sm-end">Số điện thoại</label>
+                            <div class="col-sm">
+                                <input type="text" name="phone" th:value="${about.getPhone()}" class="form-control form-control-sm custom-input-form" required>
+                            </div>
+                        </div>
+                        <div class="row custom-label-input-form">
+                            <label class="col-sm-2 col-form-label col-form-label-sm text-sm-end">Tên Shop</label>
+                            <div class="col-sm">
+                                <input type="text" name="email" th:value="${about.getEmail()}" class="form-control form-control-sm custom-input-form" required>
+                            </div>
+                        </div>
+                        <div class="row custom-label-input-form">
+                            <label class="col-sm-2 col-form-label col-form-label-sm text-sm-end">Fanpage Facebook</label>
+                            <div class="col-sm">
+                                <input type="text" name="fanpage" th:value="${about.getFanpage()}" class="form-control form-control-sm custom-input-form" required>
+                            </div>
+                        </div>
+                        <div class="row custom-label-input-form">
+                            <label class="col-sm-2 col-form-label col-form-label-sm text-sm-end">Ngày thành lập</label>
+                            <div class="col-sm">
+                                <input type="date" name="founding" th:value="${about.getFounding()}" class="form-control form-control-sm custom-input-form" required>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/layout-main/layout-main}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="row g-3 mb-4 align-items-center justify-content-between">
+        <div class="col-auto">
+            <h1 class="app-page-title mb-0">THÊM DANH MỤC SẢN PHẨM</h1>
+        </div>
+        <div class="col-auto">
+            <div class="page-utilities">
+                <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
+                    <div class="col-auto">
+                        <button type="submit" form="form-category" data-toggle="tooltip" title="Lưu" class="btn app-btn-secondary">Lưu</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tab-content">
+        <div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
+            <div class="app-card app-card-orders-table shadow-sm mb-5">
+                <form action="#" th:action="@{/admin/category/add-category}" th:object="${category}" method="post" id="form-category" enctype="multipart/form-data" onsubmit="return validateCategory()">
+                    <div class="app-card-body" style="padding: 15px;">
+                        <div class="row custom-label-input-form">
+                            <label for="test-image" class="col-sm-2 col-form-label col-form-label-sm text-sm-end">Ảnh danh mục sản phẩm</label>
+                            <div class="col-sm">
+                                <a href="" id="test-image" data-toggle="image" class="test-img-thumbnail"><img class="img-thumbnail" id="avt-image" th:src="@{/images/noImage/img.png}" alt="" title=""/></a>
+                                <input type="hidden" name="image" value="/images/noImage/img.png" id="input-avt-image" />
+                                <div class="buttons hide-show-filemanager-button" style="display: none;">
+                                    <a class="btn btn-sm btn-primary btn-filemanager" onclick="handleAddButtonClick()" data-bs-toggle="modal" data-bs-target="#myModal">
+                                        <span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill text-white" viewBox="0 0 16 16">
+                                                <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z"/>
+                                            </svg>
+                                        </span>
+                                    </a>
+                                    <a class="btn btn-sm btn-danger btn-delete btn-filemanager" onclick="deleteImagePresentButtonClick()">
+                                        <span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill text-white" viewBox="0 0 16 16">
+                                                <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"/>
+                                            </svg>
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row custom-label-input-form">
+                            <label for="name" class="col-sm-2 col-form-label col-form-label-sm text-sm-end">Tên danh mục sản phẩm</label>
+                            <div class="col-sm">
+                                <input type="text" name="name" th:field="*{name}" class="form-control form-control-sm custom-input-form" id="name" required>
+                                <div class="error-message" id="nameError" style="display: none">
+                                    <span class="error-text">Tên danh mục không hợp lệ. Vui lòng kiểm tra lại</span>
+                                    <button type="button" class="close" aria-label="Close" onclick="hideErrorMessage(this)">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row custom-label-input-form">
+                            <label for="featured" class="col-sm-2 col-form-label col-form-label-sm text-sm-end">Tính nổi bật</label>
+                            <div class="col-sm">
+                                <select th:field="*{featured}" class="form-control form-control-sm custom-input-form" name="featured" id="featured">
+                                    <option th:value="1">Nổi bật</option>
+                                    <option th:value="0">Không nổi bật</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row custom-label-input-form">
+                            <label for="status" class="col-sm-2 col-form-label col-form-label-sm text-sm-end">Trạng thái</label>
+                            <div class="col-sm">
+                                <select th:field="*{status}" class="form-control form-control-sm custom-input-form" name="status" id="status">
+                                    <option th:value="1">Cho phép</option>
+                                    <option th:value="0">Không cho phép</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row custom-label-input-form">
+                            <label for="parent_id" class="col-sm-2 col-form-label col-form-label-sm text-sm-end">Loại cha</label>
+                            <div class="col-sm">
+                                <select th:field="*{parent_id}" class="form-control form-control-sm custom-input-form" name="parent_id" id="parent_id">
+                                    <option th:value="0">Không chọn</option>
+                                    <tr th:each="parent_category : ${parent_categories}">
+                                        <option th:value="${parent_category.getCategory_id()}">
+                                            <span th:text="${parent_category.getName()}"></span>
+                                        </option>
+                                    </tr>
+                                </select>
+                            </div>
+                        </div>
+<!--                        <div class="row custom-label-input-form">-->
+<!--                            <label for="parent_id" class="col-sm-2 col-form-label col-form-label-sm text-sm-end">Loại cha</label>-->
+<!--                            <div class="col-sm">-->
+<!--                                <div class="dropdown">-->
+<!--                                    <button class="btn custom-dropdown-btn dropdown-toggle" type="button" id="parent_id" data-bs-toggle="dropdown" aria-expanded="false">-->
+<!--                                        Lựa chọn-->
+<!--                                    </button>-->
+<!--                                    <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="dropdownMenuButton">-->
+<!--                                        <li th:each="parentCategory : ${parentCategories}">-->
+<!--                                            <div class="form-check">-->
+<!--                                                <input class="form-check-input" type="checkbox" th:value="${parentCategory.getCategory_id()}" id="option1">-->
+<!--                                                <label class="form-check-label" for="option1" th:text="${parentCategory.getName()}"></label>-->
+<!--                                            </div>-->
+<!--                                        </li>-->
+<!--                                    </ul>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

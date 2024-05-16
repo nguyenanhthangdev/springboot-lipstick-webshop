@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{client/layout-main/layout-main}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script>
+        function adjustImageHeight(img) {
+            img.style.height = img.offsetWidth + "px";
+        }
+    </script>
+</head>
+<body>
+
+<div layout:fragment="content">
+<!-- Breadcrumb Start -->
+<div class="container-fluid">
+    <div class="row px-xl-5">
+        <div class="col-12">
+            <nav class="breadcrumb bg-light mb-30">
+                <a class="breadcrumb-item text-black" href="#">Trang chủ</a>
+                <span class="breadcrumb-item active">Chi tiết sản phẩm</span>
+            </nav>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb End -->
+
+<!-- Shop Detail Start -->
+<div class="container-fluid pb-5">
+    <div class="row px-xl-5">
+        <div class="col-lg-12">
+            <div class="row bg-light mb-3 p-3">
+                <div class="col-lg-6">
+                    <div class="">
+                        <div id="product-carousel" class="carousel slide" data-ride="carousel">
+                            <div class="carousel-inner bg-light">
+                                <div class="carousel-item active">
+                                    <img id="large-image" class="img-thumbnail d-block src-gallery-large" th:src="${product.getImage()}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="gallery-thumbnails mt-3">
+                            <div class="thumbnails-inner">
+                                <div class="thumbnails-container">
+                                    <div class="thumbnail-item col-3">
+                                        <img class="img-thumbnail src-gallery" th:src="${product.getImage()}" onclick="changeLargeImage(this)">
+                                    </div>
+                                    <div th:each="gallery : ${galleries}" class="thumbnail-item col-3">
+                                        <img class="img-thumbnail src-gallery" th:src="${gallery.getImage()}" onclick="changeLargeImage(this)">
+                                    </div>
+                                    <div th:each="product_option : ${product_options}" class="thumbnail-item col-3">
+                                        <img class="img-thumbnail src-gallery" th:src="${product_option.getImage()}" onclick="changeLargeImage(this)">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div>
+                        <h3 th:text="${product.getName()}" class="mb-3"></h3>
+                        <h6 th:text="${product.getManufacturer().getName()}" class="mb-3 text-muted small"></h6>
+                        <div class="d-flex mb-3">
+                            <div class="text-primary mr-3 average-rating">
+                                <th:block th:if="${integerPart >= 1}"><label th:each="i : ${#numbers.sequence(1, integerPart)}" class="star-1"><span class="fa fa-star"></span></label></th:block>
+                                <th:block th:if="${fractionalPart > 0}"><label class="star-3"><span th:style="@{'background: linear-gradient(to right, #FF9689 ' + ${fractionalPart} + '%, #a4a4a4 ' + ${100 - fractionalPart} + '%);-webkit-background-clip: text;-webkit-text-fill-color: transparent;'}" class="fa fa-star custom-star"></span></label></th:block>
+                                <th:block th:if="${integerPart >=1 && ((integerPart+2) <= 5) && fractionalPart > 0}"><label th:each="i : ${#numbers.sequence(integerPart + 2, 5)}" class="star-2"><span class="fa fa-star"></span></label></th:block>
+                                <th:block th:if="${integerPart >=1 && ((integerPart+1) <= 5) && fractionalPart <= 0}"><label th:each="i : ${#numbers.sequence(integerPart + 1, 5)}" class="star-2"><span class="fa fa-star"></span></label></th:block>
+                                <th:block th:if="${integerPart == 0}"><label th:each="i : ${#numbers.sequence(1, 5)}" class="star-2"><span class="fa fa-star"></span></label></th:block>
+                            </div>
+                            <span class="mr-3">|</span>
+                            <span class="mr-3" th:text="@{${product_reviews.size()} + ' đánh giá'}"></span>
+                            <span class="mr-3">|</span>
+                            <span class="mr-3">0 hỏi đáp</span>
+                        </div>
+                        <h3 class="font-weight-semi-bold product-price-detail mb-3 color-main"></h3>
+                        <p class="product-price-sale-detail mb-3"></p>
+                        <input type="hidden" id="product-discount-value-hidden" th:value="${product.getDiscountValue()}">
+                        <input type="hidden" id="product-discount-type-hidden" th:value="${product.getDiscountType()}">
+                        <input type="hidden" id="product-price-hidden" th:value="${product.getPrice()}">
+                        <div class="d-flex flex-wrap bg-light mb-3">
+                            <div th:each="product_option : ${product_options}">
+                                <th:block th:if="${product_option.getAmount() <= 0}">
+                                    <div class="d-flex align-items-center product-options-div-disabled mr-2 mb-2 product-options-disabled">
+                                        <img class="src-product-options-img" th:src="${product_option.getImage()}" />
+                                        <span class="p-2 disabled" th:text="${product_option.getName()}"></span>
+                                        <input type="hidden" class="id-product-option-hidden" value="${product_option.getId()}">
+                                        <input type="hidden" class="image-product-option-hidden" th:value="${product_option.getImage()}">
+                                        <input type="hidden" class="name-product-option-hidden" th:value="${product_option.getName()}">
+                                        <input type="hidden" class="price-product-option-hidden" th:value="${product_option.getPrice()}">
+                                        <input type="hidden" class="amount-product-option-hidden" th:value="${product_option.getAmount()}">
+                                    </div>
+                                </th:block>
+                                <th:block th:if="${product_option.getAmount() > 0}">
+                                    <div class="d-flex align-items-center product-options-div mr-2 mb-2" onclick="changeLargeImageProductOptions(this)">
+                                        <img class="src-product-options-img" th:src="${product_option.getImage()}" />
+                                        <span class="p-2" th:text="${product_option.getName()}"></span>
+                                        <input type="hidden" class="id-product-option-hidden" th:value="${product_option.getId()}">
+                                        <input type="hidden" class="image-product-option-hidden" th:value="${product_option.getImage()}">
+                                        <input type="hidden" class="name-product-option-hidden" th:value="${product_option.getName()}">
+                                        <input type="hidden" class="price-product-option-hidden" th:value="${product_option.getPrice()}">
+                                        <input type="hidden" class="discount-price-product-hidden" th:value="${product.getDiscountValue()}">
+                                        <input type="hidden" class="discount-type-product-hidden" th:value="${product.getDiscountType()}">
+                                        <input type="hidden" class="amount-product-option-hidden" th:value="${product_option.getAmount()}">
+                                    </div>
+                                </th:block>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="input-group quantity mr-3" style="width: 130px;">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-primary btn-minus" data-product_option_id="" onclick="updateQuantityProductDetail('decrease', this.getAttribute('data-product_option_id'))">
+                                        <i class="fa fa-minus"></i>
+                                    </button>
+                                </div>
+                                <input type="text" id="quantity" min="1" class="form-control bg-secondary border-0 text-center" value="1" readonly>
+                                <div class="input-group-btn">
+                                    <button class="btn btn-primary btn-plus" data-product_option_id="" onclick="updateQuantityProductDetail('increase', this.getAttribute('data-product_option_id'))">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                                <input type="hidden" id="name-customer" th:value="${customerName}" readonly>
+                                <input type="hidden" id="id-product-hidden" th:value="${product.getProduct_id()}" readonly>
+                                <input type="hidden" id="id-product-option-cart" readonly/>
+                                <input type="hidden" id="name-product-cart" th:value="${product.getName()}" readonly/>
+                                <input type="hidden" id="image-product-option-cart" readonly/>
+                                <input type="hidden" id="name-product-option-cart" readonly/>
+                                <input type="hidden" id="price-product-option-cart" readonly/>
+                                <input type="hidden" id="price-discount-product-cart" th:value="${product.getDiscountValue()}" readonly>
+                                <input type="hidden" id="type-discount-product-cart" th:value="${product.getDiscountType()}" readonly>
+                                <input type="hidden" id="amount-product-option-cart" readonly>
+                                <span class="btn btn-primary px-3" onclick="addToCart()"><i class="fa fa-shopping-cart mr-1"></i>Thêm vào giỏ hàng</span>
+                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                        </div>
+                        <div class="pt-1">
+                            <p class="text-black mr-2 mb-1">Chia sẻ:</p>
+                            <div>
+                                <div class="d-flex">
+                                    <a class="btn btn-primary btn-square mr-2" href="#"><i class="fab fa-twitter"></i></a>
+                                    <a class="btn btn-primary btn-square mr-2" href="#"><i class="fab fa-facebook-f"></i></a>
+                                    <a class="btn btn-primary btn-square mr-2" href="#"><i class="fab fa-linkedin-in"></i></a>
+                                    <a class="btn btn-primary btn-square" href="#"><i class="fab fa-instagram"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-light p-3 mb-3">
+                <div class="nav nav-tabs mb-4">
+                    <a class="nav-item nav-link text-black" data-toggle="tab" onclick="scrollToContent('text-description')">Thông tin sản phẩm</a>
+                    <a class="nav-item nav-link text-black" data-toggle="tab" onclick="scrollToContent('text-review')">Đánh giá</a>
+                </div>
+                <div class="tab-content">
+                    <div class="tab-pane fade show active description-product" id="tab-pane-1 text-description">
+                        <div th:utext="${product.getDescription()}">
+                        </div>
+<!--                        <div class="text-center btn-cart-snippet mt-3">-->
+<!--                            <button type="button" class="btn" id="show-more-btn"><span>Xem thêm thông tin</span></button>-->
+<!--                        </div>-->
+                    </div>
+                    <hr class="mt-5 mb-5">
+                    <div class="tab-pane fade show active" id="tab-pane-3 text-review">
+                        <h5 class="mb-0 mb-2">Đánh giá</h5>
+                        <p>Đánh giá trung bình</p>
+                        <div class="row">
+                            <div class="col-3 text-center average-rating">
+                                <p class="rating-number" th:text="${averageRating}"></p>
+                                <th:block th:if="${integerPart >= 1}"><label th:each="i : ${#numbers.sequence(1, integerPart)}" class="star-1"><span class="fa fa-star"></span></label></th:block>
+                                <th:block th:if="${fractionalPart > 0}"><label class="star-3"><span th:style="@{'background: linear-gradient(to right, #FF9689 ' + ${fractionalPart} + '%, #a4a4a4 ' + ${100 - fractionalPart} + '%);-webkit-background-clip: text;-webkit-text-fill-color: transparent;'}" class="fa fa-star custom-star"></span></label></th:block>
+                                <th:block th:if="${integerPart >=1 && ((integerPart+2) <= 5) && fractionalPart > 0}"><label th:each="i : ${#numbers.sequence(integerPart + 2, 5)}" class="star-2"><span class="fa fa-star"></span></label></th:block>
+                                <th:block th:if="${integerPart >=1 && ((integerPart+2) <= 5) && fractionalPart <= 0}"><label th:each="i : ${#numbers.sequence(integerPart + 1, 5)}" class="star-2"><span class="fa fa-star"></span></label></th:block>
+                                <th:block th:if="${integerPart == 0}"><label th:each="i : ${#numbers.sequence(1, 5)}" class="star-2"><span class="fa fa-star"></span></label></th:block>
+                                <p th:text="@{${product_reviews.size() + ' đánh giá'}}"></p>
+                            </div>
+                            <div class="col-6">
+                                <div class="rounded mb-4 clearfix graph-star-rating">
+                                    <div class="graph-star-rating-body">
+                                        <div class="rating-list">
+                                            <div class="rating-list-left text-black text-right">
+                                                5 Sao
+                                            </div>
+                                            <div class="rating-list-center">
+                                                <div class="progress">
+                                                    <div th:style="@{'width: ' + ${product_reviews.size() == 0 ? '0' : ((numberOfFiveStarReviews / product_reviews.size()) * 100)} + '%'}" aria-valuemax="5" aria-valuemin="0" aria-valuenow="5" role="progressbar" class="progress-bar bg-primary">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="rating-list-right text-black">Rất hài lòng</div>
+                                        </div>
+                                        <div class="rating-list">
+                                            <div class="rating-list-left text-black text-right">
+                                                4 sao
+                                            </div>
+                                            <div class="rating-list-center">
+                                                <div class="progress">
+                                                    <div th:style="@{'width: ' + ${product_reviews.size() == 0 ? '0' : ((numberOfFourStarReviews / product_reviews.size()) * 100)} + '%'}" aria-valuemax="5" aria-valuemin="0" aria-valuenow="5" role="progressbar" class="progress-bar bg-primary">
+                                                        <span class="sr-only">80% Complete (danger)</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="rating-list-right text-black">Hài lòng</div>
+                                        </div>
+                                        <div class="rating-list">
+                                            <div class="rating-list-left text-black text-right">
+                                                3 sao
+                                            </div>
+                                            <div class="rating-list-center">
+                                                <div class="progress">
+                                                    <div th:style="@{'width: ' + ${product_reviews.size() == 0 ? '0' : ((numberOfThreeStarReviews / product_reviews.size()) * 100)} + '%'}" aria-valuemax="5" aria-valuemin="0" aria-valuenow="5" role="progressbar" class="progress-bar bg-primary">
+                                                        <span class="sr-only">80% Complete (danger)</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="rating-list-right text-black">Bình thường</div>
+                                        </div>
+                                        <div class="rating-list">
+                                            <div class="rating-list-left text-black text-right">
+                                                2 sao
+                                            </div>
+                                            <div class="rating-list-center">
+                                                <div class="progress">
+                                                    <div th:style="@{'width: ' + ${product_reviews.size() == 0 ? '0' : ((numberOfTwoStarReviews / product_reviews.size()) * 100)} + '%'}" aria-valuemax="5" aria-valuemin="0" aria-valuenow="5" role="progressbar" class="progress-bar bg-primary">
+                                                        <span class="sr-only">80% Complete (danger)</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="rating-list-right text-black">Không hài lòng</div>
+                                        </div>
+                                        <div class="rating-list">
+                                            <div class="rating-list-left text-black text-right">
+                                                1 sao
+                                            </div>
+                                            <div class="rating-list-center">
+                                                <div class="progress">
+                                                    <div th:style="@{'width: ' + ${product_reviews.size() == 0 ? '0' : ((numberOfOneStarReviews / product_reviews.size()) * 100)} + '%'}" aria-valuemax="5" aria-valuemin="0" aria-valuenow="5" role="progressbar" class="progress-bar bg-primary">
+                                                        <span class="sr-only">80% Complete (danger)</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="rating-list-right text-black">Rất tệ</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3 text-center">
+                                <p>Chia sẻ nhận xét của bạn về sản phẩm này</p>
+                                <div class="text-center btn-cart-snippet">
+                                    <button type="button" class="btn btn-show-product-review"><span>Viết đánh giá</span></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-review hidden">
+                            <div class="mb-3">
+                                <p>Đánh giá sản phẩm này*</p>
+                                <div class="rating">
+                                    <input type="radio" id="star1" name="rating" value="1">
+                                    <label for="star1" class="star"><span class="fa fa-star"></span></label>
+                                    <input type="radio" id="star2" name="rating" value="2">
+                                    <label for="star2" class="star"><span class="fa fa-star"></span></label>
+                                    <input type="radio" id="star3" name="rating" value="3">
+                                    <label for="star3" class="star"><span class="fa fa-star"></span></label>
+                                    <input type="radio" id="star4" name="rating" value="4">
+                                    <label for="star4" class="star"><span class="fa fa-star"></span></label>
+                                    <input type="radio" id="star5" name="rating" value="5">
+                                    <label for="star5" class="star"><span class="fa fa-star"></span></label>
+                                </div>
+                            </div>
+                            <div class="product-review-description mb-3">
+                                <p>Mô tả nhận xét*</p>
+                                <textarea type="text" placeholder="Nhập nhận xét tại đây" id="product-review-description" name="product-review-description"></textarea>
+                            </div>
+                            <div>
+                                <div class="text-right mt-2 mb-3">
+                                    <input type="hidden" id="product-review-id" th:value="${product.getProduct_id()}" readonly/>
+                                    <button type="button" class="btn btn-product-review"><span>Nhận xét</span></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-reviews-size">
+                            <p th:text="@{${product_reviews.size()} + ' bình luận cho sản phẩm này'}" class="mb-0"></p>
+                        </div>
+                        <div class="all-product-reviews">
+                            <div class="product-review-list"></div>
+                            <div th:each="product_review : ${product_reviews}" class="product-review-item">
+                                <div class="product-review">
+                                    <div class="left-product-review-content">
+                                        <div class="rating-customer text-left">
+                                            <label th:each="i : ${#numbers.sequence(1, product_review.getRating())}" class="star-1"><span class="fa fa-star"></span></label>
+                                            <th:block th:if="${product_review.getRating() < 5}"><label th:each="i : ${#numbers.sequence(product_review.getRating() + 1, 5)}" class="star-2"><span class="fa fa-star"></span></label></th:block>
+                                            <label th:text="${product_review.getCustomer().getFullname()}" class="rating-customer-fullname"></label>
+                                            <label th:text="${product.getName()}" class="rating-product-name"></label>
+                                        </div>
+                                    </div>
+                                    <div class="right-product-review-content text-right">
+                                        <label th:text="${#temporals.format(product_review.getCreatedAt(), 'HH:mm | dd/MM/yyyy')}"></label>
+                                    </div>
+                                </div>
+                                <div class="pl-2 pr-2">
+                                    <label th:text="${product_review.getComment()}"></label>
+                                </div>
+                                <hr class="mt-1 mb-1">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Shop Detail End -->
+</div>
+
+</body>
+</html>
