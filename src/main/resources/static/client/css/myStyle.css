@@ -469,16 +469,16 @@
 .modal-add-address button {background-color: #FF9689; border-radius: 5px; border-color: #FF9689; color: white;}
 .modal-add-address .btn-all-address-cancel, .btn-all-address-return{background-color: white; border-radius: 5px; border-color: #FF9689; color: #FF9689;}
 
-.modal-add-address1, .modal-add-address2, .modal-add-address3, .modal-reason-for-cancellation {display: none;position: fixed;z-index: 1;padding-top: 100px;left: 0;top: 0;width: 100%;height: 100%;overflow: auto; background-color: rgb(0,0,0);background-color: rgba(0,0,0,0.4);}
-.modal-add-address1 .modal-content, .modal-add-address2 .modal-content, .modal-add-address3 .modal-content, .modal-reason-for-cancellation .modal-content {position: relative;background-color: #fefefe;margin: auto;padding: 0;border: 1px solid #888;width: 50%;box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);-webkit-animation-name: animatetop;-webkit-animation-duration: 0.4s;animation-name: animatetop-adrress1;animation-duration: 0.4s}
+.modal-add-address1, .modal-add-address2, .modal-add-address3, .modal-reason-for-cancellation, .modal-change-password{display: none;position: fixed;z-index: 1;padding-top: 100px;left: 0;top: 0;width: 100%;height: 100%;overflow: auto; background-color: rgb(0,0,0);background-color: rgba(0,0,0,0.4);}
+.modal-add-address1 .modal-content, .modal-add-address2 .modal-content, .modal-add-address3 .modal-content, .modal-reason-for-cancellation .modal-content, .modal-change-password .modal-content {position: relative;background-color: #fefefe;margin: auto;padding: 0;border: 1px solid #888;width: 50%;box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);-webkit-animation-name: animatetop;-webkit-animation-duration: 0.4s;animation-name: animatetop-adrress1;animation-duration: 0.4s}
 @-webkit-keyframes animatetop-adrress1 { from {top:-300px; opacity:0} to {top:0; opacity:1} }
 @keyframes animatetop-adrress1 { from {top:-300px; opacity:0} to {top:0; opacity:1} }
-.modal-add-address1 .close, .modal-add-address2 .close, .modal-add-address3 .close, .modal-reason-for-cancellation .close {color: white;float: right;font-size: 28px;font-weight: bold;}
-.modal-add-address1 .close:hover, .modal-add-address2 .close:hover, .modal-add-address3 .close:hover, .modal-reason-for-cancellation .close:hover
-.modal-add-address1 .close:focus, .modal-add-address2 .close:focus, .modal-add-address3 .close:focus, .modal-reason-for-cancellation .close:focus {color: #000;text-decoration: none;cursor: pointer;}
-.modal-add-address1 .modal-header, .modal-add-address2 .modal-header, .modal-add-address3 .modal-header, .modal-reason-for-cancellation .modal-header {padding: 2px 16px;background-color: #ffffff;color: black;}
-.modal-add-address1 .modal-body, .modal-add-address2 .modal-body, .modal-add-address3 .modal-body, .modal-reason-for-cancellation .modal-body {padding: 16px 16px 18px 16px;}
-.modal-add-address1 .modal-footer, .modal-add-address2 .modal-footer, .modal-add-address3 .modal-footer, .modal-reason-for-cancellation .modal-footer {padding: 16px;background-color: #ffffff;color: black;}
+.modal-add-address1 .close, .modal-add-address2 .close, .modal-add-address3 .close, .modal-reason-for-cancellation .close, .modal-change-password .close {color: white;float: right;font-size: 28px;font-weight: bold;}
+.modal-add-address1 .close:hover, .modal-add-address2 .close:hover, .modal-add-address3 .close:hover, .modal-reason-for-cancellation .close:hover, .modal-change-password .close:hover
+.modal-add-address1 .close:focus, .modal-add-address2 .close:focus, .modal-add-address3 .close:focus, .modal-reason-for-cancellation .close:focus, .modal-change-password .color:focus {color: #000;text-decoration: none;cursor: pointer;}
+.modal-add-address1 .modal-header, .modal-add-address2 .modal-header, .modal-add-address3 .modal-header, .modal-reason-for-cancellation .modal-header, .modal-change-password .header {padding: 2px 16px;background-color: #ffffff;color: black;}
+.modal-add-address1 .modal-body, .modal-add-address2 .modal-body, .modal-add-address3 .modal-body, .modal-reason-for-cancellation .modal-body, .modal-change-password .modal-body {padding: 16px 16px 18px 16px;}
+.modal-add-address1 .modal-footer, .modal-add-address2 .modal-footer, .modal-add-address3 .modal-footer, .modal-reason-for-cancellation .modal-footer, .modal-change-password .modal-footer {padding: 16px;background-color: #ffffff;color: black;}
 .modal-add-address1 button, .modal-add-address2 button, .modal-add-address3 button, .modal-reason-for-cancellation button {background-color: #FF9689; border-radius: 5px; border-color: #FF9689; color: white;}
 .modal-add-address1 button:hover, .modal-add-address2 button:hover, .modal-add-address3 button:hover, .modal-reason-for-cancellation button:hover {background-color: #ffb1a8; border-radius: 5px; border-color: #ffb1a8; color: white;}
 .modal-add-address1 #btn-add-address-return-home, .modal-add-address2 #btn-add-address-return2, .modal-add-address3 #btn-add-address-return3{background-color: white; border-radius: 5px; border-color: #FF9689; color: #FF9689;}
@@ -515,3 +515,8 @@
 .my-order-empty img { max-width: 100%; max-height: 100%;}
 .my-order-empty span { margin-top: 10px; }
 .my-order-all, .my-order-processing, .my-order-shipped, .my-order-delivered, .my-order-cancelled {display: block;}
+
+.cursor-pointer { cursor: pointer; }
+.cursor-not-allowed { cursor: not-allowed; }
+.btn-save-info { background-color: #FF9689; border-radius: 5px; border-color: #FF9689; color: white; }
+.btn-save-info:hover { border: 1px solid #ff7564; background-color: #ff7564; color: white; }

@@ -16,8 +16,11 @@ import java.util.List;
 public interface CustomerService {
     public Customer findCustomerByAccount(String account);
     public Customer registerCustomer(Customer customer);
-    public boolean checkSessionCustomer(HttpServletRequest request);
     public Customer authenticateCustomer(String account, String password);
+    public Customer myAccount(HttpSession session);
+    public boolean checkIfTheOldPasswordIsCorrect(String account, String password);
+
+    //=======================================ADMIN===============================================
     public Page<Customer> getAllCustomer(int pageNo, String keyword, int size, int status);
     public Customer getOneCustomer(Long id);
     public Customer updateCustomer(Customer customer);

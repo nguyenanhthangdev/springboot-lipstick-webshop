@@ -29,7 +29,7 @@ function validateCustomer() {
     var passwordError = document.getElementById("passwordError");
     var passwordTextError = document.getElementById("passwordTextError");
 
-    fullNameError.style.display = "none"; accountError.style.display = "none"; passwordError.style.display = "none";
+    fullNameError.style.display = "none"; accountError.style.display = "none"; passwordError.style.display = "none"; emailError.style.display = "none";
 
     if (fullName === "") {
         fullNameError.style.display = "block";

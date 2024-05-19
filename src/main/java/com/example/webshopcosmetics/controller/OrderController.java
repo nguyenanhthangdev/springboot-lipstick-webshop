@@ -139,6 +139,7 @@ public class OrderController {
             model.addAttribute("checkProcessingOrder", false);
             model.addAttribute("checkShippedOrder", false);
             model.addAttribute("checkDeliveredOrder", false);
+            model.addAttribute("order_active", "ACTIVE");
             return "client/order/order";
         } else {
             return "redirect:/cosmetic";

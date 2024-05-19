@@ -101,12 +101,12 @@
                                 </a>
                             </th:block>
                             <th:block th:if="${session.s_customer != null}">
-                                <a href="" class="btn px-0 ml-3" >
+                                <a href="" class="btn px-0 ml-3 dropdown-toggle" data-toggle="dropdown">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" fill="currentColor" class="bi bi-person-circle text-white" viewBox="0 0 16 16">
                                         <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
                                         <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
                                     </svg>
-                                    <a class="btn btn-sm dropdown-toggle text-white" data-toggle="dropdown" style="padding-top: 10px;" th:text="${session.s_customer.fullName()}"></a>
+                                    <a class="btn btn-sm dropdown-toggle text-white" id="fullname-customer-account" data-toggle="dropdown" style="padding-top: 10px;" th:text="${session.s_customer.fullName()}"></a>
                                 </a>
                             </th:block>
                             <div class="dropdown-menu dropdown-menu-right">
@@ -115,6 +115,7 @@
                                     <a class="dropdown-item" onclick="openRegister()" type="button">Đăng kí</a>
                                 </th:block>
                                 <th:block th:if="${session.s_customer != null}">
+                                    <a class="dropdown-item" href="/cosmetic/my-account">Tài khoản của tôi</a>
                                     <a class="dropdown-item" href="/cosmetic/my-order">Đơn hàng của tôi</a>
                                     <a class="dropdown-item" id="button-logout" type="button">Đăng xuất</a>
                                 </th:block>
@@ -156,6 +157,7 @@
 <div class="loader" id="loader"></div>
 <div th:include="client/authentication/modal-login.html"></div>
 <div th:include="client/checkout/add-address.html"></div>
+<div th:include="client/order/change-password-account.html"></div>
 <div th:include="client/order/reason-for-cancellation.html"></div>
 <div layout:fragment="content"></div>
 
@@ -207,6 +209,7 @@
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
 <script th:src="@{/js/validate.js}"></script>
+<script th:src="@{/client/js/account.js}"></script>
 <script th:src="@{/client/js/authenticate.js}"></script>
 <script th:src="@{/client/js/home.js}"></script>
 <script th:src="@{/client/js/cart.js}"></script>

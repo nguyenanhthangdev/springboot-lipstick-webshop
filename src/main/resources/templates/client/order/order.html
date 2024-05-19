@@ -26,7 +26,10 @@
             <div class="col-lg-3">
                <div class="bg-light">
                    <div>
-                       <h4 th:text="${session.s_customer.fullName()}"></h4>
+                       <h4 class="pl-3 pt-3" th:text="@{'Xin chào: ' + ${session.s_customer.fullName()}}"></h4><hr/>
+                       <a th:class="${order_active != null ? 'color-main cursor-pointer pl-3' : 'cursor-pointer pl-3'}">Đơn hàng của tôi</a><hr/>
+                       <a href="/cosmetic/my-account" class="cursor-pointer pl-3">Thông tin tài khoản</a><hr/>
+                       <p class="cursor-pointer pl-3 pb-3" onclick="openTableChangePassword()">Đổi mật khẩu</p>
                    </div>
                </div>
             </div>

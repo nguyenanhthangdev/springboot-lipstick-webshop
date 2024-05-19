@@ -59,12 +59,10 @@ public class CheckoutController {
     @ResponseBody
     public ResponseEntity<?> checkTheNumberOfProductsLeftInTheShop(HttpSession session) {
         try {
-            System.out.println("checkTheNumberOfProductsLeftInTheShop");
             checkoutService.checkTheNumberOfProductsLeftInTheShop(session);
             List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
             boolean checkIfThereIsAChangeInProductQuantity = false;
             if (cart != null || !cart.isEmpty()) {
-                System.out.println("checkTheNumberOfProductsLeftInTheShop2");
                 Iterator<CartItem> iterator = cart.iterator();
                 while (iterator.hasNext()) {
                     CartItem p = iterator.next();

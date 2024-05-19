@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{client/layout-main/layout-main}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+</head>
+<body>
+
+<div layout:fragment="content">
+
+    <div class="container-fluid">
+        <div class="row px-xl-5">
+            <div class="col-12">
+                <nav class="breadcrumb bg-light mb-30">
+                    <a class="breadcrumb-item text-black" href="#">Trang chủ</a>
+                    <span class="breadcrumb-item active">Thông tin tài khoản</span>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row px-xl-5">
+            <div class="col-lg-3">
+                <div class="bg-light">
+                    <div>
+                        <h4 class="pl-3 pt-3" th:text="@{'Xin chào: ' + ${session.s_customer.fullName()}}"></h4><hr/>
+                        <a href="/cosmetic/my-order" class="cursor-pointer pl-3">Đơn hàng của tôi</a><hr/>
+                        <p th:class="${account_active != null ? 'color-main cursor-pointer pl-3' : 'cursor-pointer pl-3'}">Thông tin tài khoản</p><hr/>
+                        <p class="cursor-pointer pl-3 pb-3" onclick="openTableChangePassword()">Đổi mật khẩu</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="bg-light">
+                    <div class="row p-3">
+                        <div class="col-md-6 form-group">
+                            <label>Họ và Tên</label>
+                            <input class="form-control" th:value="${account.getFullname()}" type="text" id="editFullName" name="editFullName">
+                            <div id="editFullNameError" class="editFullNameError" style="display: none">
+                                <span id="editFullNameTextError" class="small text-danger editFullNameTextError"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Tên đăng nhập</label>
+                            <input class="form-control cursor-not-allowed" th:value="${account.getAccount()}" type="text" name="account" disabled readonly>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Email</label>
+                            <input class="form-control" th:value="${account.getEmail()}" type="text" id="editEmail" name="editEmail">
+                            <div id="editEmailError" class="editEmailError" style="display: none">
+                                <span id="editEmailTextError" class="small text-danger editEmailTextError"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label class="d-block mt-3 pt-2"></label>
+                            <button type="button" class="btn btn-save-info d-inline-block mr-2" onclick="editInfoAccount()">Lưu thay đổi</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

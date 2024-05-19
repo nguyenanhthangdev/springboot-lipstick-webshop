@@ -21,6 +21,6 @@ public class WebConfig implements WebMvcConfigurer {
                         "/cosmetic/save-shipping-of-customer2", "/cosmetic/delete-shipping-by-id-of-customer", "/cosmetic/save-order", "/cosmetic/check-customer-has-shipping",
                         "/cosmetic/check-the-number-of-products-left-in-the-shop", "/cosmetic/products-payment", "/cosmetic/my-order", "/cosmetic/about", "/cosmetic/contact",
                         "/cosmetic/contact/save-contact", "/cosmetic/posts-details", "/cosmetic/all-post", "/cosmetic/get-price-product-option", "/cosmetic/change-this-address-to-default-in-DB",
-                        "/cosmetic/save-reason-for-cancellation");
+                        "/cosmetic/save-reason-for-cancellation", "/cosmetic/check-password-old", "/cosmetic/change-password", "/cosmetic/update-info-account");
     }
 }

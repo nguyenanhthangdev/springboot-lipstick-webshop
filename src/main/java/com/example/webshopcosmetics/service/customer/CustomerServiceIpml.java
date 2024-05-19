@@ -4,6 +4,7 @@ import com.example.webshopcosmetics.dto.CustomerDTO;
 import com.example.webshopcosmetics.exception.CustomerException;
 import com.example.webshopcosmetics.exception.ManufacturerException;
 import com.example.webshopcosmetics.model.Manufacturer;
+import com.example.webshopcosmetics.model.User;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.Cookie;
@@ -41,43 +42,7 @@ public class CustomerServiceIpml implements CustomerService{
             throw new CategoryException("Đăng kí tài khoản không thành công. Vui lòng thử lại sau!", e);
         }
     }
-    @Override
-    public boolean checkSessionCustomer(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        CustomerDTO customerDTO = (CustomerDTO) session.getAttribute("s_customer");
-        System.out.println(customerDTO);
-        if (customerDTO == null) {
-            return false;
-        } else {
-            Cookie[] cookies = request.getCookies();
-            if (cookies != null) {
-                // Duyệt qua từng cookie để tìm cookie có tên là "customerData"
-                for (Cookie cookie : cookies) {
-                    if (cookie.getName().equals("customerData")) {
-                        try {
-                            // Giải mã chuỗi JSON từ giá trị của cookie "customerData"
-                            String customerDataEncoded = cookie.getValue();
-                            String customerDataDecoded = URLDecoder.decode(customerDataEncoded, "UTF-8");
-                            // Chuyển đổi chuỗi JSON thành đối tượng JsonNode
-                            ObjectMapper mapper = new ObjectMapper();
-                            JsonNode jsonNode = mapper.readTree(customerDataDecoded);
-                            // Truy cập trường "customerId"
-                            Long customerId = jsonNode.get("customerId").asLong();
-                            String customerName = jsonNode.get("customerName").asText();
-                            String customerAccount = jsonNode.get("customerAccount").asText();
-                            session.setAttribute("s_customer", new CustomerDTO(customerId, customerName, customerAccount));
-                            return true;
-                        } catch (UnsupportedEncodingException e) {
-                            e.printStackTrace();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-            }
-            return false;
-        }
-    }
+
     @Override
     public Customer authenticateCustomer(String account, String password) {
         Customer customer = customerRepository.findByAccount(account);
@@ -91,6 +56,33 @@ public class CustomerServiceIpml implements CustomerService{
         }
         return null;
     }
+
+    @Override
+    public Customer myAccount(HttpSession session) {
+        CustomerDTO customerDTO = (CustomerDTO) session.getAttribute("s_customer");
+        if (customerDTO != null) {
+            Customer customer = customerRepository.findByAccount(customerDTO.account());
+            return customer;
+        }
+        return null;
+    }
+
+    @Override
+    public boolean checkIfTheOldPasswordIsCorrect(String account, String password) {
+        Customer customer = customerRepository.findByAccount(account);
+
+        // Kiểm tra xem người dùng có tồn tại không
+        if(customer != null) {
+            // Lấy mật khẩu đã mã hóa từ cơ sở dữ liệu
+            String hashedPasswordFromDatabase = customer.getPassword();
+
+            // So sánh mật khẩu đã nhập với mật khẩu đã mã hóa từ cơ sở dữ liệu
+            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            return passwordEncoder.matches(password, hashedPasswordFromDatabase);
+        }
+        return false;
+    }
+
     @Override
     public Page<Customer> getAllCustomer(int pageNo, String keyword, int size, int status) {
         if (keyword==null) {
